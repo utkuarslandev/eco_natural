@@ -3,101 +3,321 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eco Natural Poppy Seed Oil 250 ml | Elegant Specialty Oil</title>
+  <title>Eco Natural Poppy Seed Oil 250 ml | Elegant Specialty Oil | Eco Natural</title>
   <meta name="description" content="Discover Eco Natural Poppy Seed Oil 250 ml, a smooth and distinctive specialty oil ideal for gourmet kitchens and premium product ranges.">
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      color-scheme: light dark;
-      --bg: #ffffff;
-      --fg: #1d1d1f;
-      --muted: #5d6470;
-      --card: #f5f7fb;
-      --maxw: 960px;
+      --cream:    #faf8f2;
+      --white:    #ffffff;
+      --olive:    #3d6b41;
+      --olive-l:  #eef5ec;
+      --terra:    #b5763a;
+      --terra-l:  #fdf3e8;
+      --dark:     #1c2b1e;
+      --text:     #2c2c2c;
+      --muted:    #72716a;
+      --border:   #e4e0d6;
+      --radius:   14px;
+      --radius-sm: 8px;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1115;
-        --fg: #f3f4f6;
-        --muted: #adb3bd;
-        --card: #171a21;
-      }
-    }
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--cream);
+      color: var(--text);
       line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
-    .wrap {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 28px 16px 40px;
+    .topbar {
+      background: var(--dark);
+      color: #c4d4bb;
+      padding: 11px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    .crumbs {
-      margin-bottom: 14px;
+    .topbar a { color: inherit; text-decoration: none; }
+    .topbar-brand {
       font-size: 14px;
-      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
     }
-    .card {
-      background: var(--card);
-      border-radius: 14px;
-      padding: 18px;
-    }
-    .hero {
+    .topbar-back { opacity: 0.7; }
+    .topbar-back:hover { opacity: 1; }
+    .hero { background: var(--white); border-bottom: 1px solid var(--border); }
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
       display: grid;
-      gap: 22px;
       grid-template-columns: 1fr;
     }
-    @media (min-width: 840px) {
-      .hero {
-        grid-template-columns: 1fr 1fr;
-      }
+    @media (min-width: 660px) {
+      .hero-inner { grid-template-columns: 1fr 1fr; }
     }
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      background: #fff;
+    .hero-img {
+      background: #f0ece3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 28px;
+      min-height: 260px;
+    }
+    .hero-img img {
+      max-height: 340px;
+      width: auto;
+      max-width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+    .hero-copy {
+      padding: 32px 24px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+    .product-line {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--olive);
     }
     h1 {
-      margin: 0 0 10px;
-      line-height: 1.25;
+      font-size: clamp(1.3rem, 5vw, 1.85rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--dark);
     }
-    .short {
+    .tagline { font-size: 1rem; color: var(--muted); font-style: italic; }
+    .badge-strip { display: flex; flex-wrap: wrap; gap: 7px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--olive-l);
+      color: var(--olive);
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 14px;
+      padding: 5px 11px;
+      border-radius: 99px;
+      white-space: nowrap;
     }
-    .meta {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .meta code {
+    .badge.terra { background: var(--terra-l); color: var(--terra); }
+    .gift-banner {
+      background: var(--terra-l);
+      border: 1px solid #e8c090;
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
       font-size: 13px;
+      font-weight: 600;
+      color: var(--terra);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    a {
-      color: inherit;
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
+    .section { padding-top: 40px; }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 6px;
     }
-  </style>
+    .section-heading {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .story-card {
+      background: var(--dark);
+      color: #cee0c5;
+      border-radius: var(--radius);
+      padding: 28px 26px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .story-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -18px;
+      left: 14px;
+      font-size: 130px;
+      color: #3d6b41;
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .origin-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      color: #9fbf96;
+      margin-bottom: 18px;
+    }
+    .story-card p { font-size: 0.97rem; line-height: 1.75; position: relative; }
+    .story-card p + p { margin-top: 12px; }
+    .use-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (min-width: 720px) {
+      .use-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+    .use-tile {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px 10px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .use-icon { font-size: 26px; line-height: 1; }
+    .use-label { font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.35; }
+    .quality-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    @media (min-width: 480px) {
+      .quality-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 720px) {
+      .quality-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+    .quality-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      text-align: center;
+    }
+    .quality-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--olive-l);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+    }
+    .quality-name { font-size: 11px; font-weight: 700; color: var(--dark); line-height: 1.3; }
+    .quality-desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
+    .divider { border: none; border-top: 1px solid var(--border); margin-top: 40px; }
+    .product-meta { margin-top: 20px; font-size: 12px; color: var(--muted); }
+    .product-meta code { font-size: 11.5px; }
+    .footer {
+      background: var(--dark);
+      color: #7a927a;
+      text-align: center;
+      padding: 26px 16px;
+      font-size: 12px;
+      margin-top: 56px;
+    }
+    .footer a { color: #9fbf96; text-decoration: none; }
+    .footer-sub { margin-top: 7px; opacity: 0.6; }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="crumbs"><a href="./index.html">All products</a></div>
-    <article class="card hero">
-      <div>
+
+  <nav class="topbar">
+    <a class="topbar-back" href="./index.html">&#8592; All Products</a>
+    <span class="topbar-brand">Eco Natural</span>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-img">
         <img src="../img/EN-POPPY-SEED-OIL-250ML.JPG" alt="Eco Natural Poppy Seed Oil – 250 ml">
       </div>
-      <div>
+      <div class="hero-copy">
+        <div class="product-line">Eco Natural Specialty Oils · 250 ml</div>
         <h1>Eco Natural Poppy Seed Oil – 250 ml</h1>
-        <p class="short">A smooth, elegant specialty oil with a rare and distinctive profile.</p>
-        <p>Eco Natural Poppy Seed Oil brings a refined and uncommon option to premium oil collections. Its specialty positioning, clean presentation, and distinctive character make it well suited for gourmet kitchens, gift assortments, and natural product shelves that value unique ingredients.</p>
-        <div class="meta">
-          <div><strong>Product ID:</strong> <code>EN-POPPY-SEED-OIL-250ML</code></div>
+        <p class="tagline">A rare, smooth specialty oil for gourmet kitchens and fine gifting</p>
+        <div class="badge-strip">
+          <span class="badge">❄️ Cold Pressed</span>
+          <span class="badge">🌱 Plant-Based</span>
+          <span class="badge terra">🚫 No Additives</span>
+          <span class="badge">💎 Rare Specialty</span>
         </div>
+        <div class="gift-banner">&#127873; Perfect for gifting — this product makes an elegant and memorable souvenir.</div>
       </div>
-    </article>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <div class="section">
+      <div class="section-eyebrow">Origin &amp; Story</div>
+      <div class="story-card">
+        <div class="origin-chip">&#128205; Turkey</div>
+        <p>Poppy seed oil occupies a rare corner of the gourmet world — light, smooth, and subtle in ways that most oils are not. Cold-pressed from untreated seeds, it is the kind of ingredient that gourmet cooks discover and keep for finishing moments when nothing else quite works.</p>
+        <p>Its smooth, elegant character suits delicate dishes, premium salads, and gift assortments built around uncommon ingredients.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How to Enjoy</div>
+      <div class="section-heading">Six ways to use it at home</div>
+      <div class="use-grid">
+        <div class="use-tile"><div class="use-icon">🥗</div><div class="use-label">Delicate Salads</div></div>
+        <div class="use-tile"><div class="use-icon">🫙</div><div class="use-label">Finishing Drizzle</div></div>
+        <div class="use-tile"><div class="use-icon">🧀</div><div class="use-label">Cheese Pairing</div></div>
+        <div class="use-tile"><div class="use-icon">🍽️</div><div class="use-label">Fine Dining</div></div>
+        <div class="use-tile"><div class="use-icon">🎁</div><div class="use-label">Gourmet Gift</div></div>
+        <div class="use-tile"><div class="use-icon">🥗</div><div class="use-label">Cold Dressings</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Quality &amp; Standards</div>
+      <div class="section-heading">What makes it exceptional</div>
+      <div class="quality-grid">
+        <div class="quality-card"><div class="quality-icon">❄️</div><div class="quality-name">Cold Pressed</div><div class="quality-desc">No heat — full flavour and nutrition preserved</div></div>
+        <div class="quality-card"><div class="quality-icon">🌱</div><div class="quality-name">Plant-Based</div><div class="quality-desc">100% plant origin</div></div>
+        <div class="quality-card"><div class="quality-icon">🚫</div><div class="quality-name">No Additives</div><div class="quality-desc">Clean label, nothing synthetic</div></div>
+        <div class="quality-card"><div class="quality-icon">💎</div><div class="quality-name">Rare Specialty</div><div class="quality-desc">Uncommon oil for discerning collections</div></div>
+        <div class="quality-card"><div class="quality-icon">✨</div><div class="quality-name">Elegant</div><div class="quality-desc">Light, smooth, refined character</div></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="product-meta">
+      Product ID:&nbsp;<code>EN-POPPY-SEED-OIL-250ML</code>
+    </div>
+
   </div>
+
+  <footer class="footer">
+    <a href="./index.html">&#8592; Back to Eco Natural Product Catalog</a>
+    <div class="footer-sub">Eco Natural &middot; Artisan Natural Products &middot; Aegean Turkey</div>
+  </footer>
+
 </body>
 </html>

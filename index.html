@@ -3,75 +3,83 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eco Natural Product Pages</title>
+  <title>Eco Natural — Product Catalog</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f6f8fc;
-      color: #1d1d1f;
-      line-height: 1.5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #faf8f2;
+      color: #2c2c2c;
+      line-height: 1.55;
     }
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 28px 16px 40px;
+    .topbar {
+      background: #1c2b1e;
+      color: #fff;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 60px; }
+    h1 { font-size: 1.5rem; color: #1c2b1e; margin-bottom: 4px; }
+    .sub { font-size: 14px; color: #72716a; margin-bottom: 28px; }
     .card {
       background: #fff;
+      border: 1px solid #e4e0d6;
       border-radius: 14px;
-      padding: 18px 20px;
+      padding: 20px 24px;
     }
-    h1 {
-      margin: 0 0 10px;
-    }
-    ul {
-      margin: 0;
-      padding-left: 20px;
-    }
+    ul { list-style: none; }
     li {
-      margin: 8px 0;
+      padding: 9px 0;
+      border-bottom: 1px solid #f0ece3;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
     }
-    span {
-      color: #5d6470;
-      font-size: 14px;
-    }
+    li:last-child { border-bottom: none; }
+    a { color: #3d6b41; font-weight: 600; text-decoration: none; font-size: 15px; }
+    a:hover { text-decoration: underline; }
+    span { color: #72716a; font-size: 12px; white-space: nowrap; }
   </style>
 </head>
 <body>
+  <div class="topbar">Eco Natural</div>
   <div class="wrap">
+    <h1>Product Catalog</h1>
+    <p class="sub">28 products &mdash; scan a barcode or browse below</p>
     <div class="card">
-      <h1>Eco Natural Product Pages</h1>
-      <p>28 product pages generated from <code>ids.csv</code>.</p>
       <ul>
-      <li><a href="eco-natural-avocado-oil-250ml.html">Eco Natural Avocado Oil – 250 ml</a> <span>- EN-AVOCADO-OIL-250ML</span></li>
-      <li><a href="eco-natural-black-seed-oil-250ml.html">Eco Natural Black Seed Oil – 250 ml</a> <span>- EN-BLACK-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-carob-extract-340g.html">Eco Natural Carob Extract – 340 g</a> <span>- EN-CAROB-EXTRACT-340G</span></li>
-      <li><a href="eco-natural-carob-extract-680g.html">Eco Natural Carob Extract – 680 g</a> <span>- EN-CAROB-EXTRACT-680G</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-50cl.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 50 cl</a> <span>- EN-EH-EVOO-50CL-RECT</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-round-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl Round Bottle</a> <span>- EN-EH-EVOO-70CL-ROUND</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-teardrop.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl</a> <span>- EN-EH-EVOO-70CL-TEARDROP</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-decorative-square-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Decorative Square Bottle</a> <span>- EN-EH-EVOO-NA-DECO-SQUARE</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-oval-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Oval Bottle</a> <span>- EN-EH-EVOO-NA-OVAL</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-slim-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Slim Bottle</a> <span>- EN-EH-EVOO-NA-SLIM</span></li>
-      <li><a href="eco-natural-extra-virgin-olive-oil-1l-tin.html">Eco Natural Extra Virgin Olive Oil – 1 L Tin</a> <span>- EN-EVOO-1L-TIN</span></li>
-      <li><a href="eco-natural-extra-virgin-olive-oil-500ml-tin.html">Eco Natural Extra Virgin Olive Oil – 500 ml Tin</a> <span>- EN-EVOO-500ML-TIN</span></li>
-      <li><a href="eco-natural-fig-seed-oil.html">Eco Natural Fig Seed Oil</a> <span>- EN-FIG-SEED-OIL-NA</span></li>
-      <li><a href="eco-natural-hemp-seed-oil-250ml.html">Eco Natural Hemp Seed Oil – 250 ml</a> <span>- EN-HEMP-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-natural-sweet-turkish-delight-gift-box.html">Eco Natural Natural Sweet Turkish Delight Gift Box</a> <span>- EN-TURKISH-DELIGHT-GIFT-BOX-NA</span></li>
-      <li><a href="eco-natural-pomegranate-seed-oil-250ml.html">Eco Natural Pomegranate Seed Oil – 250 ml</a> <span>- EN-POMEGRANATE-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-pomegranate-sour-340g.html">Eco Natural Pomegranate Sour – 340 g</a> <span>- EN-POMEGRANATE-SOUR-340G</span></li>
-      <li><a href="eco-natural-poppy-seed-oil-250ml.html">Eco Natural Poppy Seed Oil – 250 ml</a> <span>- EN-POPPY-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-pumpkin-seed-oil-250ml.html">Eco Natural Pumpkin Seed Oil – 250 ml</a> <span>- EN-PUMPKIN-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-salad-dressing.html">Eco Natural Salad Dressing</a> <span>- EN-SALAD-DRESSING-NA</span></li>
-      <li><a href="eco-natural-thistle-seed-oil-250ml.html">Eco Natural Thistle Seed Oil – 250 ml</a> <span>- EN-THISTLE-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-zeytin-sutu-cold-pressed-olive-elixir.html">Eco Natural Zeytin Sütü (Cold Pressed Olive Elixir)</a> <span>- EN-OLIVE-ELIXIR-NA</span></li>
-      <li><a href="metis-hierapolis-safflower-oil-250ml.html">Metis Hierapolis Safflower Oil – 250 ml</a> <span>- MH-SAFFLOWER-OIL-250ML</span></li>
-      <li><a href="sirince-bodrum-mandarin-extra-virgin-olive-oil-250ml.html">Şirince Bodrum Mandarin Extra Virgin Olive Oil – 250 ml</a> <span>- SH-EVOO-MANDARIN-250ML</span></li>
-      <li><a href="sirince-chili-extra-virgin-olive-oil-250ml.html">Şirince Chili Extra Virgin Olive Oil – 250 ml</a> <span>- SH-EVOO-CHILI-250ML</span></li>
-      <li><a href="sirince-garlic-extra-virgin-olive-oil-250ml.html">Şirince Garlic Extra Virgin Olive Oil – 250 ml</a> <span>- SH-EVOO-GARLIC-250ML</span></li>
-      <li><a href="sirince-plain-extra-virgin-olive-oil-250ml.html">Şirince Plain Extra Virgin Olive Oil – 250 ml</a> <span>- SH-EVOO-PLAIN-250ML</span></li>
-      <li><a href="sirince-rosemary-extra-virgin-olive-oil-250ml.html">Şirince Rosemary Extra Virgin Olive Oil – 250 ml</a> <span>- SH-EVOO-ROSEMARY-250ML</span></li>
+      <li><a href="eco-natural-avocado-oil-250ml.html">Eco Natural Avocado Oil – 250 ml</a> <span>&#x2014; EN-AVOCADO-OIL-250ML</span></li>
+      <li><a href="eco-natural-black-seed-oil-250ml.html">Eco Natural Black Seed Oil – 250 ml</a> <span>&#x2014; EN-BLACK-SEED-OIL-250ML</span></li>
+      <li><a href="eco-natural-carob-extract-340g.html">Eco Natural Carob Extract – 340 g</a> <span>&#x2014; EN-CAROB-EXTRACT-340G</span></li>
+      <li><a href="eco-natural-carob-extract-680g.html">Eco Natural Carob Extract – 680 g</a> <span>&#x2014; EN-CAROB-EXTRACT-680G</span></li>
+      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-50cl.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 50 cl</a> <span>&#x2014; EN-EH-EVOO-50CL-RECT</span></li>
+      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-round-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl Round Bottle</a> <span>&#x2014; EN-EH-EVOO-70CL-ROUND</span></li>
+      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-teardrop.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl</a> <span>&#x2014; EN-EH-EVOO-70CL-TEARDROP</span></li>
+      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-decorative-square-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Decorative Square Bottle</a> <span>&#x2014; EN-EH-EVOO-NA-DECO-SQUARE</span></li>
+      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-oval-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Oval Bottle</a> <span>&#x2014; EN-EH-EVOO-NA-OVAL</span></li>
+      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-slim-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Slim Bottle</a> <span>&#x2014; EN-EH-EVOO-NA-SLIM</span></li>
+      <li><a href="eco-natural-extra-virgin-olive-oil-1l-tin.html">Eco Natural Extra Virgin Olive Oil – 1 L Tin</a> <span>&#x2014; EN-EVOO-1L-TIN</span></li>
+      <li><a href="eco-natural-extra-virgin-olive-oil-500ml-tin.html">Eco Natural Extra Virgin Olive Oil – 500 ml Tin</a> <span>&#x2014; EN-EVOO-500ML-TIN</span></li>
+      <li><a href="eco-natural-fig-seed-oil.html">Eco Natural Fig Seed Oil</a> <span>&#x2014; EN-FIG-SEED-OIL-NA</span></li>
+      <li><a href="eco-natural-hemp-seed-oil-250ml.html">Eco Natural Hemp Seed Oil – 250 ml</a> <span>&#x2014; EN-HEMP-SEED-OIL-250ML</span></li>
+      <li><a href="eco-natural-natural-sweet-turkish-delight-gift-box.html">Eco Natural Natural Sweet Turkish Delight Gift Box</a> <span>&#x2014; EN-TURKISH-DELIGHT-GIFT-BOX-NA</span></li>
+      <li><a href="eco-natural-pomegranate-seed-oil-250ml.html">Eco Natural Pomegranate Seed Oil – 250 ml</a> <span>&#x2014; EN-POMEGRANATE-SEED-OIL-250ML</span></li>
+      <li><a href="eco-natural-pomegranate-sour-340g.html">Eco Natural Pomegranate Sour – 340 g</a> <span>&#x2014; EN-POMEGRANATE-SOUR-340G</span></li>
+      <li><a href="eco-natural-poppy-seed-oil-250ml.html">Eco Natural Poppy Seed Oil – 250 ml</a> <span>&#x2014; EN-POPPY-SEED-OIL-250ML</span></li>
+      <li><a href="eco-natural-pumpkin-seed-oil-250ml.html">Eco Natural Pumpkin Seed Oil – 250 ml</a> <span>&#x2014; EN-PUMPKIN-SEED-OIL-250ML</span></li>
+      <li><a href="eco-natural-salad-dressing.html">Eco Natural Salad Dressing</a> <span>&#x2014; EN-SALAD-DRESSING-NA</span></li>
+      <li><a href="eco-natural-thistle-seed-oil-250ml.html">Eco Natural Thistle Seed Oil – 250 ml</a> <span>&#x2014; EN-THISTLE-SEED-OIL-250ML</span></li>
+      <li><a href="eco-natural-zeytin-sutu-cold-pressed-olive-elixir.html">Eco Natural Zeytin Sütü (Cold Pressed Olive Elixir)</a> <span>&#x2014; EN-OLIVE-ELIXIR-NA</span></li>
+      <li><a href="metis-hierapolis-safflower-oil-250ml.html">Metis Hierapolis Safflower Oil – 250 ml</a> <span>&#x2014; MH-SAFFLOWER-OIL-250ML</span></li>
+      <li><a href="sirince-bodrum-mandarin-extra-virgin-olive-oil-250ml.html">Şirince Bodrum Mandarin Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-MANDARIN-250ML</span></li>
+      <li><a href="sirince-chili-extra-virgin-olive-oil-250ml.html">Şirince Chili Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-CHILI-250ML</span></li>
+      <li><a href="sirince-garlic-extra-virgin-olive-oil-250ml.html">Şirince Garlic Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-GARLIC-250ML</span></li>
+      <li><a href="sirince-plain-extra-virgin-olive-oil-250ml.html">Şirince Plain Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-PLAIN-250ML</span></li>
+      <li><a href="sirince-rosemary-extra-virgin-olive-oil-250ml.html">Şirince Rosemary Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-ROSEMARY-250ML</span></li>
       </ul>
     </div>
   </div>
