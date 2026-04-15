@@ -20,6 +20,8 @@
       --border:   #e4e0d6;
       --radius:   14px;
       --radius-sm: 8px;
+      --amber:    #c8883a;
+      --amber-l:  #f5e6cc;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -31,16 +33,23 @@
     .topbar {
       background: var(--dark);
       color: #c4d4bb;
-      padding: 11px 18px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 13px;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
+      border-bottom: 2px solid var(--amber);
     }
     .topbar a { color: inherit; text-decoration: none; }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-logo { height: 24px; width: auto; display: block; }
     .topbar-brand {
       font-size: 14px;
       font-weight: 700;
@@ -50,78 +59,127 @@
     }
     .topbar-back { opacity: 0.7; }
     .topbar-back:hover { opacity: 1; }
-    .hero { background: var(--white); border-bottom: 1px solid var(--border); }
-    .hero-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 660px) {
-      .hero-inner { grid-template-columns: 1fr 1fr; }
-    }
-    .hero-img {
-      background: #f0ece3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 36px 28px;
-      min-height: 260px;
-    }
-    .hero-img img {
-      max-height: 340px;
-      width: auto;
-      max-width: 100%;
-      border-radius: 8px;
-      display: block;
-    }
-    .hero-copy {
-      padding: 32px 24px 36px;
+    .hero {
+      background: radial-gradient(ellipse at 50% 65%, #c8883a22 0%, #3d6b4133 35%, #1c2b1e 75%);
+      min-height: 85vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 40px 20px 32px;
+      text-align: center;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .hero { min-height: 70vh; }
+    }
+    .hero-img-wrap {
+      width: 100%;
+      display: flex;
       justify-content: center;
-      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-img-wrap img {
+      max-height: 420px;
+      max-width: 90%;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 24px 64px rgba(197, 133, 58, 0.55));
+      animation: riseIn 0.7s ease-out both;
+    }
+    @keyframes riseIn {
+      from { transform: translateY(32px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      max-width: 540px;
     }
     .product-line {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--olive);
+      color: #8fba88;
     }
     h1 {
-      font-size: clamp(1.3rem, 5vw, 1.85rem);
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
       font-weight: 700;
       line-height: 1.2;
-      color: var(--dark);
+      color: #ffffff;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.4);
     }
-    .tagline { font-size: 1rem; color: var(--muted); font-style: italic; }
-    .badge-strip { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tagline { font-size: 1rem; color: rgba(255,255,255,0.72); font-style: italic; }
+    .badge-strip { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: var(--olive-l);
-      color: var(--olive);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.20);
+      color: #ffffff;
       font-size: 12px;
       font-weight: 600;
       padding: 5px 11px;
       border-radius: 99px;
       white-space: nowrap;
     }
-    .badge.terra { background: var(--terra-l); color: var(--terra); }
     .gift-banner {
-      background: var(--terra-l);
-      border: 1px solid #e8c090;
+      background: rgba(181,118,58,0.20);
+      border: 1px solid rgba(197,133,58,0.45);
       border-radius: var(--radius-sm);
-      padding: 10px 14px;
+      padding: 10px 16px;
       font-size: 13px;
       font-weight: 600;
-      color: var(--terra);
+      color: #f5d49a;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+    .scroll-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.45);
+      font-size: 20px;
+      animation: pulse 2s ease-in-out infinite;
+      line-height: 1;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; transform: translateX(-50%) translateY(0); }
+      50%       { opacity: 0.9;  transform: translateX(-50%) translateY(4px); }
+    }
+    .trust-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 16px;
+    }
+    .trust-strip-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .trust-item {
+      flex: 1 0 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 12px 16px;
+      border-right: 1px solid var(--border);
+      gap: 6px;
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 32px; line-height: 1; }
+    .trust-label { font-size: 12px; font-weight: 700; color: var(--dark); }
+    .trust-desc  { font-size: 11px; color: var(--muted); line-height: 1.4; }
     .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
     .section { padding-top: 40px; }
     .section-eyebrow {
@@ -143,7 +201,7 @@
       background: var(--dark);
       color: #cee0c5;
       border-radius: var(--radius);
-      padding: 28px 26px 30px;
+      padding: 32px 28px 34px;
       position: relative;
       overflow: hidden;
     }
@@ -172,7 +230,7 @@
       color: #9fbf96;
       margin-bottom: 18px;
     }
-    .story-card p { font-size: 0.97rem; line-height: 1.75; position: relative; }
+    .story-card p { font-size: 0.97rem; line-height: 1.8; position: relative; }
     .story-card p + p { margin-top: 12px; }
     .use-grid {
       display: grid;
@@ -185,6 +243,7 @@
     .use-tile {
       background: var(--white);
       border: 1px solid var(--border);
+      border-top: 3px solid var(--olive);
       border-radius: var(--radius-sm);
       padding: 18px 10px 14px;
       text-align: center;
@@ -192,8 +251,10 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
+      transition: border-top-color 0.2s;
     }
-    .use-icon { font-size: 26px; line-height: 1; }
+    .use-tile:hover { border-top-color: #2e5230; }
+    .use-icon { font-size: 28px; line-height: 1; }
     .use-label { font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.35; }
     .quality-grid {
       display: grid;
@@ -207,7 +268,7 @@
       .quality-grid { grid-template-columns: repeat(5, 1fr); }
     }
     .quality-card {
-      background: var(--white);
+      background: var(--olive-l);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 18px 14px 16px;
@@ -221,7 +282,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: var(--olive-l);
+      background: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -247,29 +308,39 @@
 <body>
 
   <nav class="topbar">
+    <div class="topbar-left">
+      <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
+      <span class="topbar-brand">ECO NATURAL</span>
+    </div>
     <a class="topbar-back" href="./index.html">&#8592; All Products</a>
-    <span class="topbar-brand">Eco Natural</span>
   </nav>
 
   <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-img">
-        <img src="../img/EN-TURKISH-DELIGHT-GIFT-BOX-NA.JPG" alt="Eco Natural Natural Sweet Turkish Delight Gift Box">
-      </div>
-      <div class="hero-copy">
-        <div class="product-line">Eco Natural Confectionery</div>
-        <h1>Eco Natural Natural Sweet Turkish Delight Gift Box</h1>
-        <p class="tagline">An Ottoman tradition in a modern gift box — made in Antalya, Turkey</p>
-        <div class="badge-strip">
-          <span class="badge">🕌 Ottoman Heritage</span>
-          <span class="badge">🌹 Rose Water</span>
-          <span class="badge terra">🚫 No Artificial</span>
-          <span class="badge">📍 Antalya Made</span>
-        </div>
-        <div class="gift-banner">&#127873; Perfect for gifting — this product makes an elegant and memorable souvenir.</div>
-      </div>
+    <div class="hero-img-wrap">
+      <img src="img/EN-TURKISH-DELIGHT-GIFT-BOX-NA.JPG" alt="Eco Natural Natural Sweet Turkish Delight Gift Box">
     </div>
+    <div class="hero-copy">
+      <div class="product-line">Eco Natural Confectionery</div>
+      <h1>Eco Natural Natural Sweet Turkish Delight Gift Box</h1>
+      <p class="tagline">An Ottoman tradition in a modern gift box — made in Antalya, Turkey</p>
+      <div class="badge-strip">
+        <span class="badge">🕌 Ottoman Heritage</span>
+          <span class="badge">🌹 Rose Water</span>
+          <span class="badge">🚫 No Artificial</span>
+          <span class="badge">📍 Antalya Made</span>
+      </div>
+      <div class="gift-banner">&#127873; Makes a beautiful gift &mdash; perfect for food lovers</div>
+    </div>
+    <div class="scroll-hint">&#9660;</div>
   </section>
+
+  <div class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-item"><div class="trust-icon">🕌</div><div class="trust-label">Ottoman Heritage</div><div class="trust-desc">A confectionery tradition since the 18th century</div></div>
+        <div class="trust-item"><div class="trust-icon">🌹</div><div class="trust-label">Rose Water</div><div class="trust-desc">Traditional flavoring — authentic recipe</div></div>
+        <div class="trust-item"><div class="trust-icon">🚫</div><div class="trust-label">No Artificial</div><div class="trust-desc">Natural ingredients, traditional process</div></div>
+    </div>
+  </div>
 
   <div class="wrap">
 

@@ -814,6 +814,8 @@ CSS = """
       --border:   #e4e0d6;
       --radius:   14px;
       --radius-sm: 8px;
+      --amber:    #c8883a;
+      --amber-l:  #f5e6cc;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -825,16 +827,23 @@ CSS = """
     .topbar {
       background: var(--dark);
       color: #c4d4bb;
-      padding: 11px 18px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 13px;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
+      border-bottom: 2px solid var(--amber);
     }
     .topbar a { color: inherit; text-decoration: none; }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-logo { height: 24px; width: auto; display: block; }
     .topbar-brand {
       font-size: 14px;
       font-weight: 700;
@@ -844,78 +853,127 @@ CSS = """
     }
     .topbar-back { opacity: 0.7; }
     .topbar-back:hover { opacity: 1; }
-    .hero { background: var(--white); border-bottom: 1px solid var(--border); }
-    .hero-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 660px) {
-      .hero-inner { grid-template-columns: 1fr 1fr; }
-    }
-    .hero-img {
-      background: #f0ece3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 36px 28px;
-      min-height: 260px;
-    }
-    .hero-img img {
-      max-height: 340px;
-      width: auto;
-      max-width: 100%;
-      border-radius: 8px;
-      display: block;
-    }
-    .hero-copy {
-      padding: 32px 24px 36px;
+    .hero {
+      background: radial-gradient(ellipse at 50% 65%, #c8883a22 0%, #3d6b4133 35%, #1c2b1e 75%);
+      min-height: 85vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 40px 20px 32px;
+      text-align: center;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .hero { min-height: 70vh; }
+    }
+    .hero-img-wrap {
+      width: 100%;
+      display: flex;
       justify-content: center;
-      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-img-wrap img {
+      max-height: 420px;
+      max-width: 90%;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 24px 64px rgba(197, 133, 58, 0.55));
+      animation: riseIn 0.7s ease-out both;
+    }
+    @keyframes riseIn {
+      from { transform: translateY(32px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      max-width: 540px;
     }
     .product-line {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--olive);
+      color: #8fba88;
     }
     h1 {
-      font-size: clamp(1.3rem, 5vw, 1.85rem);
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
       font-weight: 700;
       line-height: 1.2;
-      color: var(--dark);
+      color: #ffffff;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.4);
     }
-    .tagline { font-size: 1rem; color: var(--muted); font-style: italic; }
-    .badge-strip { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tagline { font-size: 1rem; color: rgba(255,255,255,0.72); font-style: italic; }
+    .badge-strip { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: var(--olive-l);
-      color: var(--olive);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.20);
+      color: #ffffff;
       font-size: 12px;
       font-weight: 600;
       padding: 5px 11px;
       border-radius: 99px;
       white-space: nowrap;
     }
-    .badge.terra { background: var(--terra-l); color: var(--terra); }
     .gift-banner {
-      background: var(--terra-l);
-      border: 1px solid #e8c090;
+      background: rgba(181,118,58,0.20);
+      border: 1px solid rgba(197,133,58,0.45);
       border-radius: var(--radius-sm);
-      padding: 10px 14px;
+      padding: 10px 16px;
       font-size: 13px;
       font-weight: 600;
-      color: var(--terra);
+      color: #f5d49a;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+    .scroll-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.45);
+      font-size: 20px;
+      animation: pulse 2s ease-in-out infinite;
+      line-height: 1;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; transform: translateX(-50%) translateY(0); }
+      50%       { opacity: 0.9;  transform: translateX(-50%) translateY(4px); }
+    }
+    .trust-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 16px;
+    }
+    .trust-strip-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .trust-item {
+      flex: 1 0 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 12px 16px;
+      border-right: 1px solid var(--border);
+      gap: 6px;
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 32px; line-height: 1; }
+    .trust-label { font-size: 12px; font-weight: 700; color: var(--dark); }
+    .trust-desc  { font-size: 11px; color: var(--muted); line-height: 1.4; }
     .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
     .section { padding-top: 40px; }
     .section-eyebrow {
@@ -937,7 +995,7 @@ CSS = """
       background: var(--dark);
       color: #cee0c5;
       border-radius: var(--radius);
-      padding: 28px 26px 30px;
+      padding: 32px 28px 34px;
       position: relative;
       overflow: hidden;
     }
@@ -966,7 +1024,7 @@ CSS = """
       color: #9fbf96;
       margin-bottom: 18px;
     }
-    .story-card p { font-size: 0.97rem; line-height: 1.75; position: relative; }
+    .story-card p { font-size: 0.97rem; line-height: 1.8; position: relative; }
     .story-card p + p { margin-top: 12px; }
     .use-grid {
       display: grid;
@@ -979,6 +1037,7 @@ CSS = """
     .use-tile {
       background: var(--white);
       border: 1px solid var(--border);
+      border-top: 3px solid var(--olive);
       border-radius: var(--radius-sm);
       padding: 18px 10px 14px;
       text-align: center;
@@ -986,8 +1045,10 @@ CSS = """
       flex-direction: column;
       align-items: center;
       gap: 8px;
+      transition: border-top-color 0.2s;
     }
-    .use-icon { font-size: 26px; line-height: 1; }
+    .use-tile:hover { border-top-color: #2e5230; }
+    .use-icon { font-size: 28px; line-height: 1; }
     .use-label { font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.35; }
     .quality-grid {
       display: grid;
@@ -1001,7 +1062,7 @@ CSS = """
       .quality-grid { grid-template-columns: repeat(5, 1fr); }
     }
     .quality-card {
-      background: var(--white);
+      background: var(--olive-l);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 18px 14px 16px;
@@ -1015,7 +1076,7 @@ CSS = """
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: var(--olive-l);
+      background: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1040,11 +1101,10 @@ CSS = """
 
 
 def _badges_html(badges: list[tuple]) -> str:
-    # Hero strip — first 4 badges only, alternating olive/terra colours
+    # Hero strip — first 4 badges, white-glass style on dark background
     parts = []
-    for i, badge in enumerate(badges[:4]):
-        cls = "badge terra" if i == 2 else "badge"
-        parts.append(f'<span class="{cls}">{escape(badge[0])} {escape(badge[1])}</span>')
+    for badge in badges[:4]:
+        parts.append(f'<span class="badge">{escape(badge[0])} {escape(badge[1])}</span>')
     return "\n          ".join(parts)
 
 
@@ -1077,6 +1137,19 @@ def _story_html(paragraphs: list[str]) -> str:
     return "\n        ".join(f"<p>{escape(p)}</p>" for p in paragraphs)
 
 
+def _trust_strip_html(badges: list[tuple]) -> str:
+    parts = []
+    for emoji, name, desc in badges[:3]:
+        parts.append(
+            f'<div class="trust-item">'
+            f'<div class="trust-icon">{escape(emoji)}</div>'
+            f'<div class="trust-label">{escape(name)}</div>'
+            f'<div class="trust-desc">{escape(desc)}</div>'
+            f'</div>'
+        )
+    return "\n        ".join(parts)
+
+
 def page_template(row: dict) -> str:
     product_id   = row["product_id"].strip()
     page_title   = row["page_title"].strip()
@@ -1084,8 +1157,8 @@ def page_template(row: dict) -> str:
     full_desc    = row["full_description"].strip()
     seo_title    = row["seo_title"].strip()
     meta_desc    = row["meta_description"].strip()
-    image_name   = f"{product_id}.JPG"
-    image_path   = f"../img/{escape(image_name)}"
+    img_ext    = "png" if (ROOT / "img" / f"{product_id}.png").exists() else "JPG"
+    image_path = f"img/{product_id}.{img_ext}"
 
     enrich = ENRICHMENT.get(product_id, {})
 
@@ -1109,8 +1182,7 @@ def page_template(row: dict) -> str:
     tagline      = enrich.get("tagline", short_desc)
 
     gift_banner = (
-        '<div class="gift-banner">&#127873; Perfect for gifting — this product makes '
-        "an elegant and memorable souvenir.</div>"
+        '<div class="gift-banner">&#127873; Makes a beautiful gift &mdash; perfect for food lovers</div>'
         if is_gift else ""
     )
 
@@ -1126,26 +1198,34 @@ def page_template(row: dict) -> str:
 <body>
 
   <nav class="topbar">
+    <div class="topbar-left">
+      <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
+      <span class="topbar-brand">ECO NATURAL</span>
+    </div>
     <a class="topbar-back" href="./index.html">&#8592; All Products</a>
-    <span class="topbar-brand">Eco Natural</span>
   </nav>
 
   <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-img">
-        <img src="{image_path}" alt="{escape(page_title)}">
-      </div>
-      <div class="hero-copy">
-        <div class="product-line">{escape(product_line)}</div>
-        <h1>{escape(page_title)}</h1>
-        <p class="tagline">{escape(tagline)}</p>
-        <div class="badge-strip">
-          {_badges_html(badges)}
-        </div>
-        {gift_banner}
-      </div>
+    <div class="hero-img-wrap">
+      <img src="{image_path}" alt="{escape(page_title)}">
     </div>
+    <div class="hero-copy">
+      <div class="product-line">{escape(product_line)}</div>
+      <h1>{escape(page_title)}</h1>
+      <p class="tagline">{escape(tagline)}</p>
+      <div class="badge-strip">
+        {_badges_html(badges)}
+      </div>
+      {gift_banner}
+    </div>
+    <div class="scroll-hint">&#9660;</div>
   </section>
+
+  <div class="trust-strip">
+    <div class="trust-strip-inner">
+      {_trust_strip_html(badges)}
+    </div>
+  </div>
 
   <div class="wrap">
 
@@ -1191,11 +1271,43 @@ def page_template(row: dict) -> str:
 
 
 def index_template(items: list[tuple[str, str, str]]) -> str:
-    links = "\n".join(
-        f'      <li><a href="{escape(fn)}">{escape(title)}</a>'
-        f' <span>&#x2014; {escape(pid)}</span></li>'
-        for fn, title, pid in items
-    )
+    def _category(pid: str) -> str:
+        if pid.startswith("SH-"):
+            return "Şirince Infused Oils"
+        if pid.startswith("EN-EH-EVOO-"):
+            return "Early Harvest Olive Oils"
+        if pid.startswith("EN-EVOO-"):
+            return "Eco Natural Olive Oils"
+        if pid.startswith("EN-OLIVE-"):
+            return "Olive Elixir"
+        if pid.startswith(("EN-CAROB-", "EN-POMEGRANATE-SOUR-", "EN-SALAD-")):
+            return "Condiments & Extracts"
+        if pid.startswith("EN-TURKISH-"):
+            return "Confectionery & Gifts"
+        if pid.startswith("MH-"):
+            return "Metis Hierapolis"
+        return "Specialty Oils"
+
+    groups: dict[str, list] = {}
+    for fn, title, pid in items:
+        cat = _category(pid)
+        groups.setdefault(cat, []).append((fn, title, pid))
+
+    sections_html = ""
+    for cat, entries in groups.items():
+        links = "\n".join(
+            f'      <li><a href="{escape(fn)}">{escape(title)}</a>'
+            f' <span>&#x2014; {escape(pid)}</span></li>'
+            for fn, title, pid in entries
+        )
+        sections_html += f"""
+    <div class="cat-header">{escape(cat)}</div>
+    <div class="card">
+      <ul>
+{links}
+      </ul>
+    </div>"""
+
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -1212,16 +1324,32 @@ def index_template(items: list[tuple[str, str, str]]) -> str:
     }}
     .topbar {{
       background: #1c2b1e;
-      color: #fff;
-      padding: 14px 20px;
-      font-size: 16px;
+      color: #c4d4bb;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid #c8883a;
+    }}
+    .topbar-logo {{ height: 24px; width: auto; display: block; }}
+    .topbar-brand {{
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      color: #ffffff;
     }}
     .wrap {{ max-width: 760px; margin: 0 auto; padding: 32px 16px 60px; }}
     h1 {{ font-size: 1.5rem; color: #1c2b1e; margin-bottom: 4px; }}
     .sub {{ font-size: 14px; color: #72716a; margin-bottom: 28px; }}
+    .cat-header {{
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #b5763a;
+      margin: 28px 0 8px;
+    }}
     .card {{
       background: #fff;
       border: 1px solid #e4e0d6;
@@ -1244,15 +1372,14 @@ def index_template(items: list[tuple[str, str, str]]) -> str:
   </style>
 </head>
 <body>
-  <div class="topbar">Eco Natural</div>
+  <div class="topbar">
+    <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
+    <span class="topbar-brand">Eco Natural</span>
+  </div>
   <div class="wrap">
     <h1>Product Catalog</h1>
-    <p class="sub">{len(items)} products &mdash; scan a barcode or browse below</p>
-    <div class="card">
-      <ul>
-{links}
-      </ul>
-    </div>
+    <p class="sub">{len(items)} artisan products &mdash; scan a barcode or browse below</p>
+    {sections_html}
   </div>
 </body>
 </html>
@@ -1275,8 +1402,9 @@ def main() -> None:
     index_items.sort(key=lambda x: x[0])
     (OUTPUT_DIR / "index.html").write_text(index_template(index_items), encoding="utf-8")
 
-    available = {p.name for p in IMG_DIR.glob("*.JPG")}
-    missing   = [f"{pid}.JPG" for _, _, pid in index_items if f"{pid}.JPG" not in available]
+    available = {p.name for p in IMG_DIR.glob("*.JPG")} | {p.name for p in IMG_DIR.glob("*.png")}
+    missing   = [pid for _, _, pid in index_items
+                 if f"{pid}.JPG" not in available and f"{pid}.png" not in available]
 
     print(f"Generated {len(index_items)} product pages → {OUTPUT_DIR}")
     if missing:
