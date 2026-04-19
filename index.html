@@ -3,141 +3,1023 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eco Natural — Product Catalog</title>
+  <title>Eco Natural — Lasting Taste of Earth</title>
+  <meta name="description" content="Village-origin cold-pressed natural food extracts from B&uuml;y&uuml;k &Ccedil;alt&#305;cak, Aegean Turkey. 28 artisan products.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Abril+Fatface&family=EB+Garamond:ital@1&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #faf8f2;
-      color: #2c2c2c;
-      line-height: 1.55;
-    }
-    .topbar {
-      background: #1c2b1e;
-      color: #c4d4bb;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 2px solid #c8883a;
-    }
-    .topbar-logo { height: 24px; width: auto; display: block; }
-    .topbar-brand {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #ffffff;
-    }
-    .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 60px; }
-    h1 { font-size: 1.5rem; color: #1c2b1e; margin-bottom: 4px; }
-    .sub { font-size: 14px; color: #72716a; margin-bottom: 28px; }
-    .cat-header {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #b5763a;
-      margin: 28px 0 8px;
-    }
-    .card {
-      background: #fff;
-      border: 1px solid #e4e0d6;
-      border-radius: 14px;
-      padding: 20px 24px;
-    }
-    ul { list-style: none; }
-    li {
-      padding: 9px 0;
-      border-bottom: 1px solid #f0ece3;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    li:last-child { border-bottom: none; }
-    a { color: #3d6b41; font-weight: 600; text-decoration: none; font-size: 15px; }
-    a:hover { text-decoration: underline; }
-    span { color: #72716a; font-size: 12px; white-space: nowrap; }
-  </style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parch:      #F6FAF4;
+  --parch-lt:   #FFFFFF;
+  --parch-dk:   #D4E8CC;
+  --bark:       #1A3520;
+  --bark-mid:   #243D2A;
+  --terra:      #2E5E38;
+  --terra-lt:   #5D9B3A;
+  --terra-dk:   #1A3520;
+  --olive:      #1A3520;
+  --olive-lt:   #2E5E38;
+  --gold:       #C09010;
+  --gold-lt:    #D4A820;
+  --gold-pale:  #EDD87A;
+  --text:       #1A2E1A;
+  --text-mid:   #2D4E30;
+  --text-soft:  #5A7A5C;
+  --section-pad: clamp(5rem, 8vw, 9rem);
+  --container:   min(100% - 3rem, 1200px);
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  background: var(--parch);
+  color: var(--text-mid);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────────────── */
+
+.topbar {
+  background: var(--bark);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid var(--gold);
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-logo {
+  width: 48px;
+  height: 48px;
+  display: block;
+  object-fit: contain;
+  object-position: center center;
+}
+.topbar-lockup {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.topbar-brand {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-pale);
+  line-height: 1;
+}
+.topbar-sub {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: rgba(240,216,152,0.5);
+  line-height: 1;
+}
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+
+.hero {
+  background: var(--bark);
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(4rem, 8vw, 7rem) 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(10rem, 20vw, 28rem);
+  color: var(--gold-pale);
+  opacity: 0.04;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 700px;
+}
+
+.hero h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--gold-pale);
+  letter-spacing: 0.06em;
+}
+
+.hero-tagline {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  color: var(--gold-pale);
+  opacity: 0.8;
+}
+
+.hero-sub {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  color: rgba(240,216,152,0.55);
+  text-transform: uppercase;
+}
+
+.stamp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.stamp {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  outline: 2px dashed var(--gold);
+  outline-offset: -9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  padding: 16px 8px;
+  line-height: 1.3;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+/* ── Hero logo ───────────────────────────────────────────────────────────── */
+
+.hero-logo {
+  width: clamp(96px, 13vw, 132px);
+  height: clamp(96px, 13vw, 132px);
+  display: block;
+  object-fit: contain;
+  object-position: center center;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+  margin-bottom: 8px;
+}
+
+/* ── Torn paper divider ──────────────────────────────────────────────────── */
+
+.torn {
+  display: block;
+  width: 100%;
+  height: 28px;
+  overflow: hidden;
+  line-height: 0;
+}
+.torn svg { width: 100%; height: 100%; display: block; }
+
+/* ── Eyebrow ─────────────────────────────────────────────────────────────── */
+
+.eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.eyebrow::before {
+  content: '──';
+  color: var(--gold);
+  letter-spacing: -0.05em;
+}
+
+/* ── Product Grid ────────────────────────────────────────────────────────── */
+
+.catalog-section {
+  padding: clamp(3rem, 6vw, 5rem) 24px 0;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (min-width: 600px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 960px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.product-card {
+  background: linear-gradient(160deg, var(--bark-mid) 0%, var(--bark) 100%);
+  border: 1px solid rgba(196,144,16,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.2s;
+  position: relative;
+}
+.product-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--terra);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.product-card:hover { transform: translateY(-6px); border-color: rgba(196,144,16,0.35); }
+.product-card:hover::after { transform: scaleX(1); }
+
+.card-img-wrap {
+  padding: 24px 24px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+}
+.card-img-stage {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-img-wrap img {
+  max-height: 140px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)) drop-shadow(0 0 12px rgba(196,144,16,0.1));
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.product-card:hover .card-img-wrap img {
+  transform:
+    translate(var(--img-offset-x, 0px), calc(var(--img-offset-y, 0px) - 4px))
+    rotate(var(--img-rotation, 0deg))
+    scale(var(--img-scale, 1));
+}
+
+.card-body {
+  padding: 0 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.card-category {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--terra-lt);
+}
+
+.card-name {
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--gold-pale);
+}
+
+.card-desc {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.72rem;
+  color: rgba(240,216,152,0.6);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card-cta {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra-lt);
+  margin-top: 4px;
+}
+
+/* ── Find Us / WhatsApp section ──────────────────────────────────────────── */
+
+.find-us {
+  background: var(--bark-mid);
+  padding: clamp(4rem, 8vw, 7rem) 24px;
+  text-align: center;
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+.find-us-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.find-us-heading {
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  color: var(--gold-pale);
+  line-height: 1.2;
+}
+.find-us-body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.88rem, 1.1vw, 0.98rem);
+  color: rgba(240,216,152,0.7);
+  line-height: 1.9;
+}
+.find-us-note {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(240,216,152,0.5);
+}
+
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--terra);
+  color: var(--parch-lt);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 99px;
+  text-decoration: none;
+  transition: background 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.2s;
+}
+.btn-wa:hover { background: var(--terra-lt); transform: translateY(-2px); }
+.btn-wa:active { background: var(--terra-dk); transform: none; }
+.btn-wa svg { flex-shrink: 0; }
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.footer {
+  background: var(--bark-mid);
+  border-top: 1px solid rgba(196,144,16,0.12);
+  text-align: center;
+  padding: clamp(2.5rem, 5vw, 4rem) 24px;
+}
+.footer-tagline {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  color: var(--gold-pale);
+  margin-bottom: 1rem;
+}
+.footer-sub {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,216,152,0.35);
+}
+
+/* ── Category Nav ────────────────────────────────────────────────────────── */
+
+.cat-nav {
+  position: sticky;
+  top: 54px;
+  z-index: 90;
+  background: var(--parch-lt);
+  border-bottom: 1px solid var(--parch-dk);
+  padding: 10px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.cat-nav::-webkit-scrollbar { display: none; }
+.cat-nav a {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--parch-dk);
+  transition: background 0.2s, color 0.2s;
+}
+.cat-nav a:hover {
+  background: var(--terra);
+  color: var(--parch-lt);
+  border-color: var(--terra);
+}
+
+/* ── Gift chip on cards ──────────────────────────────────────────────────── */
+
+.card-gift {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.52rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 99px;
+  padding: 3px 10px;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+/* ── Reveal animation ────────────────────────────────────────────────────── */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 750ms cubic-bezier(0.16,1,0.3,1),
+              transform 750ms cubic-bezier(0.16,1,0.3,1);
+}
+[data-reveal].revealed { opacity: 1; transform: none; }
+</style>
 </head>
 <body>
-  <div class="topbar">
-    <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
-    <span class="topbar-brand">Eco Natural</span>
-  </div>
-  <div class="wrap">
-    <h1>Product Catalog</h1>
-    <p class="sub">28 artisan products &mdash; scan a barcode or browse below</p>
-    
-    <div class="cat-header">Specialty Oils</div>
-    <div class="card">
-      <ul>
-      <li><a href="eco-natural-avocado-oil-250ml.html">Eco Natural Avocado Oil – 250 ml</a> <span>&#x2014; EN-AVOCADO-OIL-250ML</span></li>
-      <li><a href="eco-natural-black-seed-oil-250ml.html">Eco Natural Black Seed Oil – 250 ml</a> <span>&#x2014; EN-BLACK-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-fig-seed-oil.html">Eco Natural Fig Seed Oil</a> <span>&#x2014; EN-FIG-SEED-OIL-NA</span></li>
-      <li><a href="eco-natural-hemp-seed-oil-250ml.html">Eco Natural Hemp Seed Oil – 250 ml</a> <span>&#x2014; EN-HEMP-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-pomegranate-seed-oil-250ml.html">Eco Natural Pomegranate Seed Oil – 250 ml</a> <span>&#x2014; EN-POMEGRANATE-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-poppy-seed-oil-250ml.html">Eco Natural Poppy Seed Oil – 250 ml</a> <span>&#x2014; EN-POPPY-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-pumpkin-seed-oil-250ml.html">Eco Natural Pumpkin Seed Oil – 250 ml</a> <span>&#x2014; EN-PUMPKIN-SEED-OIL-250ML</span></li>
-      <li><a href="eco-natural-thistle-seed-oil-250ml.html">Eco Natural Thistle Seed Oil – 250 ml</a> <span>&#x2014; EN-THISTLE-SEED-OIL-250ML</span></li>
-      </ul>
+
+  <nav class="topbar">
+    <div class="topbar-left">
+      <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
+      <div class="topbar-lockup">
+        <span class="topbar-brand">ECO NATURAL</span>
+        <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak &middot; Ayd&#305;n</span>
+      </div>
     </div>
-    <div class="cat-header">Condiments &amp; Extracts</div>
-    <div class="card">
-      <ul>
-      <li><a href="eco-natural-carob-extract-340g.html">Eco Natural Carob Extract – 340 g</a> <span>&#x2014; EN-CAROB-EXTRACT-340G</span></li>
-      <li><a href="eco-natural-carob-extract-680g.html">Eco Natural Carob Extract – 680 g</a> <span>&#x2014; EN-CAROB-EXTRACT-680G</span></li>
-      <li><a href="eco-natural-pomegranate-sour-340g.html">Eco Natural Pomegranate Sour – 340 g</a> <span>&#x2014; EN-POMEGRANATE-SOUR-340G</span></li>
-      <li><a href="eco-natural-salad-dressing.html">Eco Natural Salad Dressing</a> <span>&#x2014; EN-SALAD-DRESSING-NA</span></li>
-      </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-ghost" aria-hidden="true">ECO</div>
+    <div class="hero-content">
+      <img class="hero-logo" src="./logo.png" alt="Eco Natural">
+      <h1 data-reveal>Eco Natural</h1>
+      <p class="hero-tagline" data-reveal><em>Lasting Taste of Earth</em></p>
+      <div class="stamp-row" data-reveal>
+        <div class="stamp">%100 Natural</div>
+        <div class="stamp">Cold Press</div>
+        <div class="stamp">Katkısız</div>
+        <div class="stamp">Büyük Çaltıcak</div>
+        <div class="stamp">Glass Bottle</div>
+      </div>
     </div>
-    <div class="cat-header">Early Harvest Olive Oils</div>
-    <div class="card">
-      <ul>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-50cl.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 50 cl</a> <span>&#x2014; EN-EH-EVOO-50CL-RECT</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-round-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl Round Bottle</a> <span>&#x2014; EN-EH-EVOO-70CL-ROUND</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-teardrop.html">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl</a> <span>&#x2014; EN-EH-EVOO-70CL-TEARDROP</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-decorative-square-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Decorative Square Bottle</a> <span>&#x2014; EN-EH-EVOO-NA-DECO-SQUARE</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-oval-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Oval Bottle</a> <span>&#x2014; EN-EH-EVOO-NA-OVAL</span></li>
-      <li><a href="eco-natural-early-harvest-extra-virgin-olive-oil-slim-bottle.html">Eco Natural Early Harvest Extra Virgin Olive Oil – Slim Bottle</a> <span>&#x2014; EN-EH-EVOO-NA-SLIM</span></li>
-      </ul>
+  </section>
+
+  <div class="torn" aria-hidden="true"><svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,14 C36,8 64,8 100,14 C136,20 164,20 200,14 C236,8 264,8 300,14 C336,20 364,20 400,14 C436,8 464,8 500,14 C536,20 564,20 600,14 C636,8 664,8 700,14 C736,20 764,20 800,14 C836,8 864,8 900,14 C936,20 964,20 1000,14 C1036,8 1064,8 1100,14 C1136,20 1164,20 1200,14 L1200,28 L0,28 Z" fill="#F6FAF4"/></svg></div>
+
+  <nav class="cat-nav" aria-label="Product categories">
+    <a href="#cat-early-harvest-olive-oils">Early Harvest Olive Oils</a>
+    <a href="#cat-eco-natural-olive-oils">Eco Natural Olive Oils</a>
+    <a href="#cat-sirince-infused-oils">Şirince Infused Oils</a>
+    <a href="#cat-specialty-oils">Specialty Oils</a>
+    <a href="#cat-condiments-extracts">Condiments &amp; Extracts</a>
+    <a href="#cat-olive-elixir">Olive Elixir</a>
+    <a href="#cat-metis-hierapolis">Metis Hierapolis</a>
+    <a href="#cat-confectionery-gifts">Confectionery &amp; Gifts</a>
+  </nav>
+
+  
+    <div class="catalog-section" id="cat-early-harvest-olive-oils">
+      <div class="eyebrow">Early Harvest Olive Oils</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="eco-natural-early-harvest-extra-virgin-olive-oil-50cl.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EH-EVOO-50CL-RECT.png" alt="Eco Natural Early Harvest Extra Virgin Olive Oil – 50 cl" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Early Harvest Olive Oils</div>
+            <div class="card-name">Eco Natural Early Harvest Extra Virgin Olive Oil – 50 cl</div>
+            <div class="card-desc">Early harvest · 0.1% acidity · 500+ polyphenols</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-round-bottle.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EH-EVOO-70CL-ROUND.png" alt="Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl Round Bottle" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Early Harvest Olive Oils</div>
+            <div class="card-name">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl Round Bottle</div>
+            <div class="card-desc">Early harvest · ornamental round bottle · 0.1% acidity</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-early-harvest-extra-virgin-olive-oil-70cl-teardrop.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EH-EVOO-70CL-TEARDROP.png" alt="Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Early Harvest Olive Oils</div>
+            <div class="card-name">Eco Natural Early Harvest Extra Virgin Olive Oil – 70 cl</div>
+            <div class="card-desc">Early harvest · teardrop bottle · 0.1% acidity · 500+ polyphenols</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-early-harvest-extra-virgin-olive-oil-decorative-square-bottle.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EH-EVOO-NA-DECO-SQUARE.png" alt="Eco Natural Early Harvest Extra Virgin Olive Oil – Decorative Square Bottle" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Early Harvest Olive Oils</div>
+            <div class="card-name">Eco Natural Early Harvest Extra Virgin Olive Oil – Decorative Square Bottle</div>
+            <div class="card-desc">Early harvest · decorative square bottle · premium gift edition</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-early-harvest-extra-virgin-olive-oil-oval-bottle.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EH-EVOO-NA-OVAL.png" alt="Eco Natural Early Harvest Extra Virgin Olive Oil – Oval Bottle" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Early Harvest Olive Oils</div>
+            <div class="card-name">Eco Natural Early Harvest Extra Virgin Olive Oil – Oval Bottle</div>
+            <div class="card-desc">Early harvest · artisanal oval bottle · premium gift edition</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-early-harvest-extra-virgin-olive-oil-slim-bottle.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EH-EVOO-NA-SLIM.png" alt="Eco Natural Early Harvest Extra Virgin Olive Oil – Slim Bottle" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Early Harvest Olive Oils</div>
+            <div class="card-name">Eco Natural Early Harvest Extra Virgin Olive Oil – Slim Bottle</div>
+            <div class="card-desc">Early harvest · 0.1% acidity · 500+ polyphenols — gift edition</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="cat-header">Eco Natural Olive Oils</div>
-    <div class="card">
-      <ul>
-      <li><a href="eco-natural-extra-virgin-olive-oil-1l-tin.html">Eco Natural Extra Virgin Olive Oil – 1 L Tin</a> <span>&#x2014; EN-EVOO-1L-TIN</span></li>
-      <li><a href="eco-natural-extra-virgin-olive-oil-500ml-tin.html">Eco Natural Extra Virgin Olive Oil – 500 ml Tin</a> <span>&#x2014; EN-EVOO-500ML-TIN</span></li>
-      </ul>
+    <div class="catalog-section" id="cat-eco-natural-olive-oils">
+      <div class="eyebrow">Eco Natural Olive Oils</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="eco-natural-extra-virgin-olive-oil-1l-tin.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EVOO-1L-TIN.png" alt="Eco Natural Extra Virgin Olive Oil – 1 L Tin" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Eco Natural Olive Oils</div>
+            <div class="card-name">Eco Natural Extra Virgin Olive Oil – 1 L Tin</div>
+            <div class="card-desc">First cold press · 0.2% acidity · 349 polyphenols — family size</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-extra-virgin-olive-oil-500ml-tin.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-EVOO-500ML-TIN.png" alt="Eco Natural Extra Virgin Olive Oil – 500 ml Tin" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Eco Natural Olive Oils</div>
+            <div class="card-name">Eco Natural Extra Virgin Olive Oil – 500 ml Tin</div>
+            <div class="card-desc">First cold press · 0.2% acidity · 349 polyphenols</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="cat-header">Confectionery &amp; Gifts</div>
-    <div class="card">
-      <ul>
-      <li><a href="eco-natural-natural-sweet-turkish-delight-gift-box.html">Eco Natural Natural Sweet Turkish Delight Gift Box</a> <span>&#x2014; EN-TURKISH-DELIGHT-GIFT-BOX-NA</span></li>
-      </ul>
+    <div class="catalog-section" id="cat-sirince-infused-oils">
+      <div class="eyebrow">Şirince Infused Oils</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="sirince-bodrum-mandarin-extra-virgin-olive-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/SH-EVOO-MANDARIN-250ML.png" alt="Şirince Bodrum Mandarin Extra Virgin Olive Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Şirince Infused Oils</div>
+            <div class="card-name">Şirince Bodrum Mandarin Extra Virgin Olive Oil – 250 ml</div>
+            <div class="card-desc">Bright citrus meets Aegean olive — a rare cold pressed infusion</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="sirince-chili-extra-virgin-olive-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/SH-EVOO-CHILI-250ML.png" alt="Şirince Chili Extra Virgin Olive Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Şirince Infused Oils</div>
+            <div class="card-name">Şirince Chili Extra Virgin Olive Oil – 250 ml</div>
+            <div class="card-desc">A bold chili infusion — warm, lively, and deeply Mediterranean</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="sirince-garlic-extra-virgin-olive-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/SH-EVOO-GARLIC-250ML.png" alt="Şirince Garlic Extra Virgin Olive Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Şirince Infused Oils</div>
+            <div class="card-name">Şirince Garlic Extra Virgin Olive Oil – 250 ml</div>
+            <div class="card-desc">Cold pressed with fresh garlic — a savory Aegean kitchen staple</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="sirince-plain-extra-virgin-olive-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/SH-EVOO-PLAIN-250ML.png" alt="Şirince Plain Extra Virgin Olive Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Şirince Infused Oils</div>
+            <div class="card-name">Şirince Plain Extra Virgin Olive Oil – 250 ml</div>
+            <div class="card-desc">Pure cold pressed extra virgin from the hillside groves of Şirince</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="sirince-rosemary-extra-virgin-olive-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/SH-EVOO-ROSEMARY-250ML.png" alt="Şirince Rosemary Extra Virgin Olive Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Şirince Infused Oils</div>
+            <div class="card-name">Şirince Rosemary Extra Virgin Olive Oil – 250 ml</div>
+            <div class="card-desc">Cold pressed with wild rosemary from the Aegean hills</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="cat-header">Olive Elixir</div>
-    <div class="card">
-      <ul>
-      <li><a href="eco-natural-zeytin-sutu-cold-pressed-olive-elixir.html">Eco Natural Zeytin Sütü (Cold Pressed Olive Elixir)</a> <span>&#x2014; EN-OLIVE-ELIXIR-NA</span></li>
-      </ul>
+    <div class="catalog-section" id="cat-specialty-oils">
+      <div class="eyebrow">Specialty Oils</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="eco-natural-avocado-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-AVOCADO-OIL-250ML.png" alt="Eco Natural Avocado Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Avocado Oil – 250 ml</div>
+            <div class="card-desc">Clean, delicate, cold extracted — a refined everyday oil</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-black-seed-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-BLACK-SEED-OIL-250ML.png" alt="Eco Natural Black Seed Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Black Seed Oil – 250 ml</div>
+            <div class="card-desc">3,000 years of Anatolian tradition — bold, aromatic, cold pressed</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-fig-seed-oil.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-FIG-SEED-OIL-NA.png" alt="Eco Natural Fig Seed Oil" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Fig Seed Oil</div>
+            <div class="card-desc">One of the rarest cold pressed oils in the world — from the ancient fig</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-hemp-seed-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-HEMP-SEED-OIL-250ML.png" alt="Eco Natural Hemp Seed Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Hemp Seed Oil – 250 ml</div>
+            <div class="card-desc">Cold pressed from whole hemp seeds — mild, nutty, and purely natural</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-pomegranate-seed-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-POMEGRANATE-SEED-OIL-250ML.png" alt="Eco Natural Pomegranate Seed Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Pomegranate Seed Oil – 250 ml</div>
+            <div class="card-desc">A rare cold pressed specialty oil from the pomegranate heartland</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-poppy-seed-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-POPPY-SEED-OIL-250ML.png" alt="Eco Natural Poppy Seed Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Poppy Seed Oil – 250 ml</div>
+            <div class="card-desc">A rare, smooth specialty oil for gourmet kitchens and fine gifting</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-pumpkin-seed-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-PUMPKIN-SEED-OIL-250ML.png" alt="Eco Natural Pumpkin Seed Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Pumpkin Seed Oil – 250 ml</div>
+            <div class="card-desc">Bold roasted seed character — a gourmet cold pressed specialty oil</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-thistle-seed-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-THISTLE-SEED-OIL-250ML.png" alt="Eco Natural Thistle Seed Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Specialty Oils</div>
+            <div class="card-name">Eco Natural Thistle Seed Oil – 250 ml</div>
+            <div class="card-desc">Wild Aegean thistle seed — a botanical cold pressed specialty oil</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="cat-header">Metis Hierapolis</div>
-    <div class="card">
-      <ul>
-      <li><a href="metis-hierapolis-safflower-oil-250ml.html">Metis Hierapolis Safflower Oil – 250 ml</a> <span>&#x2014; MH-SAFFLOWER-OIL-250ML</span></li>
-      </ul>
+    <div class="catalog-section" id="cat-condiments-extracts">
+      <div class="eyebrow">Condiments &amp; Extracts</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="eco-natural-carob-extract-340g.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-CAROB-EXTRACT-340G.png" alt="Eco Natural Carob Extract – 340 g" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Condiments &amp; Extracts</div>
+            <div class="card-name">Eco Natural Carob Extract – 340 g</div>
+            <div class="card-desc">Ancient Anatolian sweetness — compact everyday carob extract</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-carob-extract-680g.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-CAROB-EXTRACT-680G.png" alt="Eco Natural Carob Extract – 680 g" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Condiments &amp; Extracts</div>
+            <div class="card-name">Eco Natural Carob Extract – 680 g</div>
+            <div class="card-desc">Ancient Anatolian sweetness — naturally rich carob extract</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-pomegranate-sour-340g.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-POMEGRANATE-SOUR-340G.png" alt="Eco Natural Pomegranate Sour – 340 g" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Condiments &amp; Extracts</div>
+            <div class="card-name">Eco Natural Pomegranate Sour – 340 g</div>
+            <div class="card-desc">Sweet-sour Anatolian classic — the essential pomegranate condiment</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+        <a class="product-card" href="eco-natural-salad-dressing.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-SALAD-DRESSING-NA.png" alt="Eco Natural Salad Dressing" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Condiments &amp; Extracts</div>
+            <div class="card-name">Eco Natural Salad Dressing</div>
+            <div class="card-desc">Aegean-style salad dressing — clean ingredients, ready to pour</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="cat-header">Şirince Infused Oils</div>
-    <div class="card">
-      <ul>
-      <li><a href="sirince-bodrum-mandarin-extra-virgin-olive-oil-250ml.html">Şirince Bodrum Mandarin Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-MANDARIN-250ML</span></li>
-      <li><a href="sirince-chili-extra-virgin-olive-oil-250ml.html">Şirince Chili Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-CHILI-250ML</span></li>
-      <li><a href="sirince-garlic-extra-virgin-olive-oil-250ml.html">Şirince Garlic Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-GARLIC-250ML</span></li>
-      <li><a href="sirince-plain-extra-virgin-olive-oil-250ml.html">Şirince Plain Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-PLAIN-250ML</span></li>
-      <li><a href="sirince-rosemary-extra-virgin-olive-oil-250ml.html">Şirince Rosemary Extra Virgin Olive Oil – 250 ml</a> <span>&#x2014; SH-EVOO-ROSEMARY-250ML</span></li>
-      </ul>
+    <div class="catalog-section" id="cat-olive-elixir">
+      <div class="eyebrow">Olive Elixir</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="eco-natural-zeytin-sutu-cold-pressed-olive-elixir.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-OLIVE-ELIXIR-NA.png" alt="Eco Natural Zeytin Sütü (Cold Pressed Olive Elixir)" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Olive Elixir</div>
+            <div class="card-name">Eco Natural Zeytin Sütü (Cold Pressed Olive Elixir)</div>
+            <div class="card-desc">The rarest expression of the Aegean olive — cold pressed, unfiltered</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
     </div>
-  </div>
+    <div class="catalog-section" id="cat-metis-hierapolis">
+      <div class="eyebrow">Metis Hierapolis</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="metis-hierapolis-safflower-oil-250ml.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/MH-SAFFLOWER-OIL-250ML.png" alt="Metis Hierapolis Safflower Oil – 250 ml" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Metis Hierapolis</div>
+            <div class="card-name">Metis Hierapolis Safflower Oil – 250 ml</div>
+            <div class="card-desc">A light, versatile specialty oil from ancient Anatolian heritage</div>
+            
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="catalog-section" id="cat-confectionery-gifts">
+      <div class="eyebrow">Confectionery &amp; Gifts</div>
+      <div class="product-grid">
+        
+        <a class="product-card" href="eco-natural-natural-sweet-turkish-delight-gift-box.html" data-reveal>
+          <div class="card-img-wrap" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+            <div class="card-img-stage">
+              <img class="product-asset" src="generated/img/EN-TURKISH-DELIGHT-GIFT-BOX-NA.png" alt="Eco Natural Natural Sweet Turkish Delight Gift Box" loading="lazy">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-category">Confectionery &amp; Gifts</div>
+            <div class="card-name">Eco Natural Natural Sweet Turkish Delight Gift Box</div>
+            <div class="card-desc">An Ottoman tradition in a modern gift box — made in Antalya, Turkey</div>
+            <div class="card-gift">Gift</div>
+            <div class="card-cta">Learn More &#8594;</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  <section class="find-us">
+    <div class="find-us-inner">
+      <div class="eyebrow" style="justify-content:center;">Find Us</div>
+      <h2 class="find-us-heading" data-reveal>Order Direct</h2>
+      <p class="find-us-body" data-reveal>
+        Scan a product barcode to learn more, or reach us directly on WhatsApp to place an order,
+        ask about availability, or get help choosing the right product for you.
+      </p>
+      <a class="btn-wa" href="https://wa.me/900000000000?text=Hello%2C%20I%27d%20like%20to%20order%20Eco%20Natural%20products" data-reveal>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.096.537 4.067 1.479 5.785L0 24l6.385-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.807 9.807 0 0 1-5.031-1.383l-.361-.214-3.737.979.997-3.645-.235-.374A9.795 9.795 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Chat on WhatsApp
+      </a>
+      <p class="find-us-note" data-reveal>We speak Turkish, English and can help in Russian.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-tagline"><em>Lasting Taste of Earth</em></p>
+    <p class="footer-sub">Eco Natural &middot; Aegean Turkey</p>
+  </footer>
+
+  
+<script>
+(function(){
+  var els = document.querySelectorAll('[data-reveal]');
+  if(!els.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.12});
+  els.forEach(function(el, i){
+    el.style.transitionDelay = (i * 100) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
+
+
 </body>
 </html>

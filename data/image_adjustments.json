@@ -1,0 +1,69 @@
+{
+  "_default": {
+    "enabled": true,
+    "rotation_deg": 0.0,
+    "scale": 1.0,
+    "offset_x": 0,
+    "offset_y": 0,
+    "subject_padding": 140
+  },
+  "EN-EH-EVOO-NA-SLIM": {
+    "scale": 1.22
+  },
+  "EN-HEMP-SEED-OIL-250ML": {
+    "scale": 1.1
+  },
+  "EN-PUMPKIN-SEED-OIL-250ML": {
+    "scale": 1.1
+  },
+  "EN-AVOCADO-OIL-250ML": {
+    "scale": 1.08
+  },
+  "EN-BLACK-SEED-OIL-250ML": {
+    "scale": 1.08
+  },
+  "EN-POMEGRANATE-SEED-OIL-250ML": {
+    "scale": 1.08
+  },
+  "EN-POPPY-SEED-OIL-250ML": {
+    "scale": 1.08
+  },
+  "EN-THISTLE-SEED-OIL-250ML": {
+    "scale": 1.08
+  },
+  "MH-SAFFLOWER-OIL-250ML": {
+    "scale": 1.08
+  },
+  "SH-EVOO-CHILI-250ML": {
+    "scale": 1.12
+  },
+  "SH-EVOO-GARLIC-250ML": {
+    "scale": 1.12
+  },
+  "SH-EVOO-MANDARIN-250ML": {
+    "scale": 1.12
+  },
+  "SH-EVOO-PLAIN-250ML": {
+    "scale": 1.12
+  },
+  "SH-EVOO-ROSEMARY-250ML": {
+    "scale": 1.12
+  },
+  "EN-EH-EVOO-70CL-ROUND": {
+    "scale": 0.94
+  },
+  "EN-EH-EVOO-NA-OVAL": {
+    "scale": 0.94
+  },
+  "EN-EH-EVOO-NA-DECO-SQUARE": {
+    "scale": 0.96
+  },
+  "EN-EVOO-500ML-TIN": {
+    "scale": 0.9
+  },
+  "EN-TURKISH-DELIGHT-GIFT-BOX-NA": {
+    "scale": 0.92,
+    "offset_y": 12,
+    "subject_padding": 120
+  }
+}

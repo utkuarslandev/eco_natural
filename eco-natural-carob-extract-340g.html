@@ -5,305 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eco Natural Carob Extract 340 g | Smooth &amp; Naturally Sweet | Eco Natural</title>
   <meta name="description" content="Explore Eco Natural Carob Extract 340 g, a concentrated and naturally sweet carob spread with smooth texture and everyday serving versatility.">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream:    #faf8f2;
-      --white:    #ffffff;
-      --olive:    #3d6b41;
-      --olive-l:  #eef5ec;
-      --terra:    #b5763a;
-      --terra-l:  #fdf3e8;
-      --dark:     #1c2b1e;
-      --text:     #2c2c2c;
-      --muted:    #72716a;
-      --border:   #e4e0d6;
-      --radius:   14px;
-      --radius-sm: 8px;
-      --amber:    #c8883a;
-      --amber-l:  #f5e6cc;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-    }
-    .topbar {
-      background: var(--dark);
-      color: #c4d4bb;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 2px solid var(--amber);
-    }
-    .topbar a { color: inherit; text-decoration: none; }
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .topbar-logo { height: 24px; width: auto; display: block; }
-    .topbar-brand {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #ffffff;
-    }
-    .topbar-back { opacity: 0.7; }
-    .topbar-back:hover { opacity: 1; }
-    .hero {
-      background: radial-gradient(ellipse at 50% 65%, #c8883a22 0%, #3d6b4133 35%, #1c2b1e 75%);
-      min-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 40px 20px 32px;
-      text-align: center;
-      position: relative;
-    }
-    @media (min-width: 768px) {
-      .hero { min-height: 70vh; }
-    }
-    .hero-img-wrap {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 28px;
-    }
-    .hero-img-wrap img {
-      max-height: 420px;
-      max-width: 90%;
-      width: auto;
-      display: block;
-      filter: drop-shadow(0 24px 64px rgba(197, 133, 58, 0.55));
-      animation: riseIn 0.7s ease-out both;
-    }
-    @keyframes riseIn {
-      from { transform: translateY(32px); opacity: 0; }
-      to   { transform: translateY(0);    opacity: 1; }
-    }
-    .hero-copy {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      max-width: 540px;
-    }
-    .product-line {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #8fba88;
-    }
-    h1 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(1.6rem, 6vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.2;
-      color: #ffffff;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.4);
-    }
-    .tagline { font-size: 1rem; color: rgba(255,255,255,0.72); font-style: italic; }
-    .badge-strip { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.20);
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 11px;
-      border-radius: 99px;
-      white-space: nowrap;
-    }
-    .gift-banner {
-      background: rgba(181,118,58,0.20);
-      border: 1px solid rgba(197,133,58,0.45);
-      border-radius: var(--radius-sm);
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #f5d49a;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .scroll-hint {
-      position: absolute;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.45);
-      font-size: 20px;
-      animation: pulse 2s ease-in-out infinite;
-      line-height: 1;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.45; transform: translateX(-50%) translateY(0); }
-      50%       { opacity: 0.9;  transform: translateX(-50%) translateY(4px); }
-    }
-    .trust-strip {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 16px;
-    }
-    .trust-strip-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .trust-item {
-      flex: 1 0 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 12px 16px;
-      border-right: 1px solid var(--border);
-      gap: 6px;
-    }
-    .trust-item:last-child { border-right: none; }
-    .trust-icon { font-size: 32px; line-height: 1; }
-    .trust-label { font-size: 12px; font-weight: 700; color: var(--dark); }
-    .trust-desc  { font-size: 11px; color: var(--muted); line-height: 1.4; }
-    .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
-    .section { padding-top: 40px; }
-    .section-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--terra);
-      margin-bottom: 6px;
-    }
-    .section-heading {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-    .story-card {
-      background: var(--dark);
-      color: #cee0c5;
-      border-radius: var(--radius);
-      padding: 32px 28px 34px;
-      position: relative;
-      overflow: hidden;
-    }
-    .story-card::before {
-      content: '\201C';
-      position: absolute;
-      top: -18px;
-      left: 14px;
-      font-size: 130px;
-      color: #3d6b41;
-      opacity: 0.2;
-      font-family: Georgia, serif;
-      line-height: 1;
-      pointer-events: none;
-    }
-    .origin-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.09);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 99px;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 12px;
-      color: #9fbf96;
-      margin-bottom: 18px;
-    }
-    .story-card p { font-size: 0.97rem; line-height: 1.8; position: relative; }
-    .story-card p + p { margin-top: 12px; }
-    .use-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-    @media (min-width: 720px) {
-      .use-grid { grid-template-columns: repeat(6, 1fr); }
-    }
-    .use-tile {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--olive);
-      border-radius: var(--radius-sm);
-      padding: 18px 10px 14px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      transition: border-top-color 0.2s;
-    }
-    .use-tile:hover { border-top-color: #2e5230; }
-    .use-icon { font-size: 28px; line-height: 1; }
-    .use-label { font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.35; }
-    .quality-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    @media (min-width: 480px) {
-      .quality-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (min-width: 720px) {
-      .quality-grid { grid-template-columns: repeat(5, 1fr); }
-    }
-    .quality-card {
-      background: var(--olive-l);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 18px 14px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-      text-align: center;
-    }
-    .quality-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 19px;
-    }
-    .quality-name { font-size: 11px; font-weight: 700; color: var(--dark); line-height: 1.3; }
-    .quality-desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
-    .divider { border: none; border-top: 1px solid var(--border); margin-top: 40px; }
-    .product-meta { margin-top: 20px; font-size: 12px; color: var(--muted); }
-    .product-meta code { font-size: 11.5px; }
-    .footer {
-      background: var(--dark);
-      color: #7a927a;
-      text-align: center;
-      padding: 26px 16px;
-      font-size: 12px;
-      margin-top: 56px;
-    }
-    .footer a { color: #9fbf96; text-decoration: none; }
-    .footer-sub { margin-top: 7px; opacity: 0.6; }
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Abril+Fatface&family=EB+Garamond:ital@1&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Eco Natural Carob Extract – 340 g",
+  "description": "Explore Eco Natural Carob Extract 340 g, a concentrated and naturally sweet carob spread with smooth texture and everyday serving versatility.",
+  "sku": "EN-CAROB-EXTRACT-340G",
+  "image": "generated/img/EN-CAROB-EXTRACT-340G.png",
+  "brand": {
+    "@type": "Brand",
+    "name": "Eco Natural"
+  }
+}
+  </script>
 </head>
 <body>
 
@@ -315,37 +34,64 @@
     <a class="topbar-back" href="./index.html">&#8592; All Products</a>
   </nav>
 
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="./index.html">All Products</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">Condiments &amp; Extracts</span>
+    </div>
+  </nav>
+
+  <a class="sticky-wa" id="sticky-wa" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.096.537 4.067 1.479 5.785L0 24l6.385-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.807 9.807 0 0 1-5.031-1.383l-.361-.214-3.737.979.997-3.645-.235-.374A9.795 9.795 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    <span>Order via WhatsApp</span>
+  </a>
+
   <section class="hero">
+    <div class="hero-ghost" aria-hidden="true">HARNUP</div>
     <div class="hero-img-wrap">
-      <img src="img/EN-CAROB-EXTRACT-340G.JPG" alt="Eco Natural Carob Extract – 340 g">
+      <div class="hero-img-stage" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;">
+        <img class="product-asset" src="generated/img/EN-CAROB-EXTRACT-340G.png" alt="Eco Natural Carob Extract – 340 g">
+      </div>
     </div>
     <div class="hero-copy">
-      <div class="product-line">Eco Natural Extracts · 340 g</div>
+      <div class="hero-eyebrow">Eco Natural Extracts · 340 g</div>
       <h1>Eco Natural Carob Extract – 340 g</h1>
       <p class="tagline">Ancient Anatolian sweetness — compact everyday carob extract</p>
-      <div class="badge-strip">
-        <span class="badge">🌱 Plant-Based</span>
-          <span class="badge">🚫 No Added Sugar</span>
-          <span class="badge">🚫 No Artificial</span>
-          <span class="badge">🕌 Ancient Heritage</span>
-      </div>
-      <div class="gift-banner">&#127873; Makes a beautiful gift &mdash; perfect for food lovers</div>
+      <a class="btn-wa" href="https://wa.me/900000000000?text=Hello%2C%20I%27m%20interested%20in%20Eco%20Natural%20Carob%20Extract%20%E2%80%93%20340%20g">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.096.537 4.067 1.479 5.785L0 24l6.385-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.807 9.807 0 0 1-5.031-1.383l-.361-.214-3.737.979.997-3.645-.235-.374A9.795 9.795 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Inquire on WhatsApp
+      </a>
     </div>
-    <div class="scroll-hint">&#9660;</div>
+    <div class="scroll-hint" aria-hidden="true">&#9660;</div>
   </section>
+
+  <div class="torn" aria-hidden="true"><svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,14 C36,8 64,8 100,14 C136,20 164,20 200,14 C236,8 264,8 300,14 C336,20 364,20 400,14 C436,8 464,8 500,14 C536,20 564,20 600,14 C636,8 664,8 700,14 C736,20 764,20 800,14 C836,8 864,8 900,14 C936,20 964,20 1000,14 C1036,8 1064,8 1100,14 C1136,20 1164,20 1200,14 L1200,28 L0,28 Z" fill="#1A3520"/></svg></div>
+
+  <div class="credentials-strip">
+    <div class="stamp-row">
+      <div class="stamp" data-reveal>Plant-Based</div>
+          <div class="stamp" data-reveal>No Added Sugar</div>
+          <div class="stamp" data-reveal>No Artificial</div>
+          <div class="stamp" data-reveal>Ancient Heritage</div>
+    </div>
+    <div class="gift-banner" data-reveal>Makes a beautiful gift — perfect for food lovers</div>
+  </div>
 
   <div class="trust-strip">
     <div class="trust-strip-inner">
-      <div class="trust-item"><div class="trust-icon">🌱</div><div class="trust-label">Plant-Based</div><div class="trust-desc">100% plant origin</div></div>
-        <div class="trust-item"><div class="trust-icon">🚫</div><div class="trust-label">No Added Sugar</div><div class="trust-desc">Natural sweetness from the carob itself</div></div>
-        <div class="trust-item"><div class="trust-icon">🚫</div><div class="trust-label">No Artificial</div><div class="trust-desc">Clean label — nothing synthetic</div></div>
+      <div class="trust-item"><div class="trust-label">Plant-Based</div><div class="trust-desc">100% plant origin</div></div>
+        <div class="trust-item"><div class="trust-label">No Added Sugar</div><div class="trust-desc">Natural sweetness from the carob itself</div></div>
+        <div class="trust-item"><div class="trust-label">No Artificial</div><div class="trust-desc">Clean label — nothing synthetic</div></div>
     </div>
   </div>
 
+  <div class="torn" aria-hidden="true"><svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,14 C36,8 64,8 100,14 C136,20 164,20 200,14 C236,8 264,8 300,14 C336,20 364,20 400,14 C436,8 464,8 500,14 C536,20 564,20 600,14 C636,8 664,8 700,14 C736,20 764,20 800,14 C836,8 864,8 900,14 C936,20 964,20 1000,14 C1036,8 1064,8 1100,14 C1136,20 1164,20 1200,14 L1200,28 L0,28 Z" fill="#F6FAF4"/></svg></div>
+
   <div class="wrap">
 
-    <div class="section">
-      <div class="section-eyebrow">Origin &amp; Story</div>
+    <div class="section" data-reveal>
+      <div class="eyebrow">Origin &amp; Story</div>
       <div class="story-card">
         <div class="origin-chip">&#128205; Turkey</div>
         <p>The carob tree is one of the oldest cultivated trees in the eastern Mediterranean. Its sweet pods were traded along ancient routes as a natural sweetener long before cane sugar reached these shores. In Anatolia, carob extract — keçiboynuzu pekmezi — remains a deeply traditional pantry staple.</p>
@@ -353,42 +99,83 @@
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-eyebrow">How to Enjoy</div>
+    <div class="section" data-reveal>
+      <div class="eyebrow">How to Enjoy</div>
       <div class="section-heading">Six ways to use it at home</div>
       <div class="use-grid">
-        <div class="use-tile"><div class="use-icon">🍞</div><div class="use-label">Breakfast Spread</div></div>
-        <div class="use-tile"><div class="use-icon">🥛</div><div class="use-label">Stirred in Milk</div></div>
-        <div class="use-tile"><div class="use-icon">🍨</div><div class="use-label">Dessert Topping</div></div>
-        <div class="use-tile"><div class="use-icon">🍵</div><div class="use-label">With Tea</div></div>
-        <div class="use-tile"><div class="use-icon">🫙</div><div class="use-label">By the Spoon</div></div>
-        <div class="use-tile"><div class="use-icon">🎁</div><div class="use-label">Traditional Gift</div></div>
+        <div class="use-tile" data-reveal><div class="use-label">Breakfast Spread</div></div>
+        <div class="use-tile" data-reveal><div class="use-label">Stirred in Milk</div></div>
+        <div class="use-tile" data-reveal><div class="use-label">Dessert Topping</div></div>
+        <div class="use-tile" data-reveal><div class="use-label">With Tea</div></div>
+        <div class="use-tile" data-reveal><div class="use-label">By the Spoon</div></div>
+        <div class="use-tile" data-reveal><div class="use-label">Traditional Gift</div></div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-eyebrow">Quality &amp; Standards</div>
+    <div class="section" data-reveal>
+      <div class="eyebrow">Quality &amp; Standards</div>
       <div class="section-heading">What makes it exceptional</div>
       <div class="quality-grid">
-        <div class="quality-card"><div class="quality-icon">🌱</div><div class="quality-name">Plant-Based</div><div class="quality-desc">100% plant origin</div></div>
-        <div class="quality-card"><div class="quality-icon">🚫</div><div class="quality-name">No Added Sugar</div><div class="quality-desc">Natural sweetness from the carob itself</div></div>
-        <div class="quality-card"><div class="quality-icon">🚫</div><div class="quality-name">No Artificial</div><div class="quality-desc">Clean label — nothing synthetic</div></div>
-        <div class="quality-card"><div class="quality-icon">🕌</div><div class="quality-name">Ancient Heritage</div><div class="quality-desc">Traded in Anatolia for thousands of years</div></div>
-        <div class="quality-card"><div class="quality-icon">✅</div><div class="quality-name">Traditional Recipe</div><div class="quality-desc">Made as it has always been made</div></div>
+        <div class="quality-card" data-reveal><div class="quality-name">Plant-Based</div><div class="quality-desc">100% plant origin</div></div>
+        <div class="quality-card" data-reveal><div class="quality-name">No Added Sugar</div><div class="quality-desc">Natural sweetness from the carob itself</div></div>
+        <div class="quality-card" data-reveal><div class="quality-name">No Artificial</div><div class="quality-desc">Clean label — nothing synthetic</div></div>
+        <div class="quality-card" data-reveal><div class="quality-name">Ancient Heritage</div><div class="quality-desc">Traded in Anatolia for thousands of years</div></div>
+        <div class="quality-card" data-reveal><div class="quality-name">Traditional Recipe</div><div class="quality-desc">Made as it has always been made</div></div>
       </div>
     </div>
 
-    <hr class="divider">
-    <div class="product-meta">
-      Product ID:&nbsp;<code>EN-CAROB-EXTRACT-340G</code>
+    
+    <div class="section" data-reveal>
+      <div class="eyebrow">More Like This</div>
+      <div class="related-grid">
+        <a class="related-card" href="eco-natural-carob-extract-680g.html"><div class="related-img-stage" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;"><img class="product-asset" src="generated/img/EN-CAROB-EXTRACT-680G.png" alt="Eco Natural Carob Extract – 680 g" loading="lazy"></div><div class="related-name">Eco Natural Carob Extract – 680 g</div></a>
+        <a class="related-card" href="eco-natural-pomegranate-sour-340g.html"><div class="related-img-stage" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;"><img class="product-asset" src="generated/img/EN-POMEGRANATE-SOUR-340G.png" alt="Eco Natural Pomegranate Sour – 340 g" loading="lazy"></div><div class="related-name">Eco Natural Pomegranate Sour – 340 g</div></a>
+        <a class="related-card" href="eco-natural-salad-dressing.html"><div class="related-img-stage" style="--img-scale:1.0000;--img-offset-x:0px;--img-offset-y:0px;--img-rotation:0.00deg;"><img class="product-asset" src="generated/img/EN-SALAD-DRESSING-NA.png" alt="Eco Natural Salad Dressing" loading="lazy"></div><div class="related-name">Eco Natural Salad Dressing</div></a>
+      </div>
     </div>
 
   </div>
 
   <footer class="footer">
-    <a href="./index.html">&#8592; Back to Eco Natural Product Catalog</a>
-    <div class="footer-sub">Eco Natural &middot; Artisan Natural Products &middot; Aegean Turkey</div>
+    <p class="footer-tagline">Lasting Taste of Earth</p>
+    <a href="./index.html">&#8592; Back to All Products</a>
+    <p class="footer-sub">Eco Natural</p>
   </footer>
+
+  
+<script>
+(function(){
+  var els = document.querySelectorAll('[data-reveal]');
+  if(!els.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.12});
+  els.forEach(function(el, i){
+    el.style.transitionDelay = (i * 100) + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
+
+  
+<script>
+(function(){
+  var heroCta = document.querySelector('.hero .btn-wa');
+  var bar = document.getElementById('sticky-wa');
+  if (!heroCta || !bar) return;
+  bar.href = heroCta.href;
+  var io = new IntersectionObserver(function(entries){
+    bar.classList.toggle('visible', !entries[0].isIntersecting);
+  });
+  io.observe(heroCta);
+})();
+</script>
+
 
 </body>
 </html>
