@@ -4,21 +4,46 @@ Run from repo root:  python src/generate.py
 """
 
 import csv
+import importlib.util
+import json
 import sys
 from pathlib import Path
 
 ROOT       = Path(__file__).parent.parent
-CSV_PATH   = ROOT / "data" / "ids.csv"
 IMG_DIR    = ROOT / "img"
 DERIVED_IMG_DIR = ROOT / "generated" / "img"
-OUTPUT_DIR = ROOT
 
 sys.path.insert(0, str(Path(__file__).parent))
 
 from enrichment import ENRICHMENT, _category
 from image_assets import resolved_asset
-from templates import page_template, index_template
+from templates import page_template, index_template, Ctx
 from styles import CSS_SITE
+
+LOCALES = [
+    ("en", ROOT,         ROOT / "data" / "ids.csv"),
+    ("tr", ROOT / "tr",  ROOT / "data" / "ids_tr.csv"),
+    ("ru", ROOT / "ru",  ROOT / "data" / "ids_ru.csv"),
+]
+BASE_URL = ""
+
+
+def load_locale_strings(locale: str) -> dict:
+    """Load locale-specific strings from JSON file."""
+    path = ROOT / "locales" / f"{locale}.json"
+    with path.open(encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def load_locale_enrichment(locale: str) -> dict:
+    """Load locale-specific enrichment data."""
+    if locale == "en":
+        return ENRICHMENT
+    path = ROOT / "locales" / f"enrichment_{locale}.py"
+    spec = importlib.util.spec_from_file_location(f"enrichment_{locale}", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return getattr(mod, f"ENRICHMENT_{locale.upper()}")
 
 
 def main() -> None:

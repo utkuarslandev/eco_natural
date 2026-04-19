@@ -1,4 +1,5 @@
 import json
+from dataclasses import dataclass
 from html import escape
 from urllib.parse import quote
 
@@ -7,6 +8,30 @@ from image_assets import asset_dimensions, card_image_sources, inline_adjustment
 from styles import FONTS_LINK
 
 WA_NUMBER = "+900000000000"  # placeholder — replace with real number before going live
+
+
+@dataclass
+class Ctx:
+    locale: str
+    strings: dict
+    enrichment: dict
+    is_subdir: bool
+
+    def t(self, key: str, **fmt) -> str:
+        val = self.strings.get(key, f"[MISSING:{key}]")
+        return val.format(**fmt) if fmt else val
+
+    def asset_prefix(self) -> str:
+        return "../" if self.is_subdir else "./"
+
+    def cat_name(self, cat: str) -> str:
+        return self.strings.get("categories", {}).get(cat, cat)
+
+
+def _localize_path(path: str, ctx: Ctx) -> str:
+    if ctx.is_subdir and not path.startswith(("http://", "https://")):
+        return "../" + path
+    return path
 
 _WAVE = (
     "M0,14 C36,8 64,8 100,14 C136,20 164,20 200,14 "
@@ -130,7 +155,7 @@ _ROUTE_PREFETCH_JS = """
 """
 
 
-def _document_head(title: str, description: str, *, json_ld: str | None = None, extra_links: list[str] | None = None) -> str:
+def _document_head(title: str, description: str, *, ctx: Ctx | None = None, json_ld: str | None = None, extra_links: list[str] | None = None) -> str:
     json_ld_block = ""
     if json_ld:
         json_ld_block = f"""
@@ -141,26 +166,37 @@ def _document_head(title: str, description: str, *, json_ld: str | None = None, 
     if extra_links:
         extra_link_block = "\n" + "\n".join(f"  {link}" for link in extra_links)
 
+    stylesheet_href = "style.css"
+    if ctx:
+        stylesheet_href = _localize_path(stylesheet_href, ctx)
+
     return f"""<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{escape(title)}</title>
   <meta name="description" content="{escape(description)}">
+  <link rel="icon" href="./logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="./logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="{FONTS_LINK}" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">{extra_link_block}{json_ld_block}
+  <link rel="stylesheet" href="{stylesheet_href}">{extra_link_block}{json_ld_block}
 </head>"""
 
 
-def _topbar(*, show_back_link: bool = False) -> str:
+def _topbar(*, ctx: Ctx | None = None, show_back_link: bool = False, slug: str | None = None) -> str:
     back_link = ""
-    if show_back_link:
+    if show_back_link and ctx:
+        back_link_text = ctx.t("back_link")
+        back_link = f'\n    <a class="topbar-back" href="{_localize_path("index.html", ctx)}">{back_link_text}</a>'
+    elif show_back_link:
         back_link = '\n    <a class="topbar-back" href="./index.html">&#8592; All Products</a>'
 
+    logo_src = _localize_path("./logo.png", ctx) if ctx else "./logo.png"
+
     return f"""  <nav class="topbar">
-    <a class="topbar-home" href="./index.html" aria-label="Eco Natural home">
-      <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
+    <a class="topbar-home" href="{_localize_path("index.html", ctx) if ctx else "./index.html"}" aria-label="Eco Natural home">
+      <img class="topbar-logo" src="{logo_src}" alt="Eco Natural">
       <div class="topbar-lockup">
         <span class="topbar-brand">ECO NATURAL</span>
         <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak</span>
@@ -169,20 +205,29 @@ def _topbar(*, show_back_link: bool = False) -> str:
   </nav>"""
 
 
-def _footer(*, show_back_link: bool = False) -> str:
+def _footer(*, ctx: Ctx | None = None, show_back_link: bool = False) -> str:
     back_link = ""
     if show_back_link:
-        back_link = '\n    <a href="./index.html">&#8592; Back to All Products</a>'
+        back_footer_text = ctx.t("back_footer") if ctx else "← Back to All Products"
+        back_link_href = _localize_path("index.html", ctx) if ctx else "./index.html"
+        back_link = f'\n    <a href="{back_link_href}">{back_footer_text}</a>'
+
+    footer_logo_src = _localize_path("./logo.png", ctx) if ctx else "./logo.png"
+    footer_tagline = ctx.t("footer_tagline") if ctx else "Lasting Taste of Earth"
 
     return f"""  <footer class="footer">
-    <img class="footer-logo" src="./logo.png" alt="Eco Natural">
-    <p class="footer-tagline">Lasting Taste of Earth</p>{back_link}
+    <img class="footer-logo" src="{footer_logo_src}" alt="Eco Natural">
+    <p class="footer-tagline">{footer_tagline}</p>{back_link}
   </footer>"""
 
 
-def _wa_href(product_name: str) -> str:
+def _wa_href(product_name: str, ctx: Ctx | None = None) -> str:
     num = WA_NUMBER.replace("+", "").replace(" ", "")
-    msg = quote(f"Hello, I'm interested in {product_name}")
+    if ctx:
+        msg_template = ctx.t("wa_product_message")
+        msg = quote(msg_template.format(product_name=product_name))
+    else:
+        msg = quote(f"Hello, I'm interested in {product_name}")
     return f"https://wa.me/{num}?text={msg}"
 
 
@@ -258,16 +303,18 @@ def _trust_strip_html(badges: list[tuple]) -> str:
     return "\n        ".join(parts)
 
 
-def _related_html(related: list[tuple], img_dir) -> str:
+def _related_html(related: list[tuple], img_dir, ctx: Ctx | None = None) -> str:
+    learn_more_text = ctx.t("learn_more") if ctx else "Learn More →"
     parts = []
     for slug, title, pid in related[:4]:
         image_path, adjustments = resolved_asset(pid)
+        localized_image_path = _localize_path(image_path, ctx) if ctx else image_path
         style_attr = inline_adjustment_vars(adjustments)
         width, height = asset_dimensions(image_path)
         parts.append(
             f'<a class="related-card" href="{escape(slug)}" data-prefetch-route>'
             f'<div class="related-img-stage" style="{style_attr}">'
-            f'<img class="product-asset" src="{escape(image_path)}" alt="{escape(title)}" '
+            f'<img class="product-asset" src="{escape(localized_image_path)}" alt="{escape(title)}" '
             f'loading="lazy" decoding="async" width="{width}" height="{height}">'
             f'</div>'
             f'<div class="related-name">{escape(title)}</div>'
@@ -278,7 +325,7 @@ def _related_html(related: list[tuple], img_dir) -> str:
 
 # ── Product page template ──────────────────────────────────────────────────
 
-def page_template(row: dict, related: list | None, img_dir) -> str:
+def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None = None) -> str:
     product_id   = row["product_id"].strip()
     page_title   = row["page_title"].strip()
     meta_desc    = row["meta_description"].strip()
@@ -287,10 +334,15 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
     short_desc   = row["short_description"].strip()
 
     image_path, adjustments = resolved_asset(product_id)
+    localized_image_path = _localize_path(image_path, ctx) if ctx else image_path
     image_style = inline_adjustment_vars(adjustments)
     image_width, image_height = asset_dimensions(image_path)
 
-    enrich       = ENRICHMENT.get(product_id, {})
+    # Merge enrichment: English base + locale-specific overrides
+    en_enrich = ENRICHMENT.get(product_id, {})
+    locale_enrich = ctx.enrichment.get(product_id, {}) if ctx else {}
+    enrich = {**en_enrich, **locale_enrich}
+
     origin_place = enrich.get("origin_place", "Turkey")
     story_paras  = enrich.get("story", [full_desc])
     how_to_use   = enrich.get("how_to_use", [
@@ -310,8 +362,9 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
     tagline      = enrich.get("tagline", short_desc)
     ghost_word   = _category_ghost_word(product_id)
 
+    gift_banner_text = ctx.t("gift_banner") if ctx else "Makes a beautiful gift — perfect for food lovers"
     gift_banner = (
-        '<div class="gift-banner" data-reveal>Makes a beautiful gift — perfect for food lovers</div>'
+        f'<div class="gift-banner" data-reveal>{gift_banner_text}</div>'
         if is_gift else ""
     )
 
@@ -327,28 +380,42 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
     related_items = related or []
     head_links = [
-        f'<link rel="preload" as="image" href="{escape(image_path)}">'
+        f'<link rel="preload" as="image" href="{escape(localized_image_path)}">'
     ]
     related_html_block = ""
     if related_items:
+        more_like_this_text = ctx.t("more_like_this") if ctx else "More Like This"
         related_html_block = f"""
     <div class="section" data-reveal>
-      <div class="eyebrow">More Like This</div>
+      <div class="eyebrow">{more_like_this_text}</div>
       <div class="related-grid">
-        {_related_html(related_items, img_dir)}
+        {_related_html(related_items, img_dir, ctx=ctx)}
       </div>
     </div>"""
 
+    lang_attr = ctx.locale if ctx else "en"
+    all_products_text = ctx.t("all_products") if ctx else "All Products"
+    breadcrumb_label = ctx.t("breadcrumb_label") if ctx else "Breadcrumb"
+    origin_story_eyebrow = ctx.t("origin_story_eyebrow") if ctx else "Origin & Story"
+    how_to_enjoy_eyebrow = ctx.t("how_to_enjoy_eyebrow") if ctx else "How to Enjoy"
+    how_to_enjoy_heading = ctx.t("how_to_enjoy_heading") if ctx else "Six ways to use it at home"
+    quality_eyebrow = ctx.t("quality_eyebrow") if ctx else "Quality & Standards"
+    quality_heading = ctx.t("quality_heading") if ctx else "What makes it exceptional"
+    inquire_on_whatsapp = ctx.t("inquire_on_whatsapp") if ctx else "Inquire on WhatsApp"
+    order_via_whatsapp = ctx.t("order_via_whatsapp") if ctx else "Order via WhatsApp"
+
+    all_products_link = _localize_path("index.html", ctx) if ctx else "./index.html"
+
     return f"""<!doctype html>
-<html lang="en">
-{_document_head(f"{seo_title or page_title} | Eco Natural", meta_desc, json_ld=json_ld, extra_links=head_links)}
+<html lang="{lang_attr}">
+{_document_head(f"{seo_title or page_title} | Eco Natural", meta_desc, ctx=ctx, json_ld=json_ld, extra_links=head_links)}
 <body>
 
-{_topbar(show_back_link=True)}
+{_topbar(ctx=ctx, show_back_link=True)}
 
-  <nav class="breadcrumb" aria-label="Breadcrumb">
+  <nav class="breadcrumb" aria-label="{breadcrumb_label}">
     <div class="breadcrumb-inner">
-      <a href="./index.html">All Products</a>
+      <a href="{all_products_link}">{all_products_text}</a>
       <span aria-hidden="true">›</span>
       <span aria-current="page">{escape(_category(product_id))}</span>
     </div>
@@ -356,14 +423,14 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
   <a class="sticky-wa" id="sticky-wa" aria-hidden="true">
     {_WA_SVG}
-    <span>Order via WhatsApp</span>
+    <span>{order_via_whatsapp}</span>
   </a>
 
   <section class="hero">
     <div class="hero-ghost" aria-hidden="true">{escape(ghost_word)}</div>
     <div class="hero-img-wrap">
       <div class="hero-img-stage" style="{image_style}">
-        <img class="product-asset" src="{image_path}" alt="{escape(page_title)}"
+        <img class="product-asset" src="{localized_image_path}" alt="{escape(page_title)}"
           width="{image_width}" height="{image_height}" loading="eager" decoding="async" fetchpriority="high">
       </div>
     </div>
@@ -371,9 +438,9 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
       <div class="hero-eyebrow">{escape(product_line)}</div>
       <h1>{escape(page_title)}</h1>
       <p class="tagline">{escape(tagline)}</p>
-      <a class="btn-wa" href="{_wa_href(page_title)}">
+      <a class="btn-wa" href="{_wa_href(page_title, ctx=ctx)}">
         {_WA_SVG}
-        Inquire on WhatsApp
+        {inquire_on_whatsapp}
       </a>
     </div>
     <div class="scroll-hint" aria-hidden="true">&#9660;</div>
@@ -399,7 +466,7 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
   <div class="wrap">
 
     <div class="section" data-reveal>
-      <div class="eyebrow">Origin &amp; Story</div>
+      <div class="eyebrow">{origin_story_eyebrow}</div>
       <div class="story-card">
         <div class="origin-chip">&#128205; {escape(origin_place)}</div>
         {_story_html(story_paras)}
@@ -407,16 +474,16 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
     </div>
 
     <div class="section" data-reveal>
-      <div class="eyebrow">How to Enjoy</div>
-      <div class="section-heading">Six ways to use it at home</div>
+      <div class="eyebrow">{how_to_enjoy_eyebrow}</div>
+      <div class="section-heading">{how_to_enjoy_heading}</div>
       <div class="use-grid">
         {_use_tiles_html(how_to_use)}
       </div>
     </div>
 
     <div class="section" data-reveal>
-      <div class="eyebrow">Quality &amp; Standards</div>
-      <div class="section-heading">What makes it exceptional</div>
+      <div class="eyebrow">{quality_eyebrow}</div>
+      <div class="section-heading">{quality_heading}</div>
       <div class="quality-grid">
         {_quality_cards_html(badges)}
       </div>
@@ -426,7 +493,7 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
   </div>
 
-{_footer(show_back_link=True)}
+{_footer(ctx=ctx, show_back_link=True)}
 
   {_REVEAL_JS}
   {_STICKY_WA_JS}
@@ -439,7 +506,7 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
 # ── Index / landing page template ─────────────────────────────────────────
 
-def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_dir) -> str:
+def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_dir, *, ctx: Ctx | None = None) -> str:
     groups: dict[str, list] = {}
     for fn, title, pid in items:
         cat = _category(pid)
@@ -464,29 +531,39 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             ordered_groups.append((cat, entries))
 
     cat_nav_html = "\n    ".join(
-        f'<a href="#{_cat_slug(cat)}">{escape(cat)}</a>'
+        f'<a href="#{_cat_slug(cat)}">{escape(ctx.cat_name(cat) if ctx else cat)}</a>'
         for cat, _ in ordered_groups
     )
 
     sections_html = ""
-    preload_links: list[str] = ['<link rel="preload" as="image" href="./logo.png">']
+    logo_src = _localize_path("./logo.png", ctx) if ctx else "./logo.png"
+    preload_links: list[str] = [f'<link rel="preload" as="image" href="{logo_src}">']
     eager_card_limit = 4
     eager_card_index = 0
+    learn_more_text = ctx.t("learn_more") if ctx else "Learn More →"
+    gift_chip_text = ctx.t("gift_chip") if ctx else "Gift"
+
     for cat, entries in ordered_groups:
         cards = ""
         for fn, title, pid in entries:
             image_path, adjustments = resolved_asset(pid)
             card_image_path, card_srcset, card_sizes = card_image_sources(pid)
+            localized_card_image_path = _localize_path(card_image_path, ctx) if ctx else card_image_path
             image_style = inline_adjustment_vars(adjustments)
             image_width, image_height = asset_dimensions(image_path)
-            enrich  = enrichment_map.get(pid, {})
+
+            # Merge enrichment: English base + locale-specific
+            en_enrich = ENRICHMENT.get(pid, {})
+            locale_enrich = ctx.enrichment.get(pid, {}) if ctx else {}
+            enrich = {**en_enrich, **locale_enrich}
+
             desc    = enrich.get("tagline", "")
             is_gift = enrich.get("is_gift", False)
-            gift_chip = '<div class="card-gift">Gift</div>' if is_gift else ""
+            gift_chip = f'<div class="card-gift">{gift_chip_text}</div>' if is_gift else ""
             should_eager_load = eager_card_index < eager_card_limit
             if should_eager_load:
                 preload_links.append(
-                    f'<link rel="preload" as="image" href="{escape(card_image_path)}" '
+                    f'<link rel="preload" as="image" href="{escape(localized_card_image_path)}" '
                     f'imagesrcset="{escape(card_srcset)}" imagesizes="{escape(card_sizes)}">'
                 )
             loading = "eager" if should_eager_load else "lazy"
@@ -496,54 +573,75 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
         <a class="product-card" href="{escape(fn)}" data-reveal data-prefetch-route>
           <div class="card-img-wrap" style="{image_style}">
             <div class="card-img-stage">
-              <img class="product-asset" src="{escape(card_image_path)}" srcset="{escape(card_srcset)}" sizes="{escape(card_sizes)}" alt="{escape(title)}" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
+              <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(card_srcset)}" sizes="{escape(card_sizes)}" alt="{escape(title)}" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
             </div>
           </div>
           <div class="card-body">
-            <div class="card-category">{escape(cat)}</div>
+            <div class="card-category">{escape(ctx.cat_name(cat) if ctx else cat)}</div>
             <div class="card-name">{escape(title)}</div>
             <div class="card-desc">{escape(desc)}</div>
             {gift_chip}
-            <div class="card-cta">Learn More &#8594;</div>
+            <div class="card-cta">{learn_more_text}</div>
           </div>
         </a>"""
 
+        cat_display_name = ctx.cat_name(cat) if ctx else cat
         sections_html += f"""
     <div class="catalog-section" id="{_cat_slug(cat)}">
-      <div class="eyebrow">{escape(cat)}</div>
+      <div class="eyebrow">{escape(cat_display_name)}</div>
       <div class="product-grid">
         {cards}
       </div>
     </div>"""
 
-    wa_href_index = f"https://wa.me/{WA_NUMBER.replace('+','').replace(' ','')}?text=Hello%2C%20I%27d%20like%20to%20order%20Eco%20Natural%20products"
+    wa_num = WA_NUMBER.replace('+','').replace(' ','')
+    if ctx:
+        wa_msg = ctx.t("wa_index_message")
+        wa_href_index = f"https://wa.me/{wa_num}?text={quote(wa_msg)}"
+    else:
+        wa_href_index = f"https://wa.me/{wa_num}?text=Hello%2C%20I%27d%20like%20to%20order%20Eco%20Natural%20products"
+
+    # Localized strings
+    index_title = ctx.t("index_title") if ctx else "Eco Natural — Lasting Taste of Earth"
+    index_meta_desc = ctx.t("index_meta_description", count=len(items)) if ctx else f"Village-origin cold-pressed natural food extracts from Büyük Çaltıcak, Aegean Turkey. {len(items)} artisan products."
+    hero_tagline = ctx.t("hero_tagline") if ctx else "Lasting Taste of Earth"
+    cat_nav_label = ctx.t("cat_nav_label") if ctx else "Product categories"
+    find_us_eyebrow = ctx.t("find_us_eyebrow") if ctx else "Find Us"
+    find_us_heading = ctx.t("find_us_heading") if ctx else "Order Direct"
+    find_us_body = ctx.t("find_us_body") if ctx else "Scan a product barcode to learn more, or reach us directly on WhatsApp to place an order, ask about availability, or get help choosing the right product for you."
+    chat_on_whatsapp = ctx.t("chat_on_whatsapp") if ctx else "Chat on WhatsApp"
+    find_us_note = ctx.t("find_us_note") if ctx else "We speak Turkish, English and can help in Russian."
+    footer_tagline = ctx.t("footer_tagline") if ctx else "Lasting Taste of Earth"
+    footer_sub = ctx.t("footer_sub") if ctx else "Eco Natural · Aegean Turkey"
+
+    # Stamps from locales
+    stamps = ctx.strings.get("stamps", ["%100 Natural", "Cold Press", "Katkısız", "Büyük Çaltıcak", "Glass Bottle"]) if ctx else ["%100 Natural", "Cold Press", "Katkısız", "Büyük Çaltıcak", "Glass Bottle"]
+    stamps_html = "\n        ".join(f'<div class="stamp">{escape(s)}</div>' for s in stamps)
+
+    lang_attr = ctx.locale if ctx else "en"
 
     return f"""<!doctype html>
-<html lang="en">
-{_document_head("Eco Natural — Lasting Taste of Earth", f"Village-origin cold-pressed natural food extracts from Büyük Çaltıcak, Aegean Turkey. {len(items)} artisan products.", extra_links=preload_links)}
+<html lang="{lang_attr}">
+{_document_head(index_title, index_meta_desc, ctx=ctx, extra_links=preload_links)}
 <body>
 
-{_topbar()}
+{_topbar(ctx=ctx)}
 
   <section class="hero">
     <div class="hero-ghost" aria-hidden="true">ECO</div>
     <div class="hero-content">
-      <img class="hero-logo" src="./logo.png" alt="Eco Natural" width="2000" height="2000" loading="eager" decoding="async" fetchpriority="high">
+      <img class="hero-logo" src="{logo_src}" alt="Eco Natural" width="2000" height="2000" loading="eager" decoding="async" fetchpriority="high">
       <h1 data-reveal>Eco Natural</h1>
-      <p class="hero-tagline" data-reveal><em>Lasting Taste of Earth</em></p>
+      <p class="hero-tagline" data-reveal><em>{hero_tagline}</em></p>
       <div class="stamp-row" data-reveal>
-        <div class="stamp">%100 Natural</div>
-        <div class="stamp">Cold Press</div>
-        <div class="stamp">Katkısız</div>
-        <div class="stamp">Büyük Çaltıcak</div>
-        <div class="stamp">Glass Bottle</div>
+        {stamps_html}
       </div>
     </div>
   </section>
 
   {_torn("#F6FAF4")}
 
-  <nav class="cat-nav" aria-label="Product categories">
+  <nav class="cat-nav" aria-label="{cat_nav_label}">
     {cat_nav_html}
   </nav>
 
@@ -551,21 +649,20 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
 
   <section class="find-us">
     <div class="find-us-inner">
-      <div class="eyebrow" style="justify-content:center;">Find Us</div>
-      <h2 class="find-us-heading" data-reveal>Order Direct</h2>
+      <div class="eyebrow" style="justify-content:center;">{find_us_eyebrow}</div>
+      <h2 class="find-us-heading" data-reveal>{find_us_heading}</h2>
       <p class="find-us-body" data-reveal>
-        Scan a product barcode to learn more, or reach us directly on WhatsApp to place an order,
-        ask about availability, or get help choosing the right product for you.
+        {find_us_body}
       </p>
       <a class="btn-wa" href="{wa_href_index}" data-reveal>
         {_WA_SVG}
-        Chat on WhatsApp
+        {chat_on_whatsapp}
       </a>
-      <p class="find-us-note" data-reveal>We speak Turkish, English and can help in Russian.</p>
+      <p class="find-us-note" data-reveal>{find_us_note}</p>
     </div>
   </section>
 
-{_footer()}
+{_footer(ctx=ctx)}
 
   {_REVEAL_JS}
   {_ROUTE_PREFETCH_JS}
