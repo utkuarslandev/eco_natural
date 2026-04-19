@@ -1157,3 +1157,6 @@ body::before {{
 }}
 [data-reveal].revealed {{ opacity: 1; transform: none; }}
 """
+
+
+CSS_SITE = "\n\n".join([CSS_PRODUCT, CSS_INDEX])

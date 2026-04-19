@@ -3,8 +3,8 @@ from html import escape
 from urllib.parse import quote
 
 from enrichment import ENRICHMENT, _category
-from image_assets import inline_adjustment_vars, resolved_asset
-from styles import FONTS_LINK, CSS_PRODUCT, CSS_INDEX
+from image_assets import asset_dimensions, card_image_sources, inline_adjustment_vars, resolved_asset
+from styles import FONTS_LINK
 
 WA_NUMBER = "+900000000000"  # placeholder — replace with real number before going live
 
@@ -84,6 +84,81 @@ _STICKY_WA_JS = """
 })();
 </script>
 """
+
+_ROUTE_PREFETCH_JS = """
+<script>
+(function(){
+  var seen = new Set();
+
+  function prefetch(href) {
+    if (!href || seen.has(href)) return;
+    seen.add(href);
+    var link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = href;
+    link.as = 'document';
+    document.head.appendChild(link);
+  }
+
+  function bind(anchor) {
+    if (!anchor || !anchor.href) return;
+    var href = anchor.href;
+    anchor.addEventListener('mouseenter', function(){ prefetch(href); }, {passive:true});
+    anchor.addEventListener('focus', function(){ prefetch(href); }, {passive:true});
+    anchor.addEventListener('touchstart', function(){ prefetch(href); }, {passive:true, once:true});
+  }
+
+  var anchors = document.querySelectorAll('a[data-prefetch-route]');
+  anchors.forEach(bind);
+
+  var eager = Array.prototype.slice.call(anchors, 0, 4);
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(function(){ eager.forEach(function(a){ prefetch(a.href); }); }, {timeout: 1200});
+  } else {
+    setTimeout(function(){ eager.forEach(function(a){ prefetch(a.href); }); }, 800);
+  }
+})();
+</script>
+"""
+
+
+def _document_head(title: str, description: str, *, json_ld: str | None = None, extra_links: list[str] | None = None) -> str:
+    json_ld_block = ""
+    if json_ld:
+        json_ld_block = f"""
+  <script type="application/ld+json">
+{json_ld}
+  </script>"""
+    extra_link_block = ""
+    if extra_links:
+        extra_link_block = "\n" + "\n".join(f"  {link}" for link in extra_links)
+
+    return f"""<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{escape(title)}</title>
+  <meta name="description" content="{escape(description)}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="{FONTS_LINK}" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">{extra_link_block}{json_ld_block}
+</head>"""
+
+
+def _topbar(*, show_back_link: bool = False) -> str:
+    back_link = ""
+    if show_back_link:
+        back_link = '\n    <a class="topbar-back" href="./index.html">&#8592; All Products</a>'
+
+    return f"""  <nav class="topbar">
+    <div class="topbar-left">
+      <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
+      <div class="topbar-lockup">
+        <span class="topbar-brand">ECO NATURAL</span>
+        <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak &middot; Ayd&#305;n</span>
+      </div>
+    </div>{back_link}
+  </nav>"""
 
 
 def _wa_href(product_name: str) -> str:
@@ -169,10 +244,12 @@ def _related_html(related: list[tuple], img_dir) -> str:
     for slug, title, pid in related[:4]:
         image_path, adjustments = resolved_asset(pid)
         style_attr = inline_adjustment_vars(adjustments)
+        width, height = asset_dimensions(image_path)
         parts.append(
-            f'<a class="related-card" href="{escape(slug)}">'
+            f'<a class="related-card" href="{escape(slug)}" data-prefetch-route>'
             f'<div class="related-img-stage" style="{style_attr}">'
-            f'<img class="product-asset" src="{escape(image_path)}" alt="{escape(title)}" loading="lazy">'
+            f'<img class="product-asset" src="{escape(image_path)}" alt="{escape(title)}" '
+            f'loading="lazy" decoding="async" width="{width}" height="{height}">'
             f'</div>'
             f'<div class="related-name">{escape(title)}</div>'
             f'</a>'
@@ -192,6 +269,7 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
     image_path, adjustments = resolved_asset(product_id)
     image_style = inline_adjustment_vars(adjustments)
+    image_width, image_height = asset_dimensions(image_path)
 
     enrich       = ENRICHMENT.get(product_id, {})
     origin_place = enrich.get("origin_place", "Turkey")
@@ -229,6 +307,9 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
     }, ensure_ascii=False, indent=2)
 
     related_items = related or []
+    head_links = [
+        f'<link rel="preload" as="image" href="{escape(image_path)}">'
+    ]
     related_html_block = ""
     if related_items:
         related_html_block = f"""
@@ -241,28 +322,10 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
     return f"""<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{escape(seo_title or page_title)} | Eco Natural</title>
-  <meta name="description" content="{escape(meta_desc)}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="{FONTS_LINK}" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script type="application/ld+json">
-{json_ld}
-  </script>
-</head>
+{_document_head(f"{seo_title or page_title} | Eco Natural", meta_desc, json_ld=json_ld, extra_links=head_links)}
 <body>
 
-  <nav class="topbar">
-    <div class="topbar-left">
-      <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
-      <span class="topbar-brand">ECO NATURAL</span>
-    </div>
-    <a class="topbar-back" href="./index.html">&#8592; All Products</a>
-  </nav>
+{_topbar(show_back_link=True)}
 
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <div class="breadcrumb-inner">
@@ -281,7 +344,8 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
     <div class="hero-ghost" aria-hidden="true">{escape(ghost_word)}</div>
     <div class="hero-img-wrap">
       <div class="hero-img-stage" style="{image_style}">
-        <img class="product-asset" src="{image_path}" alt="{escape(page_title)}">
+        <img class="product-asset" src="{image_path}" alt="{escape(page_title)}"
+          width="{image_width}" height="{image_height}" loading="eager" decoding="async" fetchpriority="high">
       </div>
     </div>
     <div class="hero-copy">
@@ -351,6 +415,7 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
   {_REVEAL_JS}
   {_STICKY_WA_JS}
+  {_ROUTE_PREFETCH_JS}
 
 </body>
 </html>
@@ -360,8 +425,6 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 # ── Index / landing page template ─────────────────────────────────────────
 
 def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_dir) -> str:
-    from pathlib import Path
-
     groups: dict[str, list] = {}
     for fn, title, pid in items:
         cat = _category(pid)
@@ -391,20 +454,34 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
     )
 
     sections_html = ""
+    preload_links: list[str] = ['<link rel="preload" as="image" href="./logo.png">']
+    eager_card_limit = 4
+    eager_card_index = 0
     for cat, entries in ordered_groups:
         cards = ""
         for fn, title, pid in entries:
             image_path, adjustments = resolved_asset(pid)
+            card_image_path, card_srcset, card_sizes = card_image_sources(pid)
             image_style = inline_adjustment_vars(adjustments)
+            image_width, image_height = asset_dimensions(image_path)
             enrich  = enrichment_map.get(pid, {})
             desc    = enrich.get("tagline", "")
             is_gift = enrich.get("is_gift", False)
             gift_chip = '<div class="card-gift">Gift</div>' if is_gift else ""
+            should_eager_load = eager_card_index < eager_card_limit
+            if should_eager_load:
+                preload_links.append(
+                    f'<link rel="preload" as="image" href="{escape(card_image_path)}" '
+                    f'imagesrcset="{escape(card_srcset)}" imagesizes="{escape(card_sizes)}">'
+                )
+            loading = "eager" if should_eager_load else "lazy"
+            fetchpriority = ' fetchpriority="high"' if should_eager_load else ""
+            eager_card_index += 1
             cards += f"""
-        <a class="product-card" href="{escape(fn)}" data-reveal>
+        <a class="product-card" href="{escape(fn)}" data-reveal data-prefetch-route>
           <div class="card-img-wrap" style="{image_style}">
             <div class="card-img-stage">
-              <img class="product-asset" src="{escape(image_path)}" alt="{escape(title)}" loading="lazy">
+              <img class="product-asset" src="{escape(card_image_path)}" srcset="{escape(card_srcset)}" sizes="{escape(card_sizes)}" alt="{escape(title)}" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
             </div>
           </div>
           <div class="card-body">
@@ -428,32 +505,15 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
 
     return f"""<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eco Natural — Lasting Taste of Earth</title>
-  <meta name="description" content="Village-origin cold-pressed natural food extracts from B&uuml;y&uuml;k &Ccedil;alt&#305;cak, Aegean Turkey. {len(items)} artisan products.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="{FONTS_LINK}" rel="stylesheet">
-  <style>{CSS_INDEX}</style>
-</head>
+{_document_head("Eco Natural — Lasting Taste of Earth", f"Village-origin cold-pressed natural food extracts from Büyük Çaltıcak, Aegean Turkey. {len(items)} artisan products.", extra_links=preload_links)}
 <body>
 
-  <nav class="topbar">
-    <div class="topbar-left">
-      <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
-      <div class="topbar-lockup">
-        <span class="topbar-brand">ECO NATURAL</span>
-        <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak &middot; Ayd&#305;n</span>
-      </div>
-    </div>
-  </nav>
+{_topbar()}
 
   <section class="hero">
     <div class="hero-ghost" aria-hidden="true">ECO</div>
     <div class="hero-content">
-      <img class="hero-logo" src="./logo.png" alt="Eco Natural">
+      <img class="hero-logo" src="./logo.png" alt="Eco Natural" width="2000" height="2000" loading="eager" decoding="async" fetchpriority="high">
       <h1 data-reveal>Eco Natural</h1>
       <p class="hero-tagline" data-reveal><em>Lasting Taste of Earth</em></p>
       <div class="stamp-row" data-reveal>
@@ -496,6 +556,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
   </footer>
 
   {_REVEAL_JS}
+  {_ROUTE_PREFETCH_JS}
 
 </body>
 </html>

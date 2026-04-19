@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from enrichment import ENRICHMENT, _category
 from image_assets import resolved_asset
 from templates import page_template, index_template
-from styles import CSS_PRODUCT
+from styles import CSS_SITE
 
 
 def main() -> None:
@@ -34,7 +34,7 @@ def main() -> None:
         pid   = row["product_id"].strip()
         by_category.setdefault(_category(pid), []).append((f"{slug}.html", title, pid))
 
-    (OUTPUT_DIR / "style.css").write_text(CSS_PRODUCT, encoding="utf-8")
+    (OUTPUT_DIR / "style.css").write_text(CSS_SITE, encoding="utf-8")
 
     index_items: list[tuple[str, str, str]] = []
     for row in products:
