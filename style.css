@@ -67,6 +67,13 @@ body::before {
   object-fit: contain;
   object-position: center center;
 }
+.topbar-lockup {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
 .topbar-brand {
   font-family: 'Cinzel', serif;
   font-weight: 400;
@@ -81,6 +88,7 @@ body::before {
   letter-spacing: 0.15em;
   color: rgba(240,216,152,0.5);
   line-height: 1;
+  white-space: nowrap;
 }
 .topbar-back {
   font-family: 'Raleway', sans-serif;
@@ -730,8 +738,10 @@ body::before {
 }
 .topbar-lockup {
   display: flex;
-  flex-direction: column;
-  gap: 1px;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 .topbar-brand {
   font-family: 'Cinzel', serif;
@@ -748,6 +758,7 @@ body::before {
   letter-spacing: 0.15em;
   color: rgba(240,216,152,0.5);
   line-height: 1;
+  white-space: nowrap;
 }
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
