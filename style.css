@@ -59,7 +59,7 @@ body::before {
   z-index: 100;
   border-bottom: 2px solid var(--gold);
 }
-.topbar-left { display: flex; align-items: center; gap: 12px; }
+.topbar-home { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .topbar-logo {
   width: 44px;
   height: 44px;
@@ -73,6 +73,14 @@ body::before {
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   color: var(--gold-pale);
+}
+.topbar-sub {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: rgba(240,216,152,0.5);
+  line-height: 1;
 }
 .topbar-back {
   font-family: 'Raleway', sans-serif;
@@ -712,7 +720,7 @@ body::before {
   z-index: 100;
   border-bottom: 2px solid var(--gold);
 }
-.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-home { display: flex; align-items: center; gap: 14px; text-decoration: none; }
 .topbar-logo {
   width: 48px;
   height: 48px;

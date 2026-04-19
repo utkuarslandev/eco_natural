@@ -159,13 +159,13 @@ def _topbar(*, show_back_link: bool = False) -> str:
         back_link = '\n    <a class="topbar-back" href="./index.html">&#8592; All Products</a>'
 
     return f"""  <nav class="topbar">
-    <div class="topbar-left">
+    <a class="topbar-home" href="./index.html" aria-label="Eco Natural home">
       <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
       <div class="topbar-lockup">
         <span class="topbar-brand">ECO NATURAL</span>
         <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak</span>
       </div>
-    </div>{back_link}
+    </a>{back_link}
   </nav>"""
 
 
