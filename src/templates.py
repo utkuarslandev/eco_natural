@@ -54,16 +54,24 @@ _REVEAL_JS = """
 (function(){
   var els = document.querySelectorAll('[data-reveal]');
   if(!els.length) return;
+
+  var ordered = Array.prototype.slice.call(els);
+  var indexMap = new Map();
+  ordered.forEach(function(el, index){ indexMap.set(el, index); });
+
   var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        e.target.classList.add('revealed');
-        io.unobserve(e.target);
-      }
-    });
+    entries
+      .filter(function(entry){ return entry.isIntersecting; })
+      .sort(function(a, b){ return indexMap.get(a.target) - indexMap.get(b.target); })
+      .forEach(function(entry, batchIndex){
+        var delay = Math.min(batchIndex, 5) * 70;
+        entry.target.style.transitionDelay = delay + 'ms';
+        entry.target.classList.add('revealed');
+        io.unobserve(entry.target);
+      });
   }, {threshold: 0.12});
-  els.forEach(function(el, i){
-    el.style.transitionDelay = (i * 100) + 'ms';
+  els.forEach(function(el){
+    el.style.transitionDelay = '0ms';
     io.observe(el);
   });
 })();
@@ -155,10 +163,21 @@ def _topbar(*, show_back_link: bool = False) -> str:
       <img class="topbar-logo" src="./logo.png" alt="Eco Natural">
       <div class="topbar-lockup">
         <span class="topbar-brand">ECO NATURAL</span>
-        <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak &middot; Ayd&#305;n</span>
+        <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak</span>
       </div>
     </div>{back_link}
   </nav>"""
+
+
+def _footer(*, show_back_link: bool = False) -> str:
+    back_link = ""
+    if show_back_link:
+        back_link = '\n    <a href="./index.html">&#8592; Back to All Products</a>'
+
+    return f"""  <footer class="footer">
+    <img class="footer-logo" src="./logo.png" alt="Eco Natural">
+    <p class="footer-tagline">Lasting Taste of Earth</p>{back_link}
+  </footer>"""
 
 
 def _wa_href(product_name: str) -> str:
@@ -407,11 +426,7 @@ def page_template(row: dict, related: list | None, img_dir) -> str:
 
   </div>
 
-  <footer class="footer">
-    <p class="footer-tagline">Lasting Taste of Earth</p>
-    <a href="./index.html">&#8592; Back to All Products</a>
-    <p class="footer-sub">Eco Natural</p>
-  </footer>
+{_footer(show_back_link=True)}
 
   {_REVEAL_JS}
   {_STICKY_WA_JS}
@@ -550,10 +565,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
     </div>
   </section>
 
-  <footer class="footer">
-    <p class="footer-tagline"><em>Lasting Taste of Earth</em></p>
-    <p class="footer-sub">Eco Natural &middot; Aegean Turkey</p>
-  </footer>
+{_footer()}
 
   {_REVEAL_JS}
   {_ROUTE_PREFETCH_JS}
