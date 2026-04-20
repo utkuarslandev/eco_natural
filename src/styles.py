@@ -110,6 +110,31 @@ body::before {{
 }}
 .topbar-back:hover {{ opacity: 1; }}
 
+.lang-switcher {{
+  display: flex;
+  gap: 0.4rem;
+  margin-left: auto;
+  align-items: center;
+}}
+.lang-item {{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-pale);
+  opacity: 0.6;
+  text-decoration: none;
+  padding: 0.2rem 0.3rem;
+  transition: opacity 0.2s;
+}}
+.lang-item:hover {{
+  opacity: 1;
+}}
+.lang-item--active {{
+  opacity: 1;
+  border-bottom: 1px solid currentColor;
+}}
+
 .breadcrumb {{
   background: var(--parch-lt);
   border-bottom: 1px solid var(--parch-dk);

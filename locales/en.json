@@ -1,6 +1,6 @@
 {
-  "back_link": "← All Products",
-  "back_footer": "← Back to All Products",
+  "back_link": "&#8592; All Products",
+  "back_footer": "&#8592; Back to All Products",
   "all_products": "All Products",
   "breadcrumb_label": "Breadcrumb",
   "cat_nav_label": "Product categories",
@@ -13,7 +13,7 @@
   "quality_eyebrow": "Quality & Standards",
   "quality_heading": "What makes it exceptional",
   "more_like_this": "More Like This",
-  "learn_more": "Learn More →",
+  "learn_more": "Learn More &#8594;",
   "gift_chip": "Gift",
   "gift_banner": "Makes a beautiful gift — perfect for food lovers",
   "find_us_eyebrow": "Find Us",

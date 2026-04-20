@@ -30,7 +30,9 @@ class Ctx:
 
 def _localize_path(path: str, ctx: Ctx) -> str:
     if ctx.is_subdir and not path.startswith(("http://", "https://")):
-        return "../" + path
+        # Remove leading ./ if present, then add ../
+        cleaned = path.lstrip("./") if path.startswith("./") else path
+        return "../" + cleaned
     return path
 
 _WAVE = (
@@ -186,16 +188,20 @@ def _document_head(title: str, description: str, *, ctx: Ctx | None = None, json
 
 def _topbar(*, ctx: Ctx | None = None, show_back_link: bool = False, slug: str | None = None) -> str:
     back_link = ""
-    if show_back_link and ctx:
-        back_link_text = ctx.t("back_link")
-        back_link = f'\n    <a class="topbar-back" href="{_localize_path("index.html", ctx)}">{back_link_text}</a>'
-    elif show_back_link:
-        back_link = '\n    <a class="topbar-back" href="./index.html">&#8592; All Products</a>'
+    if show_back_link:
+        if ctx:
+            back_link_text = ctx.t("back_link")
+            back_link_href = _localize_path("./index.html", ctx)
+        else:
+            back_link_text = "&#8592; All Products"
+            back_link_href = "./index.html"
+        back_link = f'\n    <a class="topbar-back" href="{back_link_href}">{back_link_text}</a>'
 
     logo_src = _localize_path("./logo.png", ctx) if ctx else "./logo.png"
+    home_href = _localize_path("./index.html", ctx) if ctx else "./index.html"
 
     return f"""  <nav class="topbar">
-    <a class="topbar-home" href="{_localize_path("index.html", ctx) if ctx else "./index.html"}" aria-label="Eco Natural home">
+    <a class="topbar-home" href="{home_href}" aria-label="Eco Natural home">
       <img class="topbar-logo" src="{logo_src}" alt="Eco Natural">
       <div class="topbar-lockup">
         <span class="topbar-brand">ECO NATURAL</span>
@@ -209,7 +215,7 @@ def _footer(*, ctx: Ctx | None = None, show_back_link: bool = False) -> str:
     back_link = ""
     if show_back_link:
         back_footer_text = ctx.t("back_footer") if ctx else "← Back to All Products"
-        back_link_href = _localize_path("index.html", ctx) if ctx else "./index.html"
+        back_link_href = _localize_path("./index.html", ctx) if ctx else "./index.html"
         back_link = f'\n    <a href="{back_link_href}">{back_footer_text}</a>'
 
     footer_logo_src = _localize_path("./logo.png", ctx) if ctx else "./logo.png"
@@ -217,7 +223,7 @@ def _footer(*, ctx: Ctx | None = None, show_back_link: bool = False) -> str:
 
     return f"""  <footer class="footer">
     <img class="footer-logo" src="{footer_logo_src}" alt="Eco Natural">
-    <p class="footer-tagline">{footer_tagline}</p>{back_link}
+    <p class="footer-tagline">{escape(footer_tagline)}</p>{back_link}
   </footer>"""
 
 
@@ -404,7 +410,7 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
     inquire_on_whatsapp = ctx.t("inquire_on_whatsapp") if ctx else "Inquire on WhatsApp"
     order_via_whatsapp = ctx.t("order_via_whatsapp") if ctx else "Order via WhatsApp"
 
-    all_products_link = _localize_path("index.html", ctx) if ctx else "./index.html"
+    all_products_link = _localize_path("./index.html", ctx) if ctx else "./index.html"
 
     return f"""<!doctype html>
 <html lang="{lang_attr}">
@@ -466,7 +472,7 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
   <div class="wrap">
 
     <div class="section" data-reveal>
-      <div class="eyebrow">{origin_story_eyebrow}</div>
+      <div class="eyebrow">{escape(origin_story_eyebrow)}</div>
       <div class="story-card">
         <div class="origin-chip">&#128205; {escape(origin_place)}</div>
         {_story_html(story_paras)}
@@ -474,16 +480,16 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
     </div>
 
     <div class="section" data-reveal>
-      <div class="eyebrow">{how_to_enjoy_eyebrow}</div>
-      <div class="section-heading">{how_to_enjoy_heading}</div>
+      <div class="eyebrow">{escape(how_to_enjoy_eyebrow)}</div>
+      <div class="section-heading">{escape(how_to_enjoy_heading)}</div>
       <div class="use-grid">
         {_use_tiles_html(how_to_use)}
       </div>
     </div>
 
     <div class="section" data-reveal>
-      <div class="eyebrow">{quality_eyebrow}</div>
-      <div class="section-heading">{quality_heading}</div>
+      <div class="eyebrow">{escape(quality_eyebrow)}</div>
+      <div class="section-heading">{escape(quality_heading)}</div>
       <div class="quality-grid">
         {_quality_cards_html(badges)}
       </div>
@@ -632,7 +638,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
     <div class="hero-content">
       <img class="hero-logo" src="{logo_src}" alt="Eco Natural" width="2000" height="2000" loading="eager" decoding="async" fetchpriority="high">
       <h1 data-reveal>Eco Natural</h1>
-      <p class="hero-tagline" data-reveal><em>{hero_tagline}</em></p>
+      <p class="hero-tagline" data-reveal><em>{escape(hero_tagline)}</em></p>
       <div class="stamp-row" data-reveal>
         {stamps_html}
       </div>
@@ -641,7 +647,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
 
   {_torn("#F6FAF4")}
 
-  <nav class="cat-nav" aria-label="{cat_nav_label}">
+  <nav class="cat-nav" aria-label="{escape(cat_nav_label)}">
     {cat_nav_html}
   </nav>
 
@@ -649,8 +655,8 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
 
   <section class="find-us">
     <div class="find-us-inner">
-      <div class="eyebrow" style="justify-content:center;">{find_us_eyebrow}</div>
-      <h2 class="find-us-heading" data-reveal>{find_us_heading}</h2>
+      <div class="eyebrow" style="justify-content:center;">{escape(find_us_eyebrow)}</div>
+      <h2 class="find-us-heading" data-reveal>{escape(find_us_heading)}</h2>
       <p class="find-us-body" data-reveal>
         {find_us_body}
       </p>
@@ -658,7 +664,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
         {_WA_SVG}
         {chat_on_whatsapp}
       </a>
-      <p class="find-us-note" data-reveal>{find_us_note}</p>
+      <p class="find-us-note" data-reveal>{escape(find_us_note)}</p>
     </div>
   </section>
 

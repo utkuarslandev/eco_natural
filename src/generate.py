@@ -47,49 +47,72 @@ def load_locale_enrichment(locale: str) -> dict:
 
 
 def main() -> None:
-    products: list[dict] = []
-    with CSV_PATH.open(newline="", encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            products.append(dict(row))
+    # Write style.css once (shared across all locales)
+    (ROOT / "style.css").write_text(CSS_SITE, encoding="utf-8")
 
-    by_category: dict[str, list] = {}
-    for row in products:
-        slug  = row["slug"].strip()
-        title = row["page_title"].strip()
-        pid   = row["product_id"].strip()
-        by_category.setdefault(_category(pid), []).append((f"{slug}.html", title, pid))
+    # Loop through each locale
+    for locale, output_dir, csv_path in LOCALES:
+        # Create output directory
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-    (OUTPUT_DIR / "style.css").write_text(CSS_SITE, encoding="utf-8")
+        # Load locale-specific data
+        strings = load_locale_strings(locale)
+        enrichment = load_locale_enrichment(locale)
 
-    index_items: list[tuple[str, str, str]] = []
-    for row in products:
-        slug       = row["slug"].strip()
-        page_title = row["page_title"].strip()
-        product_id = row["product_id"].strip()
-        filename   = f"{slug}.html"
-        cat        = _category(product_id)
-        related    = [(fn, t, pid) for fn, t, pid in by_category.get(cat, []) if pid != product_id]
-        (OUTPUT_DIR / filename).write_text(
-            page_template(row, related=related, img_dir=IMG_DIR),
+        # Create context object
+        ctx = Ctx(
+            locale=locale,
+            strings=strings,
+            enrichment=enrichment,
+            is_subdir=(locale != "en")
+        )
+
+        # Read CSV for this locale
+        products: list[dict] = []
+        with csv_path.open(newline="", encoding="utf-8") as fh:
+            for row in csv.DictReader(fh):
+                products.append(dict(row))
+
+        # Group by category
+        by_category: dict[str, list] = {}
+        for row in products:
+            slug  = row["slug"].strip()
+            title = row["page_title"].strip()
+            pid   = row["product_id"].strip()
+            by_category.setdefault(_category(pid), []).append((f"{slug}.html", title, pid))
+
+        # Generate product pages
+        index_items: list[tuple[str, str, str]] = []
+        for row in products:
+            slug       = row["slug"].strip()
+            page_title = row["page_title"].strip()
+            product_id = row["product_id"].strip()
+            filename   = f"{slug}.html"
+            cat        = _category(product_id)
+            related    = [(fn, t, pid) for fn, t, pid in by_category.get(cat, []) if pid != product_id]
+            (output_dir / filename).write_text(
+                page_template(row, related=related, img_dir=IMG_DIR, ctx=ctx),
+                encoding="utf-8",
+            )
+            index_items.append((filename, page_title, product_id))
+
+        # Generate index page
+        index_items.sort(key=lambda x: x[0])
+        (output_dir / "index.html").write_text(
+            index_template(index_items, enrichment_map=enrichment, img_dir=IMG_DIR, ctx=ctx),
             encoding="utf-8",
         )
-        index_items.append((filename, page_title, product_id))
 
-    index_items.sort(key=lambda x: x[0])
-    (OUTPUT_DIR / "index.html").write_text(
-        index_template(index_items, enrichment_map=ENRICHMENT, img_dir=IMG_DIR),
-        encoding="utf-8",
-    )
+        # Check for missing images
+        missing = [pid for _, _, pid in index_items if not (ROOT / resolved_asset(pid)[0]).exists()]
 
-    missing   = [pid for _, _, pid in index_items if not (ROOT / resolved_asset(pid)[0]).exists()]
+        print(f"[{locale.upper()}] Generated {len(index_items)} pages → {output_dir}")
+        if missing:
+            print("  Missing images:")
+            for img in missing:
+                print(f"    - {img}")
 
-    print(f"Generated {len(index_items)} product pages + index.html + style.css → {OUTPUT_DIR}")
-    if missing:
-        print("Missing images:")
-        for img in missing:
-            print(f"  - {img}")
-    else:
-        print("All product images found.")
+    print(f"\nAll locales complete. style.css → {ROOT / 'style.css'}")
 
 
 if __name__ == "__main__":
