@@ -795,9 +795,9 @@ body::before {
     text-align: left;
     order: 2;
   }
-  .hero-ghost { display: none; }
+  .hero-copy ~ .hero-ghost { display: none; }
   .scroll-hint { order: 3; flex: 0 0 100%; }
-  .hero h1, .hero .tagline { text-align: left; }
+  .hero-copy h1, .hero-copy .tagline { text-align: left; }
 }
 
 
