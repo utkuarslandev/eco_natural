@@ -810,7 +810,6 @@ body::before {{
     text-align: left;
     order: 2;
   }}
-  .hero-copy ~ .hero-ghost {{ display: none; }}
   .scroll-hint {{ order: 3; flex: 0 0 100%; }}
   .hero-copy h1, .hero-copy .tagline {{ text-align: left; }}
 }}
