@@ -439,7 +439,7 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
         "name": page_title,
         "description": meta_desc,
         "sku": product_id,
-        "image": image_path,
+        "image": localized_image_path,
         "brand": {"@type": "Brand", "name": "Eco Natural"},
     }, ensure_ascii=False, indent=2)
 
