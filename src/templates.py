@@ -186,16 +186,18 @@ def _document_head(title: str, description: str, *, ctx: Ctx | None = None, json
         extra_link_block = "\n" + "\n".join(f"  {link}" for link in extra_links)
 
     stylesheet_href = "style.css"
+    favicon_href = "logo.png"
     if ctx:
         stylesheet_href = _localize_path(stylesheet_href, ctx)
+        favicon_href = _localize_path(favicon_href, ctx)
 
     return f"""<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{escape(title)}</title>
   <meta name="description" content="{escape(description)}">
-  <link rel="icon" href="./logo.png" type="image/png">
-  <link rel="apple-touch-icon" href="./logo.png">
+  <link rel="icon" href="{favicon_href}" type="image/png">
+  <link rel="apple-touch-icon" href="{favicon_href}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="{FONTS_LINK}" rel="stylesheet">
