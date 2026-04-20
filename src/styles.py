@@ -1034,6 +1034,7 @@ body::before {{
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--terra);
+  margin-top: clamp(2rem, 8vw, 4rem);
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -1051,6 +1052,7 @@ body::before {{
   padding: clamp(3rem, 6vw, 5rem) 24px 0;
   max-width: var(--container);
   margin: 0 auto;
+  scroll-margin-top: clamp(120px, 15vw, 300px);
 }}
 
 .product-grid {{
