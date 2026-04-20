@@ -35,6 +35,23 @@ def _localize_path(path: str, ctx: Ctx) -> str:
         return "../" + cleaned
     return path
 
+
+def _localize_srcset(srcset: str, ctx: Ctx) -> str:
+    """Localize all paths in a srcset string (format: 'path widthw, path widthw, ...')"""
+    if not ctx or not ctx.is_subdir:
+        return srcset
+    parts = srcset.split(", ")
+    localized_parts = []
+    for part in parts:
+        path_and_width = part.rsplit(" ", 1)
+        if len(path_and_width) == 2:
+            path, width = path_and_width
+            localized_path = _localize_path(path, ctx)
+            localized_parts.append(f"{localized_path} {width}")
+        else:
+            localized_parts.append(part)
+    return ", ".join(localized_parts)
+
 _WAVE = (
     "M0,14 C36,8 64,8 100,14 C136,20 164,20 200,14 "
     "C236,8 264,8 300,14 C336,20 364,20 400,14 "
@@ -620,6 +637,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             image_path, adjustments = resolved_asset(pid)
             card_image_path, card_srcset, card_sizes = card_image_sources(pid)
             localized_card_image_path = _localize_path(card_image_path, ctx) if ctx else card_image_path
+            localized_card_srcset = _localize_srcset(card_srcset, ctx) if ctx else card_srcset
             image_style = inline_adjustment_vars(adjustments)
             image_width, image_height = asset_dimensions(image_path)
 
@@ -635,7 +653,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             if should_eager_load:
                 preload_links.append(
                     f'<link rel="preload" as="image" href="{escape(localized_card_image_path)}" '
-                    f'imagesrcset="{escape(card_srcset)}" imagesizes="{escape(card_sizes)}">'
+                    f'imagesrcset="{escape(localized_card_srcset)}" imagesizes="{escape(card_sizes)}">'
                 )
             loading = "eager" if should_eager_load else "lazy"
             fetchpriority = ' fetchpriority="high"' if should_eager_load else ""
@@ -644,7 +662,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
         <a class="product-card" href="{escape(fn)}" data-reveal data-prefetch-route>
           <div class="card-img-wrap" style="{image_style}">
             <div class="card-img-stage">
-              <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(card_srcset)}" sizes="{escape(card_sizes)}" alt="{escape(title)}" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
+              <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(localized_card_srcset)}" sizes="{escape(card_sizes)}" alt="{escape(title)}" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
             </div>
           </div>
           <div class="card-body">
