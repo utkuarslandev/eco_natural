@@ -264,7 +264,8 @@ def _stamps_html(badges: list[tuple]) -> str:
     for emoji, name, *_ in badges[:4]:
         parts.append(
             f'<div class="stamp" data-reveal>'
-            f'{escape(name)}'
+            f'<span class="stamp-emoji" aria-hidden="true">{emoji}</span>'
+            f'<span class="stamp-name">{escape(name)}</span>'
             f'</div>'
         )
     return "\n          ".join(parts)
@@ -275,6 +276,7 @@ def _use_tiles_html(uses: list[tuple]) -> str:
     for emoji, label in uses:
         parts.append(
             f'<div class="use-tile" data-reveal>'
+            f'<div class="use-emoji" aria-hidden="true">{emoji}</div>'
             f'<div class="use-label">{escape(label)}</div>'
             f'</div>'
         )
@@ -286,6 +288,7 @@ def _quality_cards_html(badges: list[tuple]) -> str:
     for emoji, name, desc in badges:
         parts.append(
             f'<div class="quality-card" data-reveal>'
+            f'<div class="quality-emoji" aria-hidden="true">{emoji}</div>'
             f'<div class="quality-name">{escape(name)}</div>'
             f'<div class="quality-desc">{escape(desc)}</div>'
             f'</div>'
@@ -310,13 +313,17 @@ def _trust_strip_html(badges: list[tuple]) -> str:
 
 
 def _related_html(related: list[tuple], img_dir, ctx: Ctx | None = None) -> str:
-    learn_more_text = ctx.t("learn_more") if ctx else "Learn More →"
     parts = []
     for slug, title, pid in related[:4]:
         image_path, adjustments = resolved_asset(pid)
         localized_image_path = _localize_path(image_path, ctx) if ctx else image_path
         style_attr = inline_adjustment_vars(adjustments)
         width, height = asset_dimensions(image_path)
+        en_enrich = ENRICHMENT.get(pid, {})
+        locale_enrich = ctx.enrichment.get(pid, {}) if ctx else {}
+        rel_enrich = {**en_enrich, **locale_enrich}
+        tagline = rel_enrich.get("tagline", "")
+        tagline_html = f'<div class="related-tagline">{escape(tagline)}</div>' if tagline else ""
         parts.append(
             f'<a class="related-card" href="{escape(slug)}" data-prefetch-route>'
             f'<div class="related-img-stage" style="{style_attr}">'
@@ -324,9 +331,31 @@ def _related_html(related: list[tuple], img_dir, ctx: Ctx | None = None) -> str:
             f'loading="lazy" decoding="async" width="{width}" height="{height}">'
             f'</div>'
             f'<div class="related-name">{escape(title)}</div>'
+            f'{tagline_html}'
             f'</a>'
         )
     return "\n        ".join(parts)
+
+
+def _flavor_chips_html(notes: list[str]) -> str:
+    if not notes:
+        return ""
+    chips = "".join(
+        f'<span class="flavor-chip">{escape(note)}</span>'
+        for note in notes
+    )
+    return f'<div class="flavor-chips">{chips}</div>'
+
+
+def _storage_callout_html(tip: str) -> str:
+    if not tip:
+        return ""
+    return (
+        f'<div class="storage-callout">'
+        f'<span class="storage-icon" aria-hidden="true">&#128274;</span>'
+        f'<span class="storage-text">{escape(tip)}</span>'
+        f'</div>'
+    )
 
 
 # ── Product page template ──────────────────────────────────────────────────
@@ -349,24 +378,26 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
     locale_enrich = ctx.enrichment.get(product_id, {}) if ctx else {}
     enrich = {**en_enrich, **locale_enrich}
 
-    origin_place = enrich.get("origin_place", "Turkey")
-    story_paras  = enrich.get("story", [full_desc])
-    how_to_use   = enrich.get("how_to_use", [
+    origin_place  = enrich.get("origin_place", "Turkey")
+    story_paras   = enrich.get("story", [full_desc])
+    how_to_use    = enrich.get("how_to_use", [
         ("🍽️", "Cooking"),  ("🥗", "Salads"),
         ("🫙", "Finishing"), ("🎁", "Gifting"),
         ("🍞", "Serving"),   ("🧴", "Daily Use"),
     ])
-    badges       = enrich.get("badges", [
+    badges        = enrich.get("badges", [
         ("✅", "Natural",      "Pure natural ingredients"),
         ("🌱", "Plant-Based",  "100% plant origin"),
         ("🚫", "No Additives", "Nothing synthetic"),
         ("📍", "Turkish Origin","Made in Turkey"),
         ("⭐", "Premium",      "Curated quality range"),
     ])
-    is_gift      = enrich.get("is_gift", False)
-    product_line = enrich.get("product_line", "Eco Natural")
-    tagline      = enrich.get("tagline", short_desc)
-    ghost_word   = _category_ghost_word(product_id)
+    is_gift       = enrich.get("is_gift", False)
+    product_line  = enrich.get("product_line", "Eco Natural")
+    tagline       = enrich.get("tagline", short_desc)
+    flavor_notes  = enrich.get("flavor_notes", [])
+    storage_tip   = enrich.get("storage_tip", "")
+    ghost_word    = _category_ghost_word(product_id)
 
     gift_banner_text = ctx.t("gift_banner") if ctx else "Makes a beautiful gift — perfect for food lovers"
     gift_banner = (
@@ -384,6 +415,26 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
         "brand": {"@type": "Brand", "name": "Eco Natural"},
     }, ensure_ascii=False, indent=2)
 
+    lang_attr = ctx.locale if ctx else "en"
+    all_products_text = ctx.t("all_products") if ctx else "All Products"
+    breadcrumb_label = ctx.t("breadcrumb_label") if ctx else "Breadcrumb"
+    origin_story_eyebrow = ctx.t("origin_story_eyebrow") if ctx else "Origin & Story"
+    how_to_enjoy_eyebrow = ctx.t("how_to_enjoy_eyebrow") if ctx else "How to Enjoy"
+    how_to_enjoy_heading = ctx.t("how_to_enjoy_heading") if ctx else "Six ways to use it at home"
+    quality_eyebrow = ctx.t("quality_eyebrow") if ctx else "Quality & Standards"
+    quality_heading = ctx.t("quality_heading") if ctx else "What makes it exceptional"
+    inquire_on_whatsapp = ctx.t("inquire_on_whatsapp") if ctx else "Inquire on WhatsApp"
+    order_via_whatsapp = ctx.t("order_via_whatsapp") if ctx else "Order via WhatsApp"
+    storage_eyebrow = ctx.t("storage_eyebrow") if ctx else "Storage"
+
+    storage_block = ""
+    if storage_tip:
+        storage_block = f"""
+    <div class="section storage-section" data-reveal>
+      <div class="eyebrow">{escape(storage_eyebrow)}</div>
+      {_storage_callout_html(storage_tip)}
+    </div>"""
+
     related_items = related or []
     head_links = [
         f'<link rel="preload" as="image" href="{escape(localized_image_path)}">'
@@ -398,17 +449,6 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
         {_related_html(related_items, img_dir, ctx=ctx)}
       </div>
     </div>"""
-
-    lang_attr = ctx.locale if ctx else "en"
-    all_products_text = ctx.t("all_products") if ctx else "All Products"
-    breadcrumb_label = ctx.t("breadcrumb_label") if ctx else "Breadcrumb"
-    origin_story_eyebrow = ctx.t("origin_story_eyebrow") if ctx else "Origin & Story"
-    how_to_enjoy_eyebrow = ctx.t("how_to_enjoy_eyebrow") if ctx else "How to Enjoy"
-    how_to_enjoy_heading = ctx.t("how_to_enjoy_heading") if ctx else "Six ways to use it at home"
-    quality_eyebrow = ctx.t("quality_eyebrow") if ctx else "Quality & Standards"
-    quality_heading = ctx.t("quality_heading") if ctx else "What makes it exceptional"
-    inquire_on_whatsapp = ctx.t("inquire_on_whatsapp") if ctx else "Inquire on WhatsApp"
-    order_via_whatsapp = ctx.t("order_via_whatsapp") if ctx else "Order via WhatsApp"
 
     all_products_link = _localize_path("./index.html", ctx) if ctx else "./index.html"
 
@@ -461,12 +501,6 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
     {gift_banner}
   </div>
 
-  <div class="trust-strip">
-    <div class="trust-strip-inner">
-      {_trust_strip_html(badges)}
-    </div>
-  </div>
-
   {_torn("#F6FAF4")}
 
   <div class="wrap">
@@ -475,6 +509,7 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
       <div class="eyebrow">{escape(origin_story_eyebrow)}</div>
       <div class="story-card">
         <div class="origin-chip">&#128205; {escape(origin_place)}</div>
+        {_flavor_chips_html(flavor_notes)}
         {_story_html(story_paras)}
       </div>
     </div>
@@ -494,6 +529,8 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
         {_quality_cards_html(badges)}
       </div>
     </div>
+
+    {storage_block}
 
     {related_html_block}
 
