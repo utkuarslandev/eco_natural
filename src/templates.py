@@ -504,7 +504,7 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
 {_document_head(f"{seo_title or page_title} | Eco Natural", meta_desc, ctx=ctx, json_ld=json_ld, extra_links=head_links)}
 <body>
 
-{_topbar(ctx=ctx, show_back_link=True, slug=slug)}
+{_topbar(ctx=ctx, slug=slug)}
 
   <nav class="breadcrumb" aria-label="{breadcrumb_label}">
     <div class="breadcrumb-inner">
