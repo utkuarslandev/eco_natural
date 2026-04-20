@@ -200,6 +200,33 @@ def _topbar(*, ctx: Ctx | None = None, show_back_link: bool = False, slug: str |
     logo_src = _localize_path("./logo.png", ctx) if ctx else "./logo.png"
     home_href = _localize_path("./index.html", ctx) if ctx else "./index.html"
 
+    lang_switcher = ""
+    if ctx and slug:
+        slug_file = f"{slug}.html"
+        if ctx.locale == "en":
+            en_url = slug_file
+            tr_url = f"tr/{slug_file}"
+            ru_url = f"ru/{slug_file}"
+        elif ctx.locale == "tr":
+            en_url = f"../{slug_file}"
+            tr_url = slug_file
+            ru_url = f"../ru/{slug_file}"
+        else:  # ru
+            en_url = f"../{slug_file}"
+            tr_url = f"../tr/{slug_file}"
+            ru_url = slug_file
+
+        en_class = "lang-item--active" if ctx.locale == "en" else ""
+        tr_class = "lang-item--active" if ctx.locale == "tr" else ""
+        ru_class = "lang-item--active" if ctx.locale == "ru" else ""
+
+        lang_switcher = f"""
+    <div class="lang-switcher" aria-label="Language selection">
+      <a href="{en_url}" class="lang-item {en_class}" hreflang="en">EN</a>
+      <a href="{tr_url}" class="lang-item {tr_class}" hreflang="tr">TR</a>
+      <a href="{ru_url}" class="lang-item {ru_class}" hreflang="ru">RU</a>
+    </div>"""
+
     return f"""  <nav class="topbar">
     <a class="topbar-home" href="{home_href}" aria-label="Eco Natural home">
       <img class="topbar-logo" src="{logo_src}" alt="Eco Natural">
@@ -207,7 +234,7 @@ def _topbar(*, ctx: Ctx | None = None, show_back_link: bool = False, slug: str |
         <span class="topbar-brand">ECO NATURAL</span>
         <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak</span>
       </div>
-    </a>{back_link}
+    </a>{back_link}{lang_switcher}
   </nav>"""
 
 
@@ -363,6 +390,7 @@ def _storage_callout_html(tip: str) -> str:
 def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None = None) -> str:
     product_id   = row["product_id"].strip()
     page_title   = row["page_title"].strip()
+    slug         = row["slug"].strip()
     meta_desc    = row["meta_description"].strip()
     seo_title    = row["seo_title"].strip()
     full_desc    = row["full_description"].strip()
@@ -457,7 +485,7 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
 {_document_head(f"{seo_title or page_title} | Eco Natural", meta_desc, ctx=ctx, json_ld=json_ld, extra_links=head_links)}
 <body>
 
-{_topbar(ctx=ctx, show_back_link=True)}
+{_topbar(ctx=ctx, show_back_link=True, slug=slug)}
 
   <nav class="breadcrumb" aria-label="{breadcrumb_label}">
     <div class="breadcrumb-inner">
@@ -668,7 +696,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
 {_document_head(index_title, index_meta_desc, ctx=ctx, extra_links=preload_links)}
 <body>
 
-{_topbar(ctx=ctx)}
+{_topbar(ctx=ctx, slug="index")}
 
   <section class="hero">
     <div class="hero-ghost" aria-hidden="true">ECO</div>
