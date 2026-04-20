@@ -27,6 +27,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Şirince Infused Oils · 250 ml",
         "tagline": "Cold pressed with wild rosemary from the Aegean hills",
+        "flavor_notes": ["Herbal", "Aromatic", "Peppery", "Fresh"],
+        "storage_tip": "Store away from heat and light · Use within 18 months",
     },
 
     "SH-EVOO-GARLIC-250ML": {
@@ -54,6 +56,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Şirince Infused Oils · 250 ml",
         "tagline": "Cold pressed with fresh garlic — a savory Aegean kitchen staple",
+        "flavor_notes": ["Savory", "Aromatic", "Rich", "Warm"],
+        "storage_tip": "Store away from heat and light · Use within 18 months",
     },
 
     "SH-EVOO-CHILI-250ML": {
@@ -81,6 +85,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Şirince Infused Oils · 250 ml",
         "tagline": "A bold chili infusion — warm, lively, and deeply Mediterranean",
+        "flavor_notes": ["Spicy", "Warm", "Bold", "Peppery"],
+        "storage_tip": "Store away from heat and light · Use within 18 months",
     },
 
     "SH-EVOO-MANDARIN-250ML": {
@@ -108,6 +114,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Şirince Infused Oils · 250 ml",
         "tagline": "Bright citrus meets Aegean olive — a rare cold pressed infusion",
+        "flavor_notes": ["Citrus", "Bright", "Floral", "Light"],
+        "storage_tip": "Store away from heat and light · Use within 18 months",
     },
 
     "SH-EVOO-PLAIN-250ML": {
@@ -135,6 +143,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Şirince Classic Oils · 250 ml",
         "tagline": "Pure cold pressed extra virgin from the hillside groves of Şirince",
+        "flavor_notes": ["Grassy", "Peppery", "Clean", "Fruity"],
+        "storage_tip": "Store away from heat and light · Use within 18 months",
     },
 
     # ── Eco Natural EVOO Tins ──────────────────────────────────────────────────
@@ -163,6 +173,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Eco Natural Extra Virgin Olive Oil · 500 ml",
         "tagline": "First cold press · 0.2% acidity · 349 polyphenols",
+        "flavor_notes": ["Fruity", "Mild", "Clean", "Buttery"],
+        "storage_tip": "Tin protects from light · Use within 18 months of opening",
     },
 
     "EN-EVOO-1L-TIN": {
@@ -190,6 +202,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Eco Natural Extra Virgin Olive Oil · 1 L",
         "tagline": "First cold press · 0.2% acidity · 349 polyphenols — family size",
+        "flavor_notes": ["Fruity", "Mild", "Clean", "Buttery"],
+        "storage_tip": "Tin protects from light · Use within 18 months of opening",
     },
 
     # ── Early Harvest EVOOs ────────────────────────────────────────────────────
@@ -220,6 +234,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Early Harvest EVOO · 50 cl",
         "tagline": "Early harvest · 0.1% acidity · 500+ polyphenols",
+        "flavor_notes": ["Grassy", "Peppery", "Intense", "Bitter Finish"],
+        "storage_tip": "Best raw or cold · Keep away from heat · Use within 24 months",
     },
 
     "EN-EH-EVOO-NA-SLIM": {
@@ -247,6 +263,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Early Harvest EVOO · Slim Bottle",
         "tagline": "Early harvest · 0.1% acidity · 500+ polyphenols — gift edition",
+        "flavor_notes": ["Grassy", "Peppery", "Intense", "Bitter Finish"],
+        "storage_tip": "Best raw or cold · Keep away from heat · Use within 24 months",
     },
 
     "EN-EH-EVOO-NA-OVAL": {
@@ -273,6 +291,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Early Harvest EVOO · Oval Bottle",
         "tagline": "Early harvest · artisanal oval bottle · premium gift edition",
+        "flavor_notes": ["Grassy", "Peppery", "Intense", "Bitter Finish"],
+        "storage_tip": "Best raw or cold · Keep away from heat · Use within 24 months",
     },
 
     "EN-EH-EVOO-70CL-TEARDROP": {
@@ -299,6 +319,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Early Harvest EVOO · 70 cl",
         "tagline": "Early harvest · teardrop bottle · 0.1% acidity · 500+ polyphenols",
+        "flavor_notes": ["Grassy", "Peppery", "Intense", "Bitter Finish"],
+        "storage_tip": "Best raw or cold · Keep away from heat · Use within 24 months",
     },
 
     "EN-EH-EVOO-NA-DECO-SQUARE": {
@@ -325,6 +347,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Early Harvest EVOO · Decorative Square",
         "tagline": "Early harvest · decorative square bottle · premium gift edition",
+        "flavor_notes": ["Grassy", "Peppery", "Intense", "Bitter Finish"],
+        "storage_tip": "Best raw or cold · Keep away from heat · Use within 24 months",
     },
 
     "EN-EH-EVOO-70CL-ROUND": {
@@ -351,12 +375,14 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Early Harvest EVOO · 70 cl",
         "tagline": "Early harvest · ornamental round bottle · 0.1% acidity",
+        "flavor_notes": ["Grassy", "Peppery", "Intense", "Bitter Finish"],
+        "storage_tip": "Best raw or cold · Keep away from heat · Use within 24 months",
     },
 
     # ── Specialty Seed & Plant Oils ────────────────────────────────────────────
 
     "EN-HEMP-SEED-OIL-250ML": {
-        "origin_place": "Turkey",
+        "origin_place": "Anatolia, Turkey",
         "story": [
             "Hemp seed has been cultivated in Anatolia for thousands of years — one of the oldest "
             "crop plants in human history. Pressed cold from whole seeds to preserve every nuance "
@@ -380,10 +406,12 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Eco Natural Specialty Oils · 250 ml",
         "tagline": "Cold pressed from whole hemp seeds — mild, nutty, and purely natural",
+        "flavor_notes": ["Mild", "Nutty", "Earthy", "Smooth"],
+        "storage_tip": "Not for cooking — heat destroys the profile · Refrigerate after opening",
     },
 
     "EN-AVOCADO-OIL-250ML": {
-        "origin_place": "Turkey",
+        "origin_place": "Aegean Turkey",
         "story": [
             "Avocado oil crossed into the premium kitchen from the world's finest culinary "
             "traditions. Cold-extracted to maintain its exceptionally clean profile, Eco Natural's "
@@ -407,10 +435,12 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Specialty Oils · 250 ml",
         "tagline": "Clean, delicate, cold extracted — a refined everyday oil",
+        "flavor_notes": ["Neutral", "Buttery", "Clean", "Delicate"],
+        "storage_tip": "Store cool and dark · Use within 18 months",
     },
 
     "EN-PUMPKIN-SEED-OIL-250ML": {
-        "origin_place": "Turkey",
+        "origin_place": "Aegean & Central Anatolia",
         "story": [
             "Pumpkin seed oil is one of the great character oils — dark, intensely flavoured, "
             "and unmistakably itself. Cold-pressed from roasted seeds, it transforms salads, "
@@ -433,10 +463,12 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Specialty Oils · 250 ml",
         "tagline": "Bold roasted seed character — a gourmet cold pressed specialty oil",
+        "flavor_notes": ["Roasted", "Nutty", "Bold", "Rich"],
+        "storage_tip": "Best raw — heat reduces flavour · Refrigerate after opening",
     },
 
     "EN-POMEGRANATE-SEED-OIL-250ML": {
-        "origin_place": "Turkey",
+        "origin_place": "Aegean Turkey",
         "story": [
             "Pomegranate has been revered across Anatolia and the Levant since antiquity — a "
             "symbol of abundance painted on palace walls and served at every celebration. "
@@ -460,10 +492,12 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Specialty Oils · 250 ml",
         "tagline": "A rare cold pressed specialty oil from the pomegranate heartland",
+        "flavor_notes": ["Tart", "Fruity", "Delicate", "Floral"],
+        "storage_tip": "Best raw and cold · Refrigerate after opening · Use within 12 months",
     },
 
     "EN-BLACK-SEED-OIL-250ML": {
-        "origin_place": "Turkey",
+        "origin_place": "Anatolia, Turkey",
         "story": [
             "Nigella sativa — black seed — has been used in Anatolian kitchens and medicine for "
             "over 3,000 years. Referenced in ancient texts and traded across old spice routes, "
@@ -487,6 +521,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Specialty Oils · 250 ml",
         "tagline": "3,000 years of Anatolian tradition — bold, aromatic, cold pressed",
+        "flavor_notes": ["Bitter", "Warm", "Spicy", "Earthy"],
+        "storage_tip": "Use in small doses · Store away from light · Use within 18 months",
     },
 
     "EN-THISTLE-SEED-OIL-250ML": {
@@ -514,10 +550,12 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Eco Natural Specialty Oils · 250 ml",
         "tagline": "Wild Aegean thistle seed — a botanical cold pressed specialty oil",
+        "flavor_notes": ["Mild", "Botanical", "Light", "Clean"],
+        "storage_tip": "Best used cold · Store away from heat and light",
     },
 
     "EN-POPPY-SEED-OIL-250ML": {
-        "origin_place": "Turkey",
+        "origin_place": "Western Anatolia, Turkey",
         "story": [
             "Poppy seed oil occupies a rare corner of the gourmet world — light, smooth, and "
             "subtle in ways that most oils are not. Cold-pressed from untreated seeds, it is the "
@@ -541,10 +579,12 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Specialty Oils · 250 ml",
         "tagline": "A rare, smooth specialty oil for gourmet kitchens and fine gifting",
+        "flavor_notes": ["Mild", "Smooth", "Delicate", "Slightly Sweet"],
+        "storage_tip": "Best raw · Refrigerate after opening · Use within 12 months",
     },
 
     "EN-FIG-SEED-OIL-NA": {
-        "origin_place": "Turkey",
+        "origin_place": "Aegean Turkey",
         "story": [
             "The fig is one of the oldest cultivated fruits — domesticated in the Fertile Crescent "
             "before wheat. Its seeds yield an exceptionally rare oil, delicate and rich in "
@@ -568,6 +608,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Specialty Oils",
         "tagline": "One of the rarest cold pressed oils in the world — from the ancient fig",
+        "flavor_notes": ["Delicate", "Sweet", "Floral", "Rare"],
+        "storage_tip": "Best raw · Refrigerate after opening · Use within 12 months",
     },
 
     # ── Metis Hierapolis ───────────────────────────────────────────────────────
@@ -597,12 +639,14 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Metis Hierapolis · 250 ml",
         "tagline": "A light, versatile specialty oil from ancient Anatolian heritage",
+        "flavor_notes": ["Neutral", "Light", "Clean", "Mild"],
+        "storage_tip": "Store cool and dark · Use within 18 months",
     },
 
     # ── Extracts & Condiments ──────────────────────────────────────────────────
 
     "EN-CAROB-EXTRACT-680G": {
-        "origin_place": "Turkey",
+        "origin_place": "Mediterranean & Aegean Turkey",
         "story": [
             "The carob tree is one of the oldest cultivated trees in the eastern Mediterranean. "
             "Its sweet pods were traded along ancient routes as a natural sweetener long before "
@@ -627,10 +671,12 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Extracts · 680 g",
         "tagline": "Ancient Anatolian sweetness — naturally rich carob extract",
+        "flavor_notes": ["Sweet", "Earthy", "Caramel", "Rich"],
+        "storage_tip": "Keep refrigerated after opening · Use within 6 months",
     },
 
     "EN-CAROB-EXTRACT-340G": {
-        "origin_place": "Turkey",
+        "origin_place": "Mediterranean & Aegean Turkey",
         "story": [
             "The carob tree is one of the oldest cultivated trees in the eastern Mediterranean. "
             "Its sweet pods were traded along ancient routes as a natural sweetener long before "
@@ -654,6 +700,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Extracts · 340 g",
         "tagline": "Ancient Anatolian sweetness — compact everyday carob extract",
+        "flavor_notes": ["Sweet", "Earthy", "Caramel", "Rich"],
+        "storage_tip": "Keep refrigerated after opening · Use within 6 months",
     },
 
     "EN-POMEGRANATE-SOUR-340G": {
@@ -682,6 +730,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Condiments · 340 g",
         "tagline": "Sweet-sour Anatolian classic — the essential pomegranate condiment",
+        "flavor_notes": ["Tart", "Fruity", "Sweet-Sour", "Intense"],
+        "storage_tip": "Keep refrigerated after opening · Use within 6 months",
     },
 
     # ── Olive Elixir ───────────────────────────────────────────────────────────
@@ -712,12 +762,14 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Zeytin Sütü",
         "tagline": "The rarest expression of the Aegean olive — cold pressed, unfiltered",
+        "flavor_notes": ["Grassy", "Peppery", "Raw", "Unfiltered"],
+        "storage_tip": "Keep refrigerated · Consume within 4–6 weeks of opening · Seasonal product",
     },
 
     # ── Salad Dressing ─────────────────────────────────────────────────────────
 
     "EN-SALAD-DRESSING-NA": {
-        "origin_place": "Turkey",
+        "origin_place": "Aegean Turkey",
         "story": [
             "The Aegean kitchen has always dressed its salads simply — good oil, a sharp note, "
             "clean herbs. No elaborate processes, no long ingredient lists. This ready-made "
@@ -741,6 +793,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": False,
         "product_line": "Eco Natural Condiments",
         "tagline": "Aegean-style salad dressing — clean ingredients, ready to pour",
+        "flavor_notes": ["Tangy", "Herbal", "Balanced", "Fresh"],
+        "storage_tip": "Keep refrigerated after opening · Use within 3 months",
     },
 
     # ── Turkish Delight ────────────────────────────────────────────────────────
@@ -771,6 +825,8 @@ ENRICHMENT: dict[str, dict] = {
         "is_gift": True,
         "product_line": "Eco Natural Confectionery",
         "tagline": "An Ottoman tradition in a modern gift box — made in Antalya, Turkey",
+        "flavor_notes": ["Floral", "Sweet", "Rose", "Confection"],
+        "storage_tip": "Keep in a cool dry place · Best consumed within 6 months",
     },
 }
 

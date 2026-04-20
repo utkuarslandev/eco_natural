@@ -686,6 +686,120 @@ body::before {
 }
 [data-reveal].revealed { opacity: 1; transform: none; }
 
+/* ── Stamp emoji display ─────────────────────────────────────────────────── */
+
+.stamp { padding: 10px 6px; }
+.stamp-emoji { font-size: 1.4rem; line-height: 1; display: block; }
+.stamp-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.48rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ── Use tile emoji ──────────────────────────────────────────────────────── */
+
+.use-emoji { font-size: 1.8rem; line-height: 1; display: block; }
+
+/* ── Quality card emoji ──────────────────────────────────────────────────── */
+
+.quality-emoji { font-size: 1.6rem; line-height: 1; display: block; margin-bottom: 2px; }
+
+/* ── Related card tagline ────────────────────────────────────────────────── */
+
+.related-tagline {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.6rem;
+  color: var(--text-soft);
+  line-height: 1.4;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ── Flavor profile chips (inside .story-card dark bg) ───────────────────── */
+
+.flavor-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 16px;
+}
+.flavor-chip {
+  background: rgba(240,216,152,0.12);
+  border: 1px solid rgba(240,216,152,0.25);
+  border-radius: 99px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+
+/* ── Storage callout ─────────────────────────────────────────────────────── */
+
+.storage-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--parch-lt);
+  border: 1px solid var(--parch-dk);
+  border-left: 3px solid var(--terra);
+  border-radius: 6px;
+  padding: 16px 20px;
+}
+.storage-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.storage-text {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+/* ── Hero desktop split layout ───────────────────────────────────────────── */
+
+@media (min-width: 900px) {
+  .hero {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 48px 48px;
+    gap: 48px;
+    min-height: 75vh;
+  }
+  .hero-img-wrap {
+    flex: 0 0 auto;
+    width: 40%;
+    max-width: 480px;
+    margin-bottom: 0;
+    order: 1;
+  }
+  .hero-copy {
+    flex: 1 1 340px;
+    max-width: 500px;
+    align-items: flex-start;
+    text-align: left;
+    order: 2;
+  }
+  .hero-ghost { display: none; }
+  .scroll-hint { order: 3; flex: 0 0 100%; }
+  .hero h1, .hero .tagline { text-align: left; }
+}
+
 
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
