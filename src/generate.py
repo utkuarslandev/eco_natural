@@ -11,13 +11,13 @@ from pathlib import Path
 
 ROOT       = Path(__file__).parent.parent
 IMG_DIR    = ROOT / "img"
-DERIVED_IMG_DIR = ROOT / "generated" / "img"
 
 sys.path.insert(0, str(Path(__file__).parent))
 
 from enrichment import ENRICHMENT, _category
+from context import Ctx
 from image_assets import resolved_asset
-from templates import page_template, index_template, Ctx
+from templates import page_template, index_template
 from styles import CSS_SITE
 
 LOCALES = [
@@ -25,7 +25,6 @@ LOCALES = [
     ("tr", ROOT / "tr",  ROOT / "data" / "ids_tr.csv"),
     ("ru", ROOT / "ru",  ROOT / "data" / "ids_ru.csv"),
 ]
-BASE_URL = ""
 
 
 def load_locale_strings(locale: str) -> dict:
@@ -73,7 +72,7 @@ def main() -> None:
             for row in csv.DictReader(fh):
                 products.append(dict(row))
 
-        # Group by category
+        # Group product links by category for same-category recommendations.
         by_category: dict[str, list] = {}
         for row in products:
             slug  = row["slug"].strip()
@@ -81,7 +80,7 @@ def main() -> None:
             pid   = row["product_id"].strip()
             by_category.setdefault(_category(pid), []).append((f"{slug}.html", title, pid))
 
-        # Generate product pages
+        # Generate product pages and collect index entries from the same source rows.
         index_items: list[tuple[str, str, str]] = []
         for row in products:
             slug       = row["slug"].strip()

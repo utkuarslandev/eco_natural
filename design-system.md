@@ -210,7 +210,7 @@ All colours are extracted from the label (cream, red, gold, dark glass) and the 
 
 **Tagline Display** — On dark bark backgrounds: EB Garamond italic, `gold-pale`, centred, generous vertical spacing. Used at end of hero section, start of footer. Never decorated. Never boxed. It breathes.
 
-**WhatsApp CTA** — Bark background, gold-pale text, WhatsApp SVG icon, Raleway 600. The primary conversion mechanism. Always in the Find Us section. Always includes the note: "We speak Turkish, English and can help in Russian."
+**Product Browsing CTA** — Product cards use a restrained text call-to-action with terracotta emphasis. The catalog is informational first: no direct messaging order UI is part of the page system.
 
 ---
 

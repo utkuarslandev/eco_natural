@@ -4,3 +4,6 @@ __pycache__/
 .venv/
 .vscode/
 .codex
+.DS_Store
+.claude/
+CLAUDE.md

@@ -143,7 +143,7 @@ When modifying layout, colors, or fonts:
 
 ```bash
 # 1. Edit CSS definitions
-nano src/styles.py
+nano src/css/product.py
 # Modify: CSS_PRODUCT or CSS_INDEX sections
 
 # 2. Regenerate (re-compiles CSS)
@@ -157,7 +157,7 @@ grep "new-style-name" style.css
 # Check that styles apply correctly across all pages
 
 # 5. Commit
-git add src/styles.py style.css
+git add src/css src/styles.py style.css
 git commit -m "Update styles: [description]"
 git push
 ```
@@ -553,7 +553,7 @@ echo "EN strings: $(jq 'keys | length' locales/en.json)"
 echo "TR strings: $(jq 'keys | length' locales/tr.json)"
 echo "RU strings: $(jq 'keys | length' locales/ru.json)"
 
-# All should be equal (44 keys)
+# All should be equal
 ```
 
 ---

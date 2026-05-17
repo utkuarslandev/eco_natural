@@ -19,7 +19,7 @@ This is a **Python-based static site generator** that creates a fully-localized 
 - **📱 Responsive** — Mobile-first, works across all devices
 - **🔍 SEO-Ready** — Meta tags, structured data (JSON-LD), hreflang alternates
 - **🛍️ Product Catalog** — 28 artisan products across 8 categories
-- **🌐 Localized URLs** — `/en/`, `/tr/`, `/ru/` with identical slugs
+- **🌐 Localized URLs** — root English pages plus `/tr/` and `/ru/` with identical product slugs
 
 ---
 
@@ -29,16 +29,19 @@ This is a **Python-based static site generator** that creates a fully-localized 
 eco_natural/
 ├── src/                          # Python source code
 │   ├── generate.py              # Main static site generator
-│   ├── templates.py             # HTML template functions
+│   ├── templates.py             # Compatibility exports for page templates
+│   ├── context.py               # Locale context and path helpers
+│   ├── html/                    # Page, base layout, and component renderers
+│   ├── css/                     # CSS source modules
 │   ├── enrichment.py            # Product content (English)
 │   ├── image_assets.py          # Image handling & optimization
-│   ├── styles.py                # CSS definitions
-│   └── ...other modules
+│   ├── styles.py                # CSS compatibility entrypoint
+│   └── validate.py              # Repository validation checks
 ├── locales/                      # Internationalization files
-│   ├── en.json                  # English UI strings (44 keys)
+│   ├── en.json                  # English UI strings
 │   ├── tr.json                  # Turkish UI strings
 │   ├── ru.json                  # Russian UI strings
-│   ├── enrichment_tr.py         # Turkish product content (29 products)
+│   ├── enrichment_tr.py         # Turkish product content (28 products)
 │   └── enrichment_ru.py         # Russian product content
 ├── data/
 │   ├── ids.csv                  # English product metadata
@@ -109,10 +112,10 @@ This creates:
 | File | Purpose |
 |------|---------|
 | `generate.py` | Main generator; loops through locales, creates pages |
-| `templates.py` | HTML template functions for pages; uses `Ctx` for translations |
+| `templates.py` | Compatibility exports for generated page templates |
 | `enrichment.py` | Product content (stories, badges, taglines) — English source |
-| `image_assets.py` | Image path resolution, optimization metadata |
-| `styles.py` | CSS definitions (inline in Python) |
+| `image_assets.py` | Image path resolution, dimensions, and card variant generation |
+| `styles.py` | Compatibility entrypoint that joins `src/css/` modules |
 | `process_images.py` | Image processing utilities |
 | `remove_bg.py` | Background removal for product photos |
 
@@ -120,10 +123,10 @@ This creates:
 
 | File | Purpose |
 |------|---------|
-| `en.json` | 44 UI strings (navigation, CTAs, labels) in English |
+| `en.json` | English UI strings |
 | `tr.json` | Turkish UI strings (same keys as en.json) |
 | `ru.json` | Russian UI strings |
-| `enrichment_tr.py` | Turkish product enrichment (29 products) |
+| `enrichment_tr.py` | Turkish product enrichment (28 products) |
 | `enrichment_ru.py` | Russian product enrichment |
 
 **Note:** `enrichment.py` is the source of truth for English product content. Turkish and Russian versions in `locales/` override specific fields.
@@ -203,11 +206,10 @@ See **[I18N.md](./I18N.md)** for complete i18n documentation.
 
 ### Quick Reference
 
-**UI Strings** — 44 translated keys in `locales/{en|tr|ru}.json`:
+**UI Strings** — translated keys in `locales/{en|tr|ru}.json`:
 - Navigation: "All Products", "Back to All Products"
-- CTAs: "Order via WhatsApp", "Chat on WhatsApp"
 - Section labels: "Origin & Story", "How to Enjoy", "Quality & Standards"
-- Meta: "Find Us", "Order Direct"
+- Product browsing labels, gift badges, stamps, storage labels, and footer copy
 
 **Product Content** — Per-product translations in `locales/enrichment_{tr|ru}.py` and `data/ids_{tr|ru}.csv`:
 - Stories (2 paragraphs per product)
@@ -263,9 +265,9 @@ git push origin main
 | **Data** | CSV for product metadata |
 | **Hosting** | Static files (GitHub Pages, AWS S3, Netlify, etc.) |
 
-### No External Dependencies
+### Dependencies
 
-The generator uses only Python standard library. Image optimization uses PIL/Pillow (optional, for processing only).
+The generator uses Pillow for image dimensions and generated WebP card variants. The optional image cutout workflow uses `requirements-image.txt`.
 
 ---
 
@@ -327,7 +329,7 @@ The generator uses only Python standard library. Image optimization uses PIL/Pil
 
 ### Updating Styles
 
-1. Edit `src/styles.py` (CSS is defined in Python strings)
+1. Edit the relevant module in `src/css/`
 2. Modify `CSS_PRODUCT` or `CSS_INDEX` sections
 3. Run `python3 src/generate.py` — CSS is compiled to `style.css`
 
