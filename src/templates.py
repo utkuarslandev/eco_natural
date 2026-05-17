@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from dataclasses import dataclass
 from html import escape
@@ -51,6 +53,28 @@ def _localize_srcset(srcset: str, ctx: Ctx) -> str:
         else:
             localized_parts.append(part)
     return ", ".join(localized_parts)
+
+
+def _product_scene_background(slug: str) -> str | None:
+    if "olive-oil" in slug:
+        return "./img/olive-tree-sunset.png"
+
+    scene_backgrounds = {
+        "eco-natural-pumpkin-seed-oil-250ml": "./img/pumpkin-farm-night.png",
+        "eco-natural-pomegranate-seed-oil-250ml": "./img/pomegranate-tree.png",
+        "eco-natural-pomegranate-sour-340g": "./img/pomegranate-tree.png",
+        "eco-natural-avocado-oil-250ml": "./img/avocado-basket-farm.png",
+        "eco-natural-black-seed-oil-250ml": "./img/black-seed-farm-handful.png",
+        "eco-natural-hemp-seed-oil-250ml": "./img/hemp-seed-farm-ladder-sunset.png",
+        "metis-hierapolis-safflower-oil-250ml": "./img/safflower-field-crescent-moon.png",
+        "eco-natural-poppy-seed-oil-250ml": "./img/poppy-field-harvesters-blue-sky.png",
+        "eco-natural-fig-seed-oil": "./img/fig-tree-hand-picking-sunset.png",
+        "eco-natural-carob-extract-680g": "./img/carob-tree-handpicking-basket.png",
+        "eco-natural-carob-extract-340g": "./img/carob-tree-handpicking-basket.png",
+        "eco-natural-salad-dressing": "./img/salad-dressing-dark-red-salad.png",
+        "eco-natural-zeytin-sutu-cold-pressed-olive-elixir": "./img/olive-elixir-bottle-pouring-pan.png",
+    }
+    return scene_backgrounds.get(slug)
 
 _WAVE = (
     "M0,14 C36,8 64,8 100,14 C136,20 164,20 200,14 "
@@ -321,7 +345,7 @@ def _use_tiles_html(uses: list[tuple]) -> str:
     parts = []
     for emoji, label in uses:
         parts.append(
-            f'<div class="use-tile" data-reveal>'
+            f'<div class="use-tile">'
             f'<div class="use-emoji" aria-hidden="true">{emoji}</div>'
             f'<div class="use-label">{escape(label)}</div>'
             f'</div>'
@@ -333,10 +357,12 @@ def _quality_cards_html(badges: list[tuple]) -> str:
     parts = []
     for emoji, name, desc in badges:
         parts.append(
-            f'<div class="quality-card" data-reveal>'
+            f'<div class="quality-card">'
             f'<div class="quality-emoji" aria-hidden="true">{emoji}</div>'
+            f'<div class="quality-copy">'
             f'<div class="quality-name">{escape(name)}</div>'
             f'<div class="quality-desc">{escape(desc)}</div>'
+            f'</div>'
             f'</div>'
         )
     return "\n        ".join(parts)
@@ -498,11 +524,17 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
     </div>"""
 
     all_products_link = _localize_path("./index.html", ctx) if ctx else "./index.html"
+    product_body_classes = ["page-product", f"product-{slug}"]
+    if "olive-oil" in slug:
+        product_body_classes.append("product-olive-oil-bg")
+    if "carob" in slug:
+        product_body_classes.append("product-carob-bg")
+    body_classes = " ".join(escape(class_name) for class_name in product_body_classes)
 
     return f"""<!doctype html>
 <html lang="{lang_attr}">
 {_document_head(f"{seo_title or page_title} | Eco Natural", meta_desc, ctx=ctx, json_ld=json_ld, extra_links=head_links)}
-<body>
+<body class="{body_classes}">
 
 {_topbar(ctx=ctx, slug=slug)}
 
@@ -552,7 +584,7 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
 
   <div class="wrap">
 
-    <div class="section" data-reveal>
+    <div class="section section-origin" data-reveal>
       <div class="eyebrow">{escape(origin_story_eyebrow)}</div>
       <div class="story-card">
         <div class="origin-chip">&#128205; {escape(origin_place)}</div>
@@ -561,23 +593,29 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
       </div>
     </div>
 
-    <div class="section" data-reveal>
-      <div class="eyebrow">{escape(how_to_enjoy_eyebrow)}</div>
-      <div class="section-heading">{escape(how_to_enjoy_heading)}</div>
-      <div class="use-grid">
-        {_use_tiles_html(how_to_use)}
+    <div class="details-columns">
+      <div class="section section-uses">
+        <div class="eyebrow">{escape(how_to_enjoy_eyebrow)}</div>
+        <div class="section-heading">{escape(how_to_enjoy_heading)}</div>
+        <div class="use-grid">
+          {_use_tiles_html(how_to_use)}
+        </div>
       </div>
-    </div>
 
-    <div class="section" data-reveal>
-      <div class="eyebrow">{escape(quality_eyebrow)}</div>
-      <div class="section-heading">{escape(quality_heading)}</div>
-      <div class="quality-grid">
-        {_quality_cards_html(badges)}
+      <div class="section section-quality">
+        <div class="eyebrow">{escape(quality_eyebrow)}</div>
+        <div class="section-heading">{escape(quality_heading)}</div>
+        <div class="quality-grid">
+          {_quality_cards_html(badges)}
+        </div>
       </div>
     </div>
 
     {storage_block}
+
+    <div class="experience-line" data-reveal>
+      Our products may come from Mother Nature, but the experience feels out of this world.
+    </div>
 
     {related_html_block}
 
@@ -627,7 +665,11 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
 
     sections_html = ""
     logo_src = _localize_path("./logo.png", ctx) if ctx else "./logo.png"
-    preload_links: list[str] = [f'<link rel="preload" as="image" href="{logo_src}">']
+    hero_bg_src = _localize_path("./img/hero-green-salad-olive-oil.png", ctx) if ctx else "./img/hero-green-salad-olive-oil.png"
+    preload_links: list[str] = [
+        f'<link rel="preload" as="image" href="{logo_src}">',
+        f'<link rel="preload" as="image" href="{hero_bg_src}">',
+    ]
     eager_card_limit = 4
     eager_card_index = 0
     learn_more_text = ctx.t("learn_more") if ctx else "Learn More →"
@@ -642,6 +684,12 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             localized_card_srcset = _localize_srcset(card_srcset, ctx) if ctx else card_srcset
             image_style = inline_adjustment_vars(adjustments)
             image_width, image_height = asset_dimensions(image_path)
+            product_slug = fn.rsplit(".", 1)[0]
+            scene_background = _product_scene_background(product_slug)
+            card_style = image_style
+            if scene_background:
+                localized_scene_background = _localize_path(scene_background, ctx) if ctx else scene_background
+                card_style = f"{card_style};--card-bg:url('{escape(localized_scene_background)}')"
 
             # Merge enrichment: English base + locale-specific
             en_enrich = ENRICHMENT.get(pid, {})
@@ -661,8 +709,8 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             fetchpriority = ' fetchpriority="high"' if should_eager_load else ""
             eager_card_index += 1
             cards += f"""
-        <a class="product-card" href="{escape(fn)}" data-reveal data-prefetch-route>
-          <div class="card-img-wrap" style="{image_style}">
+        <a class="product-card" href="{escape(fn)}" style="{card_style}" data-reveal data-prefetch-route>
+          <div class="card-img-wrap">
             <div class="card-img-stage">
               <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(localized_card_srcset)}" sizes="{escape(card_sizes)}" alt="{escape(title)}" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
             </div>
@@ -714,7 +762,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
     return f"""<!doctype html>
 <html lang="{lang_attr}">
 {_document_head(index_title, index_meta_desc, ctx=ctx, extra_links=preload_links)}
-<body>
+<body class="page-index">
 
 {_topbar(ctx=ctx, slug="index")}
 
