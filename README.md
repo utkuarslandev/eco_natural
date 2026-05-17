@@ -83,6 +83,9 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Optional: install background-removal tooling for src/process_images.py
+pip install -r requirements-image.txt
 ```
 
 ### Generate Site
@@ -255,7 +258,7 @@ git push origin main
 | **Generator** | Python 3.8+ |
 | **Templates** | Python f-strings (built-in, no deps) |
 | **Styling** | CSS 3 (embedded in Python, compiled to style.css) |
-| **Images** | PNG/JPG with optimization |
+| **Images** | Pillow for dimensions and generated WebP card variants |
 | **i18n** | JSON + Python dicts (no external i18n lib) |
 | **Data** | CSV for product metadata |
 | **Hosting** | Static files (GitHub Pages, AWS S3, Netlify, etc.) |

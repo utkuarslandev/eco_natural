@@ -18,6 +18,9 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
+# Optional: install only when regenerating transparent product cutouts
+pip install -r requirements-image.txt
+
 # Verify setup works
 python3 src/generate.py
 ```
@@ -29,7 +32,7 @@ python3 src/generate.py
 python3 --version
 
 # Check dependencies
-pip list | grep -E "Pillow|PIL"
+python3 -m pip show Pillow
 
 # Test generator
 python3 src/generate.py
