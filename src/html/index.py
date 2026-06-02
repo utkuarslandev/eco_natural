@@ -12,7 +12,7 @@ from image_assets import (
     page_scene_image_sources,
     product_thumbnail_sources,
     resolved_asset,
-    scene_image_sources,
+    scene_card_image_set,
 )
 
 def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_dir, *, ctx: Ctx | None = None) -> str:
@@ -73,21 +73,12 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             image_width, image_height = asset_dimensions(image_path)
             product_slug = fn.rsplit(".", 1)[0]
             scene_background = _product_scene_background(product_slug)
-            scene_html = ""
+            card_style = image_style
             if scene_background:
-                scene_path, scene_srcset, scene_sizes = scene_image_sources(
-                    scene_background,
-                    sizes="(max-width: 599px) 44vw, (max-width: 959px) 30vw, 25vw",
-                )
-                localized_scene_path = localize_path(scene_path, ctx) if ctx else scene_path
-                localized_scene_srcset = localize_srcset(scene_srcset, ctx) if ctx else scene_srcset
-                scene_width, scene_height = asset_dimensions(scene_background.removeprefix("./"))
-                scene_html = (
-                    f'          <img class="card-scene" src="{escape(localized_scene_path)}" '
-                    f'srcset="{escape(localized_scene_srcset)}" sizes="{escape(scene_sizes)}" '
-                    f'alt="" aria-hidden="true" loading="lazy" decoding="async" '
-                    f'width="{scene_width}" height="{scene_height}">'
-                )
+                card_bg = scene_card_image_set(scene_background)
+                if ctx and ctx.is_subdir:
+                    card_bg = card_bg.replace("url('./", "url('../")
+                card_style = f"{card_style};--card-bg:{card_bg}"
 
             # Merge enrichment: English base + locale-specific
             en_enrich = ENRICHMENT.get(pid, {})
@@ -98,8 +89,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             is_gift = enrich.get("is_gift", False)
             gift_chip = f'<div class="card-gift">{gift_chip_text}</div>' if is_gift else ""
             cards += f"""
-        <a class="product-card" href="{escape(fn)}" style="{image_style}" data-reveal data-prefetch-route>
-{scene_html}
+        <a class="product-card" href="{escape(fn)}" style="{card_style}" data-reveal data-prefetch-route>
           <div class="card-body">
             <div class="card-category">{escape(ctx.cat_name(cat) if ctx else cat)}</div>
             <div class="card-name">{escape(title)}</div>

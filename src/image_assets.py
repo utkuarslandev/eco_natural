@@ -19,6 +19,12 @@ SCENE_CARD_WIDTHS = (480, 960)
 SCENE_PAGE_WIDTHS = (960, 1600)
 LOGO_WIDTHS = (128, 256)
 
+# Scenes are always rendered under heavy gradient/overlay tinting (card backgrounds,
+# darkened hero/section backgrounds), so a lower WebP quality is visually lossless here
+# while meaningfully cutting transfer weight. Shared by every scene width so the 960px
+# variant (used by both card and page contexts) never collides at two different qualities.
+SCENE_QUALITY = 64
+
 SCENE_SOURCE_PATHS = (
     "img/avocado-basket-farm.png",
     "img/black-seed-farm-handful.png",
@@ -220,25 +226,13 @@ def product_hero_sources(product_id: str) -> tuple[str, str, str]:
     )
 
 
-def scene_image_sources(asset_path: str, *, sizes: str) -> tuple[str, str, str]:
-    cleaned_path = asset_path.removeprefix("./")
-    return _responsive_sources(
-        cleaned_path,
-        SCENE_VARIANT_DIR,
-        SCENE_CARD_WIDTHS,
-        quality=78,
-        preserve_alpha=False,
-        sizes=sizes,
-    )
-
-
 def page_scene_image_sources(asset_path: str, *, sizes: str) -> tuple[str, str, str]:
     cleaned_path = asset_path.removeprefix("./")
     return _responsive_sources(
         cleaned_path,
         SCENE_VARIANT_DIR,
         SCENE_PAGE_WIDTHS,
-        quality=78,
+        quality=SCENE_QUALITY,
         preserve_alpha=False,
         sizes=sizes,
     )
@@ -253,6 +247,27 @@ def scene_image_set(asset_path: str) -> str:
         f'url("./generated/img/scenes/{stem}-1600.webp") 2x'
         ")"
     )
+
+
+def scene_card_image_set(asset_path: str) -> str:
+    """Ensure the card-scale (480/960) scene variants exist and return a CSS
+    image-set() for use as a product-card background. Paths are root-relative
+    ("./generated/..."); localize for subdir locales at the call site."""
+    cleaned_path = asset_path.removeprefix("./")
+    variants = [
+        _ensure_webp_variant(
+            cleaned_path,
+            SCENE_VARIANT_DIR,
+            width,
+            quality=SCENE_QUALITY,
+            preserve_alpha=False,
+        )
+        for width in SCENE_CARD_WIDTHS
+    ]
+    # Single-quoted URLs so the value is safe to drop into a double-quoted
+    # HTML style="..." attribute without terminating it early.
+    small, large = variants[0][0], variants[1][0]
+    return f"image-set(url('./{small}') 1x, url('./{large}') 2x)"
 
 
 def logo_image_sources() -> tuple[str, str]:
@@ -281,12 +296,13 @@ def prepare_generated_assets(product_ids: list[str]) -> None:
     for product_id in product_ids:
         product_thumbnail_sources(product_id)
         product_hero_sources(product_id)
+    scene_widths = sorted(set(SCENE_CARD_WIDTHS) | set(SCENE_PAGE_WIDTHS))
     for asset_path in SCENE_SOURCE_PATHS:
-        for width in SCENE_PAGE_WIDTHS:
+        for width in scene_widths:
             _ensure_webp_variant(
                 asset_path,
                 SCENE_VARIANT_DIR,
                 width,
-                quality=78,
+                quality=SCENE_QUALITY,
                 preserve_alpha=False,
             )
