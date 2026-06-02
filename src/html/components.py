@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import re
 from enrichment import ENRICHMENT, _category
-from context import Ctx, localize_path
+from context import Ctx, localize_path, localize_srcset
 from html.escaping import escape
-from image_assets import asset_dimensions, inline_adjustment_vars, resolved_asset
+from image_assets import asset_dimensions, inline_adjustment_vars, product_thumbnail_sources, resolved_asset
 
 def _product_scene_background(slug: str) -> str | None:
     if "olive-oil" in slug:
@@ -105,7 +105,9 @@ def _related_html(related: list[tuple], img_dir, ctx: Ctx | None = None) -> str:
     parts = []
     for slug, title, pid in related[:4]:
         image_path, adjustments = resolved_asset(pid)
-        localized_image_path = localize_path(image_path, ctx) if ctx else image_path
+        thumbnail_path, thumbnail_srcset, thumbnail_sizes = product_thumbnail_sources(pid)
+        localized_thumbnail_path = localize_path(thumbnail_path, ctx) if ctx else thumbnail_path
+        localized_thumbnail_srcset = localize_srcset(thumbnail_srcset, ctx) if ctx else thumbnail_srcset
         style_attr = inline_adjustment_vars(adjustments)
         width, height = asset_dimensions(image_path)
         en_enrich = ENRICHMENT.get(pid, {})
@@ -116,7 +118,8 @@ def _related_html(related: list[tuple], img_dir, ctx: Ctx | None = None) -> str:
         parts.append(
             f'<a class="related-card" href="{escape(slug)}" data-prefetch-route>'
             f'<div class="related-img-stage" style="{style_attr}">'
-            f'<img class="product-asset" src="{escape(localized_image_path)}" alt="{escape(title)}" '
+            f'<img class="product-asset" src="{escape(localized_thumbnail_path)}" '
+            f'srcset="{escape(localized_thumbnail_srcset)}" sizes="{escape(thumbnail_sizes)}" alt="{escape(title)}" '
             f'loading="lazy" decoding="async" width="{width}" height="{height}">'
             f'</div>'
             f'<div class="related-name">{escape(title)}</div>'

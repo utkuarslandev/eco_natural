@@ -1,4 +1,5 @@
 from css.tokens import GRAIN_SVG
+from image_assets import scene_image_set
 
 CSS_INDEX = f"""
 *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -108,7 +109,7 @@ body::before {{
   background:
     linear-gradient(90deg, rgba(26,53,32,0.9) 0%, rgba(26,53,32,0.62) 44%, rgba(26,53,32,0.5) 100%),
     linear-gradient(180deg, rgba(26,53,32,0.24) 0%, rgba(26,53,32,0.82) 100%),
-    url("./img/hero-green-salad-olive-oil.png");
+    {scene_image_set("img/hero-green-salad-olive-oil.png")};
   background-size: cover;
   background-position: center;
 }}
@@ -247,6 +248,8 @@ body::before {{
   max-width: var(--container);
   margin: 0 auto;
   scroll-margin-top: clamp(120px, 15vw, 300px);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }}
 
 .page-index .catalog-section .eyebrow {{
@@ -266,7 +269,7 @@ body::before {{
   background:
     linear-gradient(180deg, rgba(11,24,15,0.52) 0%, rgba(11,24,15,0.82) 100%),
     linear-gradient(90deg, rgba(11,24,15,0.62) 0%, rgba(11,24,15,0.28) 52%, rgba(11,24,15,0.58) 100%),
-    var(--card-bg, linear-gradient(160deg, var(--bark-mid) 0%, var(--bark) 100%));
+    linear-gradient(160deg, var(--bark-mid) 0%, var(--bark) 100%);
   background-size: cover;
   background-position: center center;
   border: 1px solid rgba(196,144,16,0.15);
@@ -278,6 +281,14 @@ body::before {{
   transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.2s;
   position: relative;
   isolation: isolate;
+}}
+.card-scene {{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
 }}
 .product-card::before {{
   content: '';

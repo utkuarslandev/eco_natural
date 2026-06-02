@@ -1,4 +1,5 @@
 from css.tokens import GRAIN_SVG
+from image_assets import scene_image_set
 
 CSS_PRODUCT = f"""
 *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -40,7 +41,7 @@ body {{
   background:
     linear-gradient(180deg, rgba(26,53,32,0.72) 0%, rgba(26,53,32,0.82) 52%, rgba(26,53,32,0.9) 100%),
     linear-gradient(90deg, rgba(26,53,32,0.72) 0%, rgba(26,53,32,0.38) 52%, rgba(26,53,32,0.68) 100%),
-    url("./img/hero-aegean-field.png");
+    {scene_image_set("img/hero-aegean-field.png")};
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
@@ -263,7 +264,7 @@ body.product-eco-natural-pumpkin-seed-oil-250ml .hero {{
   --frame-glow: rgba(237,216,122,0.12);
   background:
     linear-gradient(180deg, rgba(8,16,22,0.24) 0%, rgba(8,16,22,0.78) 100%),
-    url("./img/pumpkin-farm-night.png");
+    {scene_image_set("img/pumpkin-farm-night.png")};
   background-size: cover;
   background-position: center top;
 }}
@@ -276,7 +277,7 @@ body.product-eco-natural-pomegranate-seed-oil-250ml .hero {{
   background:
     linear-gradient(180deg, rgba(18,35,22,0.34) 0%, rgba(18,35,22,0.82) 100%),
     linear-gradient(90deg, rgba(18,35,22,0.78) 0%, rgba(18,35,22,0.42) 52%, rgba(18,35,22,0.7) 100%),
-    url("./img/pomegranate-tree.png");
+    {scene_image_set("img/pomegranate-tree.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -289,7 +290,7 @@ body.product-eco-natural-pomegranate-sour-340g .hero {{
   background:
     linear-gradient(180deg, rgba(18,35,22,0.34) 0%, rgba(18,35,22,0.82) 100%),
     linear-gradient(90deg, rgba(18,35,22,0.78) 0%, rgba(18,35,22,0.42) 52%, rgba(18,35,22,0.7) 100%),
-    url("./img/pomegranate-tree.png");
+    {scene_image_set("img/pomegranate-tree.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -302,7 +303,7 @@ body.product-eco-natural-avocado-oil-250ml .hero {{
   background:
     linear-gradient(180deg, rgba(20,42,24,0.34) 0%, rgba(20,42,24,0.82) 100%),
     linear-gradient(90deg, rgba(20,42,24,0.78) 0%, rgba(20,42,24,0.42) 52%, rgba(20,42,24,0.7) 100%),
-    url("./img/avocado-basket-farm.png");
+    {scene_image_set("img/avocado-basket-farm.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -315,7 +316,7 @@ body.product-eco-natural-black-seed-oil-250ml .hero {{
   background:
     linear-gradient(180deg, rgba(24,32,21,0.34) 0%, rgba(24,32,21,0.82) 100%),
     linear-gradient(90deg, rgba(24,32,21,0.78) 0%, rgba(24,32,21,0.42) 52%, rgba(24,32,21,0.7) 100%),
-    url("./img/black-seed-farm-handful.png");
+    {scene_image_set("img/black-seed-farm-handful.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -328,7 +329,7 @@ body.product-eco-natural-thistle-seed-oil-250ml .hero {{
   background:
     linear-gradient(180deg, rgba(34,36,20,0.3) 0%, rgba(34,36,20,0.82) 100%),
     linear-gradient(90deg, rgba(34,36,20,0.72) 0%, rgba(34,36,20,0.28) 52%, rgba(34,36,20,0.68) 100%),
-    url("./img/thistle-field-farmers-sun.png");
+    {scene_image_set("img/thistle-field-farmers-sun.png")};
   background-size: cover;
   background-position: center bottom;
 }}
@@ -341,7 +342,7 @@ body.product-olive-oil-bg .hero {{
   background:
     linear-gradient(180deg, rgba(25,38,20,0.28) 0%, rgba(25,38,20,0.82) 100%),
     linear-gradient(90deg, rgba(25,38,20,0.74) 0%, rgba(25,38,20,0.34) 52%, rgba(25,38,20,0.68) 100%),
-    url("./img/olive-tree-sunset.png");
+    {scene_image_set("img/olive-tree-sunset.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -354,7 +355,7 @@ body.product-eco-natural-hemp-seed-oil-250ml .hero {{
   background:
     linear-gradient(180deg, rgba(22,42,22,0.28) 0%, rgba(22,42,22,0.82) 100%),
     linear-gradient(90deg, rgba(22,42,22,0.72) 0%, rgba(22,42,22,0.32) 52%, rgba(22,42,22,0.68) 100%),
-    url("./img/hemp-seed-farm-ladder-sunset.png");
+    {scene_image_set("img/hemp-seed-farm-ladder-sunset.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -367,7 +368,7 @@ body.product-metis-hierapolis-safflower-oil-250ml .hero {{
   background:
     linear-gradient(180deg, rgba(50,43,18,0.26) 0%, rgba(50,43,18,0.82) 100%),
     linear-gradient(90deg, rgba(50,43,18,0.7) 0%, rgba(50,43,18,0.3) 52%, rgba(50,43,18,0.66) 100%),
-    url("./img/safflower-field-crescent-moon.png");
+    {scene_image_set("img/safflower-field-crescent-moon.png")};
   background-size: cover;
   background-position: center bottom;
 }}
@@ -380,7 +381,7 @@ body.product-eco-natural-poppy-seed-oil-250ml .hero {{
   background:
     linear-gradient(180deg, rgba(45,33,24,0.18) 0%, rgba(45,33,24,0.8) 100%),
     linear-gradient(90deg, rgba(45,33,24,0.66) 0%, rgba(45,33,24,0.26) 52%, rgba(45,33,24,0.64) 100%),
-    url("./img/poppy-field-harvesters-blue-sky.png");
+    {scene_image_set("img/poppy-field-harvesters-blue-sky.png")};
   background-size: 120% auto;
   background-position: center bottom;
 }}
@@ -393,7 +394,7 @@ body.product-eco-natural-fig-seed-oil .hero {{
   background:
     linear-gradient(180deg, rgba(35,44,20,0.24) 0%, rgba(35,44,20,0.82) 100%),
     linear-gradient(90deg, rgba(35,44,20,0.72) 0%, rgba(35,44,20,0.34) 52%, rgba(35,44,20,0.68) 100%),
-    url("./img/fig-tree-hand-picking-sunset.png");
+    {scene_image_set("img/fig-tree-hand-picking-sunset.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -406,7 +407,7 @@ body.product-carob-bg .hero {{
   background:
     linear-gradient(180deg, rgba(45,35,20,0.24) 0%, rgba(45,35,20,0.82) 100%),
     linear-gradient(90deg, rgba(45,35,20,0.72) 0%, rgba(45,35,20,0.34) 52%, rgba(45,35,20,0.68) 100%),
-    url("./img/carob-tree-handpicking-basket.png");
+    {scene_image_set("img/carob-tree-handpicking-basket.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -419,7 +420,7 @@ body.product-eco-natural-salad-dressing .hero {{
   background:
     linear-gradient(180deg, rgba(42,22,26,0.22) 0%, rgba(42,22,26,0.82) 100%),
     linear-gradient(90deg, rgba(42,22,26,0.72) 0%, rgba(42,22,26,0.3) 52%, rgba(42,22,26,0.68) 100%),
-    url("./img/salad-dressing-dark-red-salad.png");
+    {scene_image_set("img/salad-dressing-dark-red-salad.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -432,7 +433,7 @@ body.product-eco-natural-zeytin-sutu-cold-pressed-olive-elixir .hero {{
   background:
     linear-gradient(180deg, rgba(37,35,19,0.2) 0%, rgba(37,35,19,0.82) 100%),
     linear-gradient(90deg, rgba(37,35,19,0.72) 0%, rgba(37,35,19,0.3) 52%, rgba(37,35,19,0.68) 100%),
-    url("./img/olive-elixir-bottle-pouring-pan.png");
+    {scene_image_set("img/olive-elixir-bottle-pouring-pan.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -841,7 +842,7 @@ body.product-eco-natural-pumpkin-seed-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(8,16,22,0.52) 0%, rgba(8,16,22,0.68) 100%),
-    url("./img/pumpkin-farm-night.png");
+    {scene_image_set("img/pumpkin-farm-night.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -853,7 +854,7 @@ body.product-eco-natural-pomegranate-seed-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(18,35,22,0.58) 0%, rgba(18,35,22,0.72) 100%),
-    url("./img/pomegranate-tree.png");
+    {scene_image_set("img/pomegranate-tree.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -865,7 +866,7 @@ body.product-eco-natural-pomegranate-sour-340g .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(18,35,22,0.58) 0%, rgba(18,35,22,0.72) 100%),
-    url("./img/pomegranate-tree.png");
+    {scene_image_set("img/pomegranate-tree.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -877,7 +878,7 @@ body.product-eco-natural-avocado-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(20,42,24,0.58) 0%, rgba(20,42,24,0.72) 100%),
-    url("./img/avocado-basket-farm.png");
+    {scene_image_set("img/avocado-basket-farm.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -889,7 +890,7 @@ body.product-eco-natural-black-seed-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(24,32,21,0.58) 0%, rgba(24,32,21,0.72) 100%),
-    url("./img/black-seed-farm-handful.png");
+    {scene_image_set("img/black-seed-farm-handful.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -901,7 +902,7 @@ body.product-eco-natural-thistle-seed-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(34,36,20,0.54) 0%, rgba(34,36,20,0.72) 100%),
-    url("./img/thistle-field-farmers-sun.png");
+    {scene_image_set("img/thistle-field-farmers-sun.png")};
   background-size: cover;
   background-position: center bottom;
 }}
@@ -913,7 +914,7 @@ body.product-olive-oil-bg .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(25,38,20,0.56) 0%, rgba(25,38,20,0.72) 100%),
-    url("./img/olive-tree-sunset.png");
+    {scene_image_set("img/olive-tree-sunset.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -925,7 +926,7 @@ body.product-eco-natural-hemp-seed-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(22,42,22,0.56) 0%, rgba(22,42,22,0.72) 100%),
-    url("./img/hemp-seed-farm-ladder-sunset.png");
+    {scene_image_set("img/hemp-seed-farm-ladder-sunset.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -937,7 +938,7 @@ body.product-metis-hierapolis-safflower-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(50,43,18,0.54) 0%, rgba(50,43,18,0.72) 100%),
-    url("./img/safflower-field-crescent-moon.png");
+    {scene_image_set("img/safflower-field-crescent-moon.png")};
   background-size: cover;
   background-position: center bottom;
 }}
@@ -949,7 +950,7 @@ body.product-eco-natural-poppy-seed-oil-250ml .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(45,33,24,0.48) 0%, rgba(45,33,24,0.68) 100%),
-    url("./img/poppy-field-harvesters-blue-sky.png");
+    {scene_image_set("img/poppy-field-harvesters-blue-sky.png")};
   background-size: cover;
   background-position: center bottom;
 }}
@@ -961,7 +962,7 @@ body.product-eco-natural-fig-seed-oil .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(35,44,20,0.52) 0%, rgba(35,44,20,0.72) 100%),
-    url("./img/fig-tree-hand-picking-sunset.png");
+    {scene_image_set("img/fig-tree-hand-picking-sunset.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -973,7 +974,7 @@ body.product-carob-bg .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(45,35,20,0.52) 0%, rgba(45,35,20,0.72) 100%),
-    url("./img/carob-tree-handpicking-basket.png");
+    {scene_image_set("img/carob-tree-handpicking-basket.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -985,7 +986,7 @@ body.product-eco-natural-salad-dressing .section-origin::before {{
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(42,22,26,0.5) 0%, rgba(42,22,26,0.72) 100%),
-    url("./img/salad-dressing-dark-red-salad.png");
+    {scene_image_set("img/salad-dressing-dark-red-salad.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -997,7 +998,7 @@ body.product-eco-natural-zeytin-sutu-cold-pressed-olive-elixir .section-origin::
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(37,35,19,0.5) 0%, rgba(37,35,19,0.72) 100%),
-    url("./img/olive-elixir-bottle-pouring-pan.png");
+    {scene_image_set("img/olive-elixir-bottle-pouring-pan.png")};
   background-size: cover;
   background-position: center center;
 }}
@@ -1718,5 +1719,19 @@ body.product-eco-natural-zeytin-sutu-cold-pressed-olive-elixir .footer {{
   }}
   .scroll-hint {{ order: 3; flex: 0 0 100%; }}
   .hero-copy h1, .hero-copy .tagline {{ text-align: left; }}
+}}
+
+@media (max-width: 767px) {{
+  .page-index {{
+    background-attachment: scroll;
+  }}
+  body::before {{
+    display: none;
+  }}
+  .breadcrumb,
+  .credentials-strip,
+  .footer {{
+    backdrop-filter: none !important;
+  }}
 }}
 """

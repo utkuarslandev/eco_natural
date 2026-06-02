@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from enrichment import ENRICHMENT, _category
 from context import Ctx
-from image_assets import resolved_asset
+from image_assets import prepare_generated_assets, resolved_asset
 from templates import page_template, index_template
 from styles import CSS_SITE
 
@@ -46,6 +46,10 @@ def load_locale_enrichment(locale: str) -> dict:
 
 
 def main() -> None:
+    with (ROOT / "data" / "ids.csv").open(newline="", encoding="utf-8") as fh:
+        product_ids = [row["product_id"].strip() for row in csv.DictReader(fh)]
+    prepare_generated_assets(product_ids)
+
     # Write style.css once (shared across all locales)
     (ROOT / "style.css").write_text(CSS_SITE, encoding="utf-8")
 

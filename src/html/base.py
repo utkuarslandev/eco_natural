@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from context import Ctx, localize_path
+from context import Ctx, localize_path, localize_srcset
 from css.tokens import FONTS_LINK
 from html.escaping import escape
+from image_assets import branding_icon_sources, logo_image_sources
 
 _WAVE = (
     "M0,14 C36,8 64,8 100,14 C136,20 164,20 200,14 "
@@ -102,10 +103,11 @@ def _document_head(title: str, description: str, *, ctx: Ctx | None = None, json
         extra_link_block = "\n" + "\n".join(f"  {link}" for link in extra_links)
 
     stylesheet_href = "style.css"
-    favicon_href = "logo.png"
+    favicon_href, apple_touch_icon_href = branding_icon_sources()
     if ctx:
         stylesheet_href = localize_path(stylesheet_href, ctx)
         favicon_href = localize_path(favicon_href, ctx)
+        apple_touch_icon_href = localize_path(apple_touch_icon_href, ctx)
 
     return f"""<head>
   <meta charset="utf-8">
@@ -113,7 +115,7 @@ def _document_head(title: str, description: str, *, ctx: Ctx | None = None, json
   <title>{escape(title)}</title>
   <meta name="description" content="{escape(description)}">
   <link rel="icon" href="{favicon_href}" type="image/png">
-  <link rel="apple-touch-icon" href="{favicon_href}">
+  <link rel="apple-touch-icon" href="{apple_touch_icon_href}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="{FONTS_LINK}" rel="stylesheet">
@@ -131,7 +133,10 @@ def _topbar(*, ctx: Ctx | None = None, show_back_link: bool = False, slug: str |
             back_link_href = "./index.html"
         back_link = f'\n    <a class="topbar-back" href="{back_link_href}">{back_link_text}</a>'
 
-    logo_src = localize_path("./logo.png", ctx) if ctx else "./logo.png"
+    logo_src, logo_srcset = logo_image_sources()
+    if ctx:
+        logo_src = localize_path(logo_src, ctx)
+        logo_srcset = localize_srcset(logo_srcset, ctx)
     home_href = localize_path("./index.html", ctx) if ctx else "./index.html"
 
     lang_switcher = ""
@@ -163,7 +168,7 @@ def _topbar(*, ctx: Ctx | None = None, show_back_link: bool = False, slug: str |
 
     return f"""  <nav class="topbar">
     <a class="topbar-home" href="{home_href}" aria-label="Eco Natural home">
-      <img class="topbar-logo" src="{logo_src}" alt="Eco Natural">
+      <img class="topbar-logo" src="{logo_src}" srcset="{logo_srcset}" sizes="48px" alt="Eco Natural" width="256" height="256" decoding="async">
       <div class="topbar-lockup">
         <span class="topbar-brand">ECO NATURAL</span>
         <span class="topbar-sub">B&uuml;y&uuml;k &Ccedil;alt&#305;cak</span>
@@ -178,11 +183,13 @@ def _footer(*, ctx: Ctx | None = None, show_back_link: bool = False) -> str:
         back_link_href = localize_path("./index.html", ctx) if ctx else "./index.html"
         back_link = f'\n    <a href="{back_link_href}">{back_footer_text}</a>'
 
-    footer_logo_src = localize_path("./logo.png", ctx) if ctx else "./logo.png"
+    footer_logo_src, footer_logo_srcset = logo_image_sources()
+    if ctx:
+        footer_logo_src = localize_path(footer_logo_src, ctx)
+        footer_logo_srcset = localize_srcset(footer_logo_srcset, ctx)
     footer_tagline = ctx.t("footer_tagline") if ctx else "Lasting Taste of Earth"
 
     return f"""  <footer class="footer">
-    <img class="footer-logo" src="{footer_logo_src}" alt="Eco Natural">
+    <img class="footer-logo" src="{footer_logo_src}" srcset="{footer_logo_srcset}" sizes="82px" alt="Eco Natural" width="256" height="256" loading="lazy" decoding="async">
     <p class="footer-tagline">{escape(footer_tagline)}</p>{back_link}
   </footer>"""
-

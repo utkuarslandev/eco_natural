@@ -5,7 +5,15 @@ from enrichment import ENRICHMENT, _category
 from html.base import _REVEAL_JS, _ROUTE_PREFETCH_JS, _document_head, _footer, _topbar, _torn
 from html.components import _cat_slug, _product_scene_background
 from html.escaping import escape
-from image_assets import asset_dimensions, card_image_sources, inline_adjustment_vars, resolved_asset
+from image_assets import (
+    asset_dimensions,
+    inline_adjustment_vars,
+    logo_image_sources,
+    page_scene_image_sources,
+    product_thumbnail_sources,
+    resolved_asset,
+    scene_image_sources,
+)
 
 def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_dir, *, ctx: Ctx | None = None) -> str:
     groups: dict[str, list] = {}
@@ -37,14 +45,20 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
     )
 
     sections_html = ""
-    logo_src = localize_path("./logo.png", ctx) if ctx else "./logo.png"
-    hero_bg_src = localize_path("./img/hero-green-salad-olive-oil.png", ctx) if ctx else "./img/hero-green-salad-olive-oil.png"
+    logo_src, logo_srcset = logo_image_sources()
+    hero_bg_src, hero_bg_srcset, hero_bg_sizes = page_scene_image_sources(
+        "./img/hero-green-salad-olive-oil.png",
+        sizes="100vw",
+    )
+    if ctx:
+        logo_src = localize_path(logo_src, ctx)
+        logo_srcset = localize_srcset(logo_srcset, ctx)
+        hero_bg_src = localize_path(hero_bg_src, ctx)
+        hero_bg_srcset = localize_srcset(hero_bg_srcset, ctx)
     preload_links: list[str] = [
-        f'<link rel="preload" as="image" href="{logo_src}">',
-        f'<link rel="preload" as="image" href="{hero_bg_src}">',
+        f'<link rel="preload" as="image" href="{hero_bg_src}" '
+        f'imagesrcset="{hero_bg_srcset}" imagesizes="{hero_bg_sizes}" fetchpriority="high">',
     ]
-    eager_card_limit = 4
-    eager_card_index = 0
     learn_more_text = ctx.t("learn_more") if ctx else "Learn More →"
     gift_chip_text = ctx.t("gift_chip") if ctx else "Gift"
 
@@ -52,17 +66,28 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
         cards = ""
         for fn, title, pid in entries:
             image_path, adjustments = resolved_asset(pid)
-            card_image_path, card_srcset, card_sizes = card_image_sources(pid)
+            card_image_path, card_srcset, card_sizes = product_thumbnail_sources(pid)
             localized_card_image_path = localize_path(card_image_path, ctx) if ctx else card_image_path
             localized_card_srcset = localize_srcset(card_srcset, ctx) if ctx else card_srcset
             image_style = inline_adjustment_vars(adjustments)
             image_width, image_height = asset_dimensions(image_path)
             product_slug = fn.rsplit(".", 1)[0]
             scene_background = _product_scene_background(product_slug)
-            card_style = image_style
+            scene_html = ""
             if scene_background:
-                localized_scene_background = localize_path(scene_background, ctx) if ctx else scene_background
-                card_style = f"{card_style};--card-bg:url('{escape(localized_scene_background)}')"
+                scene_path, scene_srcset, scene_sizes = scene_image_sources(
+                    scene_background,
+                    sizes="(max-width: 599px) 44vw, (max-width: 959px) 30vw, 25vw",
+                )
+                localized_scene_path = localize_path(scene_path, ctx) if ctx else scene_path
+                localized_scene_srcset = localize_srcset(scene_srcset, ctx) if ctx else scene_srcset
+                scene_width, scene_height = asset_dimensions(scene_background.removeprefix("./"))
+                scene_html = (
+                    f'          <img class="card-scene" src="{escape(localized_scene_path)}" '
+                    f'srcset="{escape(localized_scene_srcset)}" sizes="{escape(scene_sizes)}" '
+                    f'alt="" aria-hidden="true" loading="lazy" decoding="async" '
+                    f'width="{scene_width}" height="{scene_height}">'
+                )
 
             # Merge enrichment: English base + locale-specific
             en_enrich = ENRICHMENT.get(pid, {})
@@ -72,17 +97,9 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             desc    = enrich.get("tagline", "")
             is_gift = enrich.get("is_gift", False)
             gift_chip = f'<div class="card-gift">{gift_chip_text}</div>' if is_gift else ""
-            should_eager_load = eager_card_index < eager_card_limit
-            if should_eager_load:
-                preload_links.append(
-                    f'<link rel="preload" as="image" href="{escape(localized_card_image_path)}" '
-                    f'imagesrcset="{escape(localized_card_srcset)}" imagesizes="{escape(card_sizes)}">'
-                )
-            loading = "eager" if should_eager_load else "lazy"
-            fetchpriority = ' fetchpriority="high"' if should_eager_load else ""
-            eager_card_index += 1
             cards += f"""
-        <a class="product-card" href="{escape(fn)}" style="{card_style}" data-reveal data-prefetch-route>
+        <a class="product-card" href="{escape(fn)}" style="{image_style}" data-reveal data-prefetch-route>
+{scene_html}
           <div class="card-body">
             <div class="card-category">{escape(ctx.cat_name(cat) if ctx else cat)}</div>
             <div class="card-name">{escape(title)}</div>
@@ -91,7 +108,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             <div class="card-action">
               <div class="card-img-wrap" aria-hidden="true">
                 <div class="card-img-stage">
-                  <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(localized_card_srcset)}" sizes="{escape(card_sizes)}" alt="" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
+                  <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(localized_card_srcset)}" sizes="{escape(card_sizes)}" alt="" loading="lazy" decoding="async" width="{image_width}" height="{image_height}">
                 </div>
               </div>
               <div class="card-cta">{learn_more_text}</div>
@@ -131,7 +148,7 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
   <section class="hero">
     <div class="hero-ghost" aria-hidden="true">ECO</div>
     <div class="hero-content">
-      <img class="hero-logo" src="{logo_src}" alt="Eco Natural" width="2000" height="2000" loading="eager" decoding="async" fetchpriority="high">
+      <img class="hero-logo" src="{logo_src}" srcset="{logo_srcset}" sizes="132px" alt="Eco Natural" width="256" height="256" decoding="async">
       <h1 data-reveal>Eco Natural</h1>
       <p class="hero-tagline" data-reveal><em>{escape(hero_tagline)}</em></p>
       <div class="stamp-row" data-reveal>

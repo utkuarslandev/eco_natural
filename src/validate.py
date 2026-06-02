@@ -12,7 +12,7 @@ SRC = ROOT / "src"
 sys.path.insert(0, str(SRC))
 
 from enrichment import ENRICHMENT
-from image_assets import resolved_asset
+from image_assets import SCENE_SOURCE_PATHS, resolved_asset
 
 LOCALES = ("en", "tr", "ru")
 CSV_FILES = {
@@ -125,6 +125,14 @@ def iter_html_files() -> list[Path]:
     return files
 
 
+def validate_local_reference(source_file: Path, ref: str) -> None:
+    if ref.startswith(("http://", "https://", "mailto:", "tel:", "data:", "#")):
+        return
+    path = ref.split("#", 1)[0].split("?", 1)[0]
+    if path and not (source_file.parent / path).exists():
+        fail(f"broken local reference in {source_file.relative_to(ROOT)}: {ref}")
+
+
 def validate_generated_html(rows: dict[str, list[dict]]) -> None:
     expected_product_count = len(rows["en"])
     for locale, directory in HTML_DIRS.items():
@@ -134,18 +142,46 @@ def validate_generated_html(rows: dict[str, list[dict]]) -> None:
             fail(f"{locale} generated product page count is {len(product_files)}, expected {expected_product_count}")
 
     attr_pattern = re.compile(r"""(?:href|src)=["']([^"']+)["']""")
+    srcset_pattern = re.compile(r"""(?:srcset|imagesrcset)=["']([^"']+)["']""")
     for html_file in iter_html_files():
         text = html_file.read_text(encoding="utf-8")
         if "[MISSING:" in text:
             fail(f"missing translation marker in {html_file.relative_to(ROOT)}")
         for ref in attr_pattern.findall(text):
-            if ref.startswith(("http://", "https://", "mailto:", "tel:", "data:", "#")):
-                continue
-            path = ref.split("#", 1)[0].split("?", 1)[0]
-            if not path:
-                continue
-            if not (html_file.parent / path).exists():
-                fail(f"broken local reference in {html_file.relative_to(ROOT)}: {ref}")
+            validate_local_reference(html_file, ref)
+        for srcset in srcset_pattern.findall(text):
+            for candidate in srcset.split(","):
+                validate_local_reference(html_file, candidate.strip().split(" ", 1)[0])
+
+
+def validate_optimized_assets() -> None:
+    html_files = iter_html_files()
+    stylesheet = ROOT / "style.css"
+    generated_text = "\n".join(
+        [stylesheet.read_text(encoding="utf-8")]
+        + [path.read_text(encoding="utf-8") for path in html_files]
+    )
+
+    for scene_path in SCENE_SOURCE_PATHS:
+        if scene_path in generated_text:
+            fail(f"original decorative scene referenced in generated output: {scene_path}")
+    if "generated/img/cards/" in generated_text:
+        fail("removed generated/img/cards path referenced in generated output")
+    if re.search(r"""src=["'](?:\.\./|\./)?logo\.png["']""", generated_text):
+        fail("full-size logo.png used as a visible image")
+
+    css_url_pattern = re.compile(r"""url\(["']([^"']+)["']\)""")
+    for ref in css_url_pattern.findall(stylesheet.read_text(encoding="utf-8")):
+        validate_local_reference(stylesheet, ref)
+
+    for locale, directory in HTML_DIRS.items():
+        index_text = (directory / "index.html").read_text(encoding="utf-8")
+        high_priority_preloads = re.findall(
+            r"""<link rel=["']preload["'][^>]*fetchpriority=["']high["'][^>]*>""",
+            index_text,
+        )
+        if len(high_priority_preloads) != 1:
+            fail(f"{locale} homepage high-priority preload count is {len(high_priority_preloads)}, expected 1")
 
 
 def validate_forbidden_tokens() -> None:
@@ -179,6 +215,7 @@ def main() -> None:
     validate_enrichment(rows)
     validate_assets(rows)
     validate_generated_html(rows)
+    validate_optimized_assets()
     validate_forbidden_tokens()
     print("validate: ok")
 

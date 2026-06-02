@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 
-from context import Ctx, localize_path
+from context import Ctx, localize_path, localize_srcset
 from enrichment import ENRICHMENT, _category
 from html.base import _REVEAL_JS, _ROUTE_PREFETCH_JS, _document_head, _footer, _topbar, _torn
 from html.components import (
@@ -16,7 +16,7 @@ from html.components import (
     _use_tiles_html,
 )
 from html.escaping import escape
-from image_assets import asset_dimensions, inline_adjustment_vars, resolved_asset
+from image_assets import asset_dimensions, inline_adjustment_vars, product_hero_sources, resolved_asset
 
 def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None = None) -> str:
     product_id   = row["product_id"].strip()
@@ -29,6 +29,9 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
 
     image_path, adjustments = resolved_asset(product_id)
     localized_image_path = localize_path(image_path, ctx) if ctx else image_path
+    hero_image_path, hero_image_srcset, hero_image_sizes = product_hero_sources(product_id)
+    localized_hero_image_path = localize_path(hero_image_path, ctx) if ctx else hero_image_path
+    localized_hero_image_srcset = localize_srcset(hero_image_srcset, ctx) if ctx else hero_image_srcset
     image_style = inline_adjustment_vars(adjustments)
     image_width, image_height = asset_dimensions(image_path)
 
@@ -94,7 +97,9 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
 
     related_items = related or []
     head_links = [
-        f'<link rel="preload" as="image" href="{escape(localized_image_path)}">'
+        f'<link rel="preload" as="image" href="{escape(localized_hero_image_path)}" '
+        f'imagesrcset="{escape(localized_hero_image_srcset)}" imagesizes="{escape(hero_image_sizes)}" '
+        f'fetchpriority="high">'
     ]
     related_html_block = ""
     if related_items:
@@ -135,8 +140,9 @@ def page_template(row: dict, related: list | None, img_dir, *, ctx: Ctx | None =
     <div class="hero-ghost" aria-hidden="true">{escape(ghost_word)}</div>
     <div class="hero-img-wrap">
       <div class="hero-img-stage" style="{image_style}">
-        <img class="product-asset" src="{localized_image_path}" alt="{escape(page_title)}"
-          width="{image_width}" height="{image_height}" loading="eager" decoding="async" fetchpriority="high">
+        <img class="product-asset" src="{localized_hero_image_path}" srcset="{localized_hero_image_srcset}"
+          sizes="{hero_image_sizes}" alt="{escape(page_title)}" width="{image_width}" height="{image_height}"
+          loading="eager" decoding="async" fetchpriority="high">
       </div>
     </div>
     <div class="hero-copy">
