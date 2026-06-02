@@ -83,17 +83,19 @@ def index_template(items: list[tuple[str, str, str]], enrichment_map: dict, img_
             eager_card_index += 1
             cards += f"""
         <a class="product-card" href="{escape(fn)}" style="{card_style}" data-reveal data-prefetch-route>
-          <div class="card-img-wrap">
-            <div class="card-img-stage">
-              <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(localized_card_srcset)}" sizes="{escape(card_sizes)}" alt="{escape(title)}" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
-            </div>
-          </div>
           <div class="card-body">
             <div class="card-category">{escape(ctx.cat_name(cat) if ctx else cat)}</div>
             <div class="card-name">{escape(title)}</div>
             <div class="card-desc">{escape(desc)}</div>
             {gift_chip}
-            <div class="card-cta">{learn_more_text}</div>
+            <div class="card-action">
+              <div class="card-img-wrap" aria-hidden="true">
+                <div class="card-img-stage">
+                  <img class="product-asset" src="{escape(localized_card_image_path)}" srcset="{escape(localized_card_srcset)}" sizes="{escape(card_sizes)}" alt="" loading="{loading}" decoding="async"{fetchpriority} width="{image_width}" height="{image_height}">
+                </div>
+              </div>
+              <div class="card-cta">{learn_more_text}</div>
+            </div>
           </div>
         </a>"""
 

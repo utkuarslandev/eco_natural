@@ -257,6 +257,10 @@ body.product-eco-natural-zeytin-sutu-cold-pressed-olive-elixir .breadcrumb {{
 @media (min-width: 768px) {{ .hero {{ min-height: 70vh; }} }}
 
 body.product-eco-natural-pumpkin-seed-oil-250ml .hero {{
+  --frame-tint: rgba(93,75,38,0.2);
+  --frame-depth: rgba(8,16,22,0.76);
+  --frame-base: rgba(8,16,22,0.56);
+  --frame-glow: rgba(237,216,122,0.12);
   background:
     linear-gradient(180deg, rgba(8,16,22,0.24) 0%, rgba(8,16,22,0.78) 100%),
     url("./img/pumpkin-farm-night.png");
@@ -265,6 +269,10 @@ body.product-eco-natural-pumpkin-seed-oil-250ml .hero {{
 }}
 
 body.product-eco-natural-pomegranate-seed-oil-250ml .hero {{
+  --frame-tint: rgba(89,42,38,0.2);
+  --frame-depth: rgba(18,35,22,0.78);
+  --frame-base: rgba(18,35,22,0.58);
+  --frame-glow: rgba(192,54,48,0.16);
   background:
     linear-gradient(180deg, rgba(18,35,22,0.34) 0%, rgba(18,35,22,0.82) 100%),
     linear-gradient(90deg, rgba(18,35,22,0.78) 0%, rgba(18,35,22,0.42) 52%, rgba(18,35,22,0.7) 100%),
@@ -274,6 +282,10 @@ body.product-eco-natural-pomegranate-seed-oil-250ml .hero {{
 }}
 
 body.product-eco-natural-pomegranate-sour-340g .hero {{
+  --frame-tint: rgba(89,42,38,0.2);
+  --frame-depth: rgba(18,35,22,0.78);
+  --frame-base: rgba(18,35,22,0.58);
+  --frame-glow: rgba(192,54,48,0.16);
   background:
     linear-gradient(180deg, rgba(18,35,22,0.34) 0%, rgba(18,35,22,0.82) 100%),
     linear-gradient(90deg, rgba(18,35,22,0.78) 0%, rgba(18,35,22,0.42) 52%, rgba(18,35,22,0.7) 100%),
@@ -283,6 +295,10 @@ body.product-eco-natural-pomegranate-sour-340g .hero {{
 }}
 
 body.product-eco-natural-avocado-oil-250ml .hero {{
+  --frame-tint: rgba(86,98,38,0.18);
+  --frame-depth: rgba(20,42,24,0.76);
+  --frame-base: rgba(20,42,24,0.56);
+  --frame-glow: rgba(154,168,66,0.14);
   background:
     linear-gradient(180deg, rgba(20,42,24,0.34) 0%, rgba(20,42,24,0.82) 100%),
     linear-gradient(90deg, rgba(20,42,24,0.78) 0%, rgba(20,42,24,0.42) 52%, rgba(20,42,24,0.7) 100%),
@@ -292,6 +308,10 @@ body.product-eco-natural-avocado-oil-250ml .hero {{
 }}
 
 body.product-eco-natural-black-seed-oil-250ml .hero {{
+  --frame-tint: rgba(76,68,42,0.18);
+  --frame-depth: rgba(24,32,21,0.78);
+  --frame-base: rgba(24,32,21,0.58);
+  --frame-glow: rgba(150,130,80,0.12);
   background:
     linear-gradient(180deg, rgba(24,32,21,0.34) 0%, rgba(24,32,21,0.82) 100%),
     linear-gradient(90deg, rgba(24,32,21,0.78) 0%, rgba(24,32,21,0.42) 52%, rgba(24,32,21,0.7) 100%),
@@ -300,7 +320,24 @@ body.product-eco-natural-black-seed-oil-250ml .hero {{
   background-position: center center;
 }}
 
+body.product-eco-natural-thistle-seed-oil-250ml .hero {{
+  --frame-tint: rgba(112,88,48,0.2);
+  --frame-depth: rgba(34,36,20,0.76);
+  --frame-base: rgba(34,36,20,0.56);
+  --frame-glow: rgba(180,134,76,0.16);
+  background:
+    linear-gradient(180deg, rgba(34,36,20,0.3) 0%, rgba(34,36,20,0.82) 100%),
+    linear-gradient(90deg, rgba(34,36,20,0.72) 0%, rgba(34,36,20,0.28) 52%, rgba(34,36,20,0.68) 100%),
+    url("./img/thistle-field-farmers-sun.png");
+  background-size: cover;
+  background-position: center bottom;
+}}
+
 body.product-olive-oil-bg .hero {{
+  --frame-tint: rgba(96,86,34,0.18);
+  --frame-depth: rgba(25,38,20,0.78);
+  --frame-base: rgba(25,38,20,0.58);
+  --frame-glow: rgba(212,168,32,0.14);
   background:
     linear-gradient(180deg, rgba(25,38,20,0.28) 0%, rgba(25,38,20,0.82) 100%),
     linear-gradient(90deg, rgba(25,38,20,0.74) 0%, rgba(25,38,20,0.34) 52%, rgba(25,38,20,0.68) 100%),
@@ -310,6 +347,10 @@ body.product-olive-oil-bg .hero {{
 }}
 
 body.product-eco-natural-hemp-seed-oil-250ml .hero {{
+  --frame-tint: rgba(52,86,36,0.18);
+  --frame-depth: rgba(22,42,22,0.78);
+  --frame-base: rgba(22,42,22,0.58);
+  --frame-glow: rgba(110,150,74,0.14);
   background:
     linear-gradient(180deg, rgba(22,42,22,0.28) 0%, rgba(22,42,22,0.82) 100%),
     linear-gradient(90deg, rgba(22,42,22,0.72) 0%, rgba(22,42,22,0.32) 52%, rgba(22,42,22,0.68) 100%),
@@ -319,6 +360,10 @@ body.product-eco-natural-hemp-seed-oil-250ml .hero {{
 }}
 
 body.product-metis-hierapolis-safflower-oil-250ml .hero {{
+  --frame-tint: rgba(112,91,28,0.2);
+  --frame-depth: rgba(50,43,18,0.78);
+  --frame-base: rgba(50,43,18,0.58);
+  --frame-glow: rgba(214,168,48,0.15);
   background:
     linear-gradient(180deg, rgba(50,43,18,0.26) 0%, rgba(50,43,18,0.82) 100%),
     linear-gradient(90deg, rgba(50,43,18,0.7) 0%, rgba(50,43,18,0.3) 52%, rgba(50,43,18,0.66) 100%),
@@ -328,6 +373,10 @@ body.product-metis-hierapolis-safflower-oil-250ml .hero {{
 }}
 
 body.product-eco-natural-poppy-seed-oil-250ml .hero {{
+  --frame-tint: rgba(93,63,46,0.2);
+  --frame-depth: rgba(45,33,24,0.76);
+  --frame-base: rgba(45,33,24,0.56);
+  --frame-glow: rgba(166,112,78,0.14);
   background:
     linear-gradient(180deg, rgba(45,33,24,0.18) 0%, rgba(45,33,24,0.8) 100%),
     linear-gradient(90deg, rgba(45,33,24,0.66) 0%, rgba(45,33,24,0.26) 52%, rgba(45,33,24,0.64) 100%),
@@ -337,6 +386,10 @@ body.product-eco-natural-poppy-seed-oil-250ml .hero {{
 }}
 
 body.product-eco-natural-fig-seed-oil .hero {{
+  --frame-tint: rgba(84,72,38,0.18);
+  --frame-depth: rgba(35,44,20,0.78);
+  --frame-base: rgba(35,44,20,0.58);
+  --frame-glow: rgba(170,138,74,0.14);
   background:
     linear-gradient(180deg, rgba(35,44,20,0.24) 0%, rgba(35,44,20,0.82) 100%),
     linear-gradient(90deg, rgba(35,44,20,0.72) 0%, rgba(35,44,20,0.34) 52%, rgba(35,44,20,0.68) 100%),
@@ -346,6 +399,10 @@ body.product-eco-natural-fig-seed-oil .hero {{
 }}
 
 body.product-carob-bg .hero {{
+  --frame-tint: rgba(92,62,35,0.2);
+  --frame-depth: rgba(45,35,20,0.78);
+  --frame-base: rgba(45,35,20,0.58);
+  --frame-glow: rgba(164,108,58,0.14);
   background:
     linear-gradient(180deg, rgba(45,35,20,0.24) 0%, rgba(45,35,20,0.82) 100%),
     linear-gradient(90deg, rgba(45,35,20,0.72) 0%, rgba(45,35,20,0.34) 52%, rgba(45,35,20,0.68) 100%),
@@ -355,6 +412,10 @@ body.product-carob-bg .hero {{
 }}
 
 body.product-eco-natural-salad-dressing .hero {{
+  --frame-tint: rgba(112,38,48,0.22);
+  --frame-depth: rgba(42,22,26,0.78);
+  --frame-base: rgba(42,22,26,0.58);
+  --frame-glow: rgba(150,36,50,0.16);
   background:
     linear-gradient(180deg, rgba(42,22,26,0.22) 0%, rgba(42,22,26,0.82) 100%),
     linear-gradient(90deg, rgba(42,22,26,0.72) 0%, rgba(42,22,26,0.3) 52%, rgba(42,22,26,0.68) 100%),
@@ -364,6 +425,10 @@ body.product-eco-natural-salad-dressing .hero {{
 }}
 
 body.product-eco-natural-zeytin-sutu-cold-pressed-olive-elixir .hero {{
+  --frame-tint: rgba(105,90,36,0.18);
+  --frame-depth: rgba(37,35,19,0.78);
+  --frame-base: rgba(37,35,19,0.58);
+  --frame-glow: rgba(210,168,52,0.14);
   background:
     linear-gradient(180deg, rgba(37,35,19,0.2) 0%, rgba(37,35,19,0.82) 100%),
     linear-gradient(90deg, rgba(37,35,19,0.72) 0%, rgba(37,35,19,0.3) 52%, rgba(37,35,19,0.68) 100%),
@@ -396,18 +461,55 @@ body.product-eco-natural-zeytin-sutu-cold-pressed-olive-elixir .hero {{
   z-index: 1;
 }}
 .hero-img-stage {{
-  width: min(85%, 520px);
+  width: min(78%, 460px);
+  min-height: clamp(260px, 36vw, 460px);
+  padding: clamp(18px, 2.6vw, 30px) clamp(16px, 2.6vw, 28px) clamp(28px, 4vw, 46px);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  position: relative;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  background:
+    linear-gradient(145deg, var(--frame-tint, rgba(192,144,16,0.16)), var(--frame-depth, rgba(13,32,18,0.72))),
+    var(--frame-base, rgba(13,32,18,0.52));
+  box-shadow:
+    inset 0 0 0 1px rgba(240,216,152,0.2),
+    0 24px 58px rgba(0,0,0,0.34),
+    0 0 34px var(--frame-glow, rgba(192,144,16,0.14));
   animation: riseIn 0.75s cubic-bezier(0.16,1,0.3,1) both;
 }}
+.hero-img-stage::before {{
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 3vw, 34px);
+  width: min(58%, 260px);
+  height: clamp(18px, 3vw, 34px);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.28) 42%, rgba(0,0,0,0) 72%);
+  filter: blur(2px);
+  opacity: 0.75;
+}}
+.hero-img-stage::after {{
+  content: '';
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: clamp(22px, 3.4vw, 40px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(237,216,122,0.24), transparent);
+}}
 .hero-img-wrap img {{
-  max-height: 420px;
+  max-height: min(320px, 58vh);
   max-width: 100%;
   width: auto;
   display: block;
   filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 30px rgba(196,144,16,0.15));
+  position: relative;
+  z-index: 1;
 }}
 
 .product-asset {{
@@ -642,6 +744,16 @@ body.product-eco-natural-black-seed-oil-250ml .section-origin {{
   isolation: isolate;
 }}
 
+body.product-eco-natural-thistle-seed-oil-250ml .section-origin {{
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  padding: clamp(3rem, 6vw, 5rem) max(20px, calc((100vw - 1200px) / 2)) clamp(4rem, 7vw, 6rem);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}}
+
 body.product-olive-oil-bg .section-origin {{
   width: 100vw;
   max-width: none;
@@ -782,6 +894,18 @@ body.product-eco-natural-black-seed-oil-250ml .section-origin::before {{
   background-position: center center;
 }}
 
+body.product-eco-natural-thistle-seed-oil-250ml .section-origin::before {{
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(34,36,20,0.54) 0%, rgba(34,36,20,0.72) 100%),
+    url("./img/thistle-field-farmers-sun.png");
+  background-size: cover;
+  background-position: center bottom;
+}}
+
 body.product-olive-oil-bg .section-origin::before {{
   content: '';
   position: absolute;
@@ -899,6 +1023,11 @@ body.product-eco-natural-avocado-oil-250ml .section-origin .eyebrow {{
 }}
 
 body.product-eco-natural-black-seed-oil-250ml .section-origin .eyebrow {{
+  color: var(--gold-pale);
+  text-shadow: 0 2px 14px rgba(0,0,0,0.6);
+}}
+
+body.product-eco-natural-thistle-seed-oil-250ml .section-origin .eyebrow {{
   color: var(--gold-pale);
   text-shadow: 0 2px 14px rgba(0,0,0,0.6);
 }}
@@ -1177,6 +1306,11 @@ body.product-eco-natural-black-seed-oil-250ml .credentials-strip {{
   backdrop-filter: blur(2px);
 }}
 
+body.product-eco-natural-thistle-seed-oil-250ml .credentials-strip {{
+  background: rgba(34,36,20,0.78);
+  backdrop-filter: blur(2px);
+}}
+
 body.product-olive-oil-bg .credentials-strip {{
   background: rgba(25,38,20,0.78);
   backdrop-filter: blur(2px);
@@ -1235,6 +1369,10 @@ body.product-eco-natural-avocado-oil-250ml .torn path {{
 
 body.product-eco-natural-black-seed-oil-250ml .torn path {{
   fill: rgba(24,32,21,0.78);
+}}
+
+body.product-eco-natural-thistle-seed-oil-250ml .torn path {{
+  fill: rgba(34,36,20,0.78);
 }}
 
 body.product-olive-oil-bg .torn path {{
@@ -1301,6 +1439,11 @@ body.product-eco-natural-avocado-oil-250ml .footer {{
 
 body.product-eco-natural-black-seed-oil-250ml .footer {{
   background: rgba(24,32,21,0.86);
+  backdrop-filter: blur(2px);
+}}
+
+body.product-eco-natural-thistle-seed-oil-250ml .footer {{
+  background: rgba(34,36,20,0.86);
   backdrop-filter: blur(2px);
 }}
 

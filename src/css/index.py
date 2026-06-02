@@ -306,22 +306,33 @@ body::before {{
 .product-card:hover::after {{ transform: scaleX(1); }}
 
 .card-img-wrap {{
-  padding: 24px 24px 12px;
+  width: 58px;
+  height: 58px;
+  padding: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 160px;
+  flex: 0 0 58px;
   position: relative;
   z-index: 1;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(192,144,16,0.18), rgba(13,32,18,0.78)),
+    rgba(13,32,18,0.68);
+  box-shadow:
+    inset 0 0 0 1px rgba(240,216,152,0.22),
+    0 10px 24px rgba(0,0,0,0.32);
 }}
 .card-img-stage {{
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }}
 .card-img-wrap img {{
-  max-height: 140px;
+  max-height: 48px;
   max-width: 100%;
   width: auto;
   object-fit: contain;
@@ -336,7 +347,8 @@ body::before {{
 }}
 
 .card-body {{
-  padding: 12px 18px 20px;
+  min-height: 260px;
+  padding: 20px 18px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -360,7 +372,8 @@ body::before {{
   font-size: clamp(0.9rem, 1.5vw, 1.05rem);
   font-weight: 400;
   line-height: 1.2;
-  color: var(--gold-pale);
+  color: var(--gold);
+  text-shadow: 0 2px 14px rgba(0,0,0,0.55);
 }}
 
 .card-desc {{
@@ -372,14 +385,22 @@ body::before {{
   flex: 1;
 }}
 
+.card-action {{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 12px;
+}}
+
 .card-cta {{
   font-family: 'Raleway', sans-serif;
   font-weight: 600;
   font-size: 0.62rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--terra-lt);
-  margin-top: 4px;
+  color: var(--gold);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.58);
 }}
 
 

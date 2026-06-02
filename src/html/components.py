@@ -16,6 +16,7 @@ def _product_scene_background(slug: str) -> str | None:
         "eco-natural-pomegranate-sour-340g": "./img/pomegranate-tree.png",
         "eco-natural-avocado-oil-250ml": "./img/avocado-basket-farm.png",
         "eco-natural-black-seed-oil-250ml": "./img/black-seed-farm-handful.png",
+        "eco-natural-thistle-seed-oil-250ml": "./img/thistle-field-farmers-sun.png",
         "eco-natural-hemp-seed-oil-250ml": "./img/hemp-seed-farm-ladder-sunset.png",
         "metis-hierapolis-safflower-oil-250ml": "./img/safflower-field-crescent-moon.png",
         "eco-natural-poppy-seed-oil-250ml": "./img/poppy-field-harvesters-blue-sky.png",
